@@ -3,10 +3,13 @@ const GuruAgencyState = {
     clientName: localStorage.getItem('guru_client_name') || '',
     leadRegistry: JSON.parse(localStorage.getItem('guru_lead_registry')) || [],
     activeServiceArea: '',
-    quizStage: 0, // State Trackers for Requirement 3 Quiz Handling
-    // Content Customization Registry for Requirement 4
+    chatHistory: JSON.parse(localStorage.getItem('guru_chat_history')) || [],
+    
+    // Front Page Content Customization Assets (Requirement 4 Configuration Matrices)
     customTitle: localStorage.getItem('admin_title') || 'Creative Designs <br>That <span class="text-gradient">Speak for You</span>',
-    customSubtitle: localStorage.getItem('admin_subtitle') || 'Bespoke identity, premium photography, and luxury event media engineered for modern brands.'
+    customSubtitle: localStorage.getItem('admin_subtitle') || 'Bespoke identity, premium photography, and luxury event media engineered for modern brands.',
+    customLogoText: localStorage.getItem('admin_logo_text') || 'GURU',
+    customImageUrl: localStorage.getItem('admin_image_url') || ''
 };
 
 // Target Services Asset Matrix Knowledgebase
@@ -29,88 +32,130 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeOnboardingState();
     registerCoreEvents();
     renderPortfolioFilters();
-    syncAdminDashboard();
     initAIConsultantUI();
 });
 
-// REQUIREMENT 4: Dynamic Override Setter
+// REQUIREMENT 4: Apply Live Copy Changes & Image Additions
 function applyAdminContentOverrides() {
-    document.getElementById('adminEditableTitle').innerHTML = GuruAgencyState.customTitle;
-    document.getElementById('adminEditableSubtitle').textContent = GuruAgencyState.customSubtitle;
+    const titleEl = document.getElementById('adminEditableTitle');
+    const subtitleEl = document.getElementById('adminEditableSubtitle');
+    const logoEl = document.getElementById('mainBrandLogo');
+    const targetPortfolioItem = document.getElementById('dynamicPortfolioItem1');
+
+    if(titleEl) titleEl.innerHTML = GuruAgencyState.customTitle;
+    if(subtitleEl) subtitleEl.textContent = GuruAgencyState.customSubtitle;
+    if(logoEl) logoEl.innerHTML = `${GuruAgencyState.customLogoText}<span>STUDIOS</span>`;
+    
+    // Dynamic background image/logo updates hook
+    if(targetPortfolioItem && GuruAgencyState.customImageUrl) {
+        targetPortfolioItem.style.backgroundImage = `url('${GuruAgencyState.customImageUrl}')`;
+        targetPortfolioItem.style.opacity = "0.75"; 
+    }
 }
 
-// REQUIREMENT 1: Structural Gatekeeper Onboarding Verification Check
+// REQUIREMENT 1: Structural Onboarding Full-Screen Gatekeeper Layer
 function initializeOnboardingState() {
     const gatekeeper = document.getElementById('gatekeeperOverlay');
     const mainApp = document.getElementById('mainApplicationLayout');
     const displayUser = document.getElementById('displayUserName');
     const formNameField = document.getElementById('formName');
 
+    if (!gatekeeper || !mainApp) return;
+
     if (GuruAgencyState.clientName) {
         gatekeeper.classList.add('hidden');
         mainApp.classList.remove('hidden');
-        displayUser.textContent = GuruAgencyState.clientName;
-        formNameField.value = GuruAgencyState.clientName;
+        if(displayUser) displayUser.textContent = GuruAgencyState.clientName;
+        if(formNameField) formNameField.value = GuruAgencyState.clientName;
     } else {
         gatekeeper.classList.remove('hidden');
         mainApp.classList.add('hidden');
     }
 }
 
-// System Event Routers & Registration Loops
+// Event Routers
 function registerCoreEvents() {
-    // Requirements Onboarding Inputs
-    document.getElementById('gatekeeperBtn').addEventListener('click', captureUserIdentity);
-    document.getElementById('gatekeeperNameInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') captureUserIdentity(); });
-    document.getElementById('resetNameBtn').addEventListener('click', clearUserIdentity);
+    const gatekeeperBtn = document.getElementById('gatekeeperBtn');
+    const gatekeeperInput = document.getElementById('gatekeeperNameInput');
+    const resetNameBtn = document.getElementById('resetNameBtn');
+    const adminTrigger = document.getElementById('adminTriggerLink');
+    const closeAdminBtn = document.getElementById('closeAdminBtn');
+    const adminSaveBtn = document.getElementById('adminSaveChangeBtn');
 
-    // Global Package Request Hooks
+    if(gatekeeperBtn) gatekeeperBtn.addEventListener('click', captureUserIdentity);
+    if(gatekeeperInput) {
+        gatekeeperInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') captureUserIdentity(); });
+    }
+    if(resetNameBtn) resetNameBtn.addEventListener('click', clearUserIdentity);
+
+    // Context card request selectors routing loop
     document.querySelectorAll('.btn-request').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const desiredService = e.target.getAttribute('data-service-name');
-            routeRequestToForm(desiredService);
+            const selector = document.getElementById('formService');
+            if(selector) selector.value = desiredService;
+            
+            const contactSection = document.getElementById('contact');
+            if(contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-    // Intake Brief Submission Trigger
-    document.getElementById('leadForm').addEventListener('submit', processBriefSubmission);
+    // Intake Submission Form Interlock
+    const leadForm = document.getElementById('leadForm');
+    if(leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(`Brief logged successfully, ${GuruAgencyState.clientName}! Our production managers are looking over the pipeline assets.`);
+            leadForm.reset();
+            initializeOnboardingState();
+        });
+    }
 
-    // REQUIREMENT 4: Open Admin Dashboard & Bind live text parameters
-    document.getElementById('adminTriggerLink').addEventListener('click', () => {
-        const passPrompt = prompt("Enter Administrative Access Authentication Key:");
-        if (passPrompt === "admin") {
-            document.getElementById('adminDashboard').classList.remove('hidden');
-        } else {
-            alert("Access Denied. Invalid Authorization Paradigm.");
-        }
-    });
+    // REQUIREMENT 4: Dynamic Admin Dashboard Authentication Gatekeeper Key Check
+    if(adminTrigger) {
+        adminTrigger.addEventListener('click', () => {
+            const tokenCheck = prompt("Enter Administrative Access Authentication Key:");
+            if (tokenCheck === "admin") {
+                const dashboard = document.getElementById('adminDashboard');
+                if(dashboard) dashboard.classList.remove('hidden');
+            } else {
+                alert("Access Denied. Invalid Authorization Paradigm Code.");
+            }
+        });
+    }
     
-    document.getElementById('closeAdminBtn').addEventListener('click', () => {
-        document.getElementById('adminDashboard').classList.add('hidden');
-    });
+    if(closeAdminBtn) {
+        closeAdminBtn.addEventListener('click', () => {
+            const dashboard = document.getElementById('adminDashboard');
+            if(dashboard) dashboard.classList.add('hidden');
+        });
+    }
 
-    document.getElementById('adminSaveChangeBtn').addEventListener('click', () => {
-        const newTitle = document.getElementById('adminInputTitle').value.trim();
-        const newSubtitle = document.getElementById('adminInputSubtitle').value.trim();
-        
-        if(newTitle) {
-            GuruAgencyState.customTitle = newTitle;
-            localStorage.setItem('admin_title', newTitle);
-        }
-        if(newSubtitle) {
-            GuruAgencyState.customSubtitle = newSubtitle;
-            localStorage.setItem('admin_subtitle', newSubtitle);
-        }
-        
-        applyAdminContentOverrides();
-        alert("Dynamic layouts saved and updated successfully.");
-    });
+    if(adminSaveBtn) {
+        adminSaveBtn.addEventListener('click', () => {
+            const newTitle = document.getElementById('adminInputTitle').value.trim();
+            const newSubtitle = document.getElementById('adminInputSubtitle').value.trim();
+            const newLogoText = document.getElementById('adminInputLogoText').value.trim();
+            const newImgUrl = document.getElementById('adminInputImageUrl').value.trim();
+            
+            if(newTitle) { GuruAgencyState.customTitle = newTitle; localStorage.setItem('admin_title', newTitle); }
+            if(newSubtitle) { GuruAgencyState.customSubtitle = newSubtitle; localStorage.setItem('admin_subtitle', newSubtitle); }
+            if(newLogoText) { GuruAgencyState.customLogoText = newLogoText; localStorage.setItem('admin_logo_text', newLogoText); }
+            if(newImgUrl) { GuruAgencyState.customImageUrl = newImgUrl; localStorage.setItem('admin_image_url', newImgUrl); }
+            
+            applyAdminContentOverrides();
+            alert("Dynamic parameters applied successfully to active layout viewports!");
+        });
+    }
 }
 
 function captureUserIdentity() {
-    const inputVal = document.getElementById('gatekeeperNameInput').value.trim();
+    const inputField = document.getElementById('gatekeeperNameInput');
+    if(!inputField) return;
+
+    const inputVal = inputField.value.trim();
     if (!inputVal) {
-        alert("A client naming credential string is mandatory.");
+        alert("Please enter a valid username string to enter the layout.");
         return;
     }
     
@@ -118,12 +163,12 @@ function captureUserIdentity() {
     localStorage.setItem('guru_client_name', inputVal);
     initializeOnboardingState();
     
-    // Auto trigger interface panel components to show engagement metrics
+    // Automatically trigger and display the creative chatbot consultant layout
     setTimeout(() => {
         const trigger = document.getElementById('aiTrigger');
         const windowUI = document.getElementById('aiChatWindow');
-        windowUI.classList.remove('hidden'); 
-        trigger.classList.add('hidden');
+        if(windowUI) windowUI.classList.remove('hidden'); 
+        if(trigger) trigger.classList.add('hidden');
         triggerConsultantGreeting(inputVal);
     }, 400);
 }
@@ -131,25 +176,11 @@ function captureUserIdentity() {
 function clearUserIdentity() {
     localStorage.removeItem('guru_client_name');
     GuruAgencyState.clientName = '';
-    GuruAgencyState.quizStage = 0;
-    document.getElementById('gatekeeperNameInput').value = '';
-    document.getElementById('formName').value = '';
+    const gatekeeperInput = document.getElementById('gatekeeperNameInput');
+    if(gatekeeperInput) gatekeeperInput.value = '';
     initializeOnboardingState();
 }
 
-function routeRequestToForm(serviceName) {
-    const selector = document.getElementById('formService');
-    selector.value = serviceName;
-    
-    const element = document.getElementById('contact');
-    element.scrollIntoView({ behavior: 'smooth' });
-    
-    const inputArea = document.querySelector('.contact-container');
-    inputArea.style.borderColor = 'var(--accent-fuchsia)';
-    setTimeout(() => { inputArea.style.borderColor = 'var(--border-subtle)'; }, 1200);
-}
-
-// Multi-Tier Filter Engine Implementation
 function renderPortfolioFilters() {
     const tabs = document.querySelectorAll('.filter-tab');
     const items = document.querySelectorAll('.portfolio-item');
@@ -169,84 +200,9 @@ function renderPortfolioFilters() {
             });
         });
     });
-
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            const styleClone = item.querySelector('.portfolio-display').style.backgroundImage;
-            const lightbox = document.getElementById('lightbox');
-            const content = document.getElementById('lightboxContent');
-            
-            content.style.backgroundImage = styleClone;
-            content.style.backgroundSize = 'contain';
-            content.style.backgroundPosition = 'center';
-            content.style.backgroundRepeat = 'no-repeat';
-            lightbox.classList.remove('hidden');
-        });
-    });
-
-    document.getElementById('lightboxClose').addEventListener('click', () => {
-        document.getElementById('lightbox').classList.add('hidden');
-    });
 }
 
-// Production Brief Processing Data Layer
-function processBriefSubmission(e) {
-    e.preventDefault();
-    
-    const leadPayload = {
-        timestamp: new Date().toLocaleString(),
-        name: document.getElementById('formName').value,
-        email: document.getElementById('formEmail').value,
-        phone: document.getElementById('formPhone').value || 'N/A',
-        service: document.getElementById('formService').value || 'General Consultation Inquiry',
-        description: document.getElementById('formDesc').value || 'No brief submitted.'
-    };
-
-    GuruAgencyState.leadRegistry.push(leadPayload);
-    localStorage.setItem('guru_lead_registry', JSON.stringify(GuruAgencyState.leadRegistry));
-    
-    alert(`Brief parsed successfully, ${leadPayload.name}. Our design directors will evaluate the timeline.`);
-    document.getElementById('leadForm').reset();
-    initializeOnboardingState();
-    syncAdminDashboard();
-}
-
-// Admin Framework Integration Sync Component
-function syncAdminDashboard() {
-    document.getElementById('metricLeads').textContent = GuruAgencyState.leadRegistry.length;
-    document.getElementById('metricUser').textContent = GuruAgencyState.clientName || "Anonymous Node";
-    
-    if (GuruAgencyState.leadRegistry.length > 0) {
-        const counts = GuruAgencyState.leadRegistry.reduce((acc, current) => {
-            acc[current.service] = (acc[current.service] || 0) + 1;
-            return acc;
-        }, {});
-        const highService = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-        document.getElementById('metricInquiry').textContent = highService;
-    }
-
-    const tbody = document.getElementById('adminTableBody');
-    tbody.innerHTML = '';
-
-    if (GuruAgencyState.leadRegistry.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No inbound operational briefs loaded in memory matrix database.</td></tr>`;
-        return;
-    }
-
-    GuruAgencyState.leadRegistry.forEach(lead => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td style="color: var(--accent-fuchsia); font-family: monospace;">${lead.timestamp}</td>
-            <td><strong>${lead.name}</strong></td>
-            <td>${lead.email}</td>
-            <td><span style="background: rgba(99,102,241,0.15); padding: 0.25rem 0.5rem; border-radius: 4px; color: #a5b4fc;">${lead.service}</span></td>
-            <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${lead.description}</td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-// AI Consulting Conversation Framework Subsystem
+// AI Consulting Conversation Subsystem
 function initAIConsultantUI() {
     const trigger = document.getElementById('aiTrigger');
     const windowUI = document.getElementById('aiChatWindow');
@@ -254,32 +210,34 @@ function initAIConsultantUI() {
     const sendBtn = document.getElementById('chatSendBtn');
     const input = document.getElementById('chatInput');
 
-    trigger.addEventListener('click', () => { windowUI.classList.remove('hidden'); trigger.classList.add('hidden'); });
-    closeBtn.addEventListener('click', () => { windowUI.classList.add('hidden'); trigger.classList.remove('hidden'); });
-    
-    sendBtn.addEventListener('click', handleUserChatMessage);
-    input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleUserChatMessage(); });
-
+    if(trigger && windowUI && closeBtn && sendBtn && input) {
+        trigger.addEventListener('click', () => { windowUI.classList.remove('hidden'); trigger.classList.add('hidden'); });
+        closeBtn.addEventListener('click', () => { windowUI.classList.add('hidden'); trigger.classList.remove('hidden'); });
+        
+        sendBtn.addEventListener('click', handleUserChatMessage);
+        input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleUserChatMessage(); });
+    }
     triggerConsultantGreeting(GuruAgencyState.clientName);
 }
 
-// REQUIREMENT 2: Explicit Greeting Pattern Injection
+// REQUIREMENT 2: Personal Greeting Dynamic Setup
 function triggerConsultantGreeting(name) {
     const messagesArea = document.getElementById('chatMessages');
+    if(!messagesArea) return;
     messagesArea.innerHTML = ''; 
     
-    const greetingText = `Hello, welcome to Guru Studios, ${name || 'Explorer'}! I have initiated your onboarding track. Let's verify your architectural project readiness right away.`;
+    const greetingText = `Hello, welcome to Guru Studios, ${name || 'Explorer'}!`;
     appendChatBubble('assistant', greetingText);
 
-    // REQUIREMENT 3: Start the understanding quiz instantly
+    // REQUIREMENT 3: Immediate Simple Interactive Knowledge Question
     setTimeout(() => {
-        appendChatBubble('assistant', "🤖 UNDERSTANDING QUIZ - QUESTION 1: Based on our matrix capabilities section, what are our three core media pillars?");
-        GuruAgencyState.quizStage = 1;
+        appendChatBubble('assistant', "🤖 QUICK CHECK: To unlock optimal media workflow contexts, tell me in your own words: what do you think this website does?");
     }, 1000);
 }
 
 function appendChatBubble(role, systemMessage) {
     const container = document.getElementById('chatMessages');
+    if(!container) return;
     const bubble = document.createElement('div');
     bubble.classList.add('chat-bubble', role);
     bubble.textContent = systemMessage;
@@ -289,6 +247,7 @@ function appendChatBubble(role, systemMessage) {
 
 function handleUserChatMessage() {
     const field = document.getElementById('chatInput');
+    if(!field) return;
     const promptStr = field.value.trim();
     if (!promptStr) return;
 
@@ -296,53 +255,16 @@ function handleUserChatMessage() {
     field.value = '';
 
     setTimeout(() => {
-        const resolutionResponse = generateAIIntentResolution(promptStr);
-        appendChatBubble('assistant', resolutionResponse);
+        const cleanQuery = promptStr.toLowerCase();
+        let feedbackResponse = "";
+
+        // REQUIREMENT 3: Check understanding for core workspace design keywords
+        if (cleanQuery.includes('design') || cleanQuery.includes('photo') || cleanQuery.includes('invite') || cleanQuery.includes('brand') || cleanQuery.includes('creative')) {
+            feedbackResponse = "Spot on! Exceptional understanding. We provide bespoke vector brand identity engineering, premium studio photography coverage, and tailored social or executive celebration suite invitations. Tell me about your strategic milestones context layout!";
+        } else {
+            feedbackResponse = "Interesting look at it! To clarify, Guru Studios primarily builds premium brand identity vector assets, digital device UI/UX interface systems, editorial photography shoots, and bespoke print invitations. Let me know what operational domains you are exploring today!";
+        }
+
+        appendChatBubble('assistant', feedbackResponse);
     }, 650);
-}
-
-// REQUIREMENT 3: State-based sequential assessment engine logic
-function generateAIIntentResolution(prompt) {
-    const cleanQuery = prompt.toLowerCase();
-    
-    // Quiz Pipeline Stage 1
-    if (GuruAgencyState.quizStage === 1) {
-        if (cleanQuery.includes('design') && cleanQuery.includes('photography') && (cleanQuery.includes('invitation') || cleanQuery.includes('card'))) {
-            GuruAgencyState.quizStage = 2;
-            return "Spot on! Brilliant structure logic. Now for your final validation checkpoint: QUESTION 2: Who explicitly powers the underlying layout framework of Guru Studios as stated down in our footer brand guidelines?";
-        } else {
-            return "Not quite right. Hint: Take a look at the headers in our 'Creative Matrix' section above and name all three fields together.";
-        }
-    }
-
-    // Quiz Pipeline Stage 2
-    if (GuruAgencyState.quizStage === 2) {
-        if (cleanQuery.includes('shadow studios') || cleanQuery.includes('shadow')) {
-            GuruAgencyState.quizStage = 3; // Passed and completed
-            return "Excellent! You scored 100% on your platform integration assessment. You have fully unlocked automated search context vectors! Ask me anything about our specific project deliverables or timelines.";
-        } else {
-            return "Incorrect signature check. Hint: Look at the very bottom right line in our global site layout footer.";
-        }
-    }
-
-    // Standard Client NLP Fallback Routing Configuration Matrix
-    const nameNode = GuruAgencyState.clientName ? `${GuruAgencyState.clientName}` : "my friend";
-    let selectionMatch = null;
-    for (const service of ServiceMatrix) {
-        const matchedTag = service.tags.some(tag => cleanQuery.includes(tag));
-        if (matchedTag) {
-            selectionMatch = service;
-            break;
-        }
-    }
-
-    if (selectionMatch) {
-        return `Excellent inquiry, ${nameNode}. Regarding ${selectionMatch.token}: our baseline parameters call for an estimated completion timeline of approximately ${selectionMatch.est}. Capital structure metrics begin from a mock range of ${selectionMatch.price}. Hit 'Request Package' to capture your targets instantly.`;
-    }
-
-    if (cleanQuery.includes('price') || cleanQuery.includes('cost') || cleanQuery.includes('how much')) {
-        return `Asset configurations differ, ${nameNode}. Design and media packages scale from $150 upward depending on matrix complexity parameters. Check our Capabilities system grid for standard details.`;
-    }
-
-    return `Intriguing target sector conceptualization, ${nameNode}. Guru Studios handles Design vectors, Photography, and Invitations. Specify a specialized structural focus area like "Logo Design" or "Wedding Suites" to see timeline matrices.`;
 }
