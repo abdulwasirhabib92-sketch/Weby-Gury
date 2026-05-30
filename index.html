@@ -52,7 +52,7 @@
                 
                 <div class="welcome-back-card" id="welcomeBackContainer">
                     <h3 class="welcome-text">Welcome back, <span id="displayUserName" class="text-gradient">Visitor</span>!</h3>
-                    <p>Your creative AI companion is standing by to help answer questions about our business.</p>
+                    <p>Your creative companion is standing by to chat naturally about our portfolio offerings.</p>
                     <button id="resetNameBtn" class="btn btn-secondary" style="margin-top: 1rem;">Exit / Change Name</button>
                 </div>
             </div>
@@ -84,18 +84,6 @@
                             <div class="item-meta"><span>2-4 Days</span><span class="price">$150 - $400</span></div>
                             <button class="btn-request" data-service-name="Poster Design">Request Package</button>
                         </div>
-                        <div class="service-item" data-service="Branding Packages">
-                            <h4>Branding Packages</h4>
-                            <p>Complete identity guidelines, typography systems, & assets.</p>
-                            <div class="item-meta"><span>7-14 Days</span><span class="price">$1,200 - $3,500</span></div>
-                            <button class="btn-request" data-service-name="Branding Packages">Request Package</button>
-                        </div>
-                        <div class="service-item" data-service="UI/UX Design">
-                            <h4>UI/UX Design</h4>
-                            <p>High-fidelity wireframes and interactive functional prototypes.</p>
-                            <div class="item-meta"><span>5-10 Days</span><span class="price">$800 - $2,500</span></div>
-                            <button class="btn-request" data-service-name="UI/UX Design">Request Package</button>
-                        </div>
                     </div>
                 </div>
 
@@ -116,12 +104,6 @@
                             <p>Studio or location editorial & corporate headshots.</p>
                             <div class="item-meta"><span>2-3 Days</span><span class="price">$250 - $600</span></div>
                             <button class="btn-request" data-service-name="Portrait Shoots">Request Package</button>
-                        </div>
-                        <div class="service-item" data-service="Product Shoots">
-                            <h4>Product Shoots</h4>
-                            <p>Commercial-grade e-commerce & print product media.</p>
-                            <div class="item-meta"><span>3-5 Days</span><span class="price">$400 - $1,500</span></div>
-                            <button class="btn-request" data-service-name="Product Shoots">Request Package</button>
                         </div>
                     </div>
                 </div>
@@ -144,12 +126,6 @@
                             <div class="item-meta"><span>2-3 Days</span><span class="price">$75 - $250</span></div>
                             <button class="btn-request" data-service-name="Birthday/Social">Request Package</button>
                         </div>
-                        <div class="service-item" data-service="Corporate Events">
-                            <h4>Corporate Events</h4>
-                            <p>Formal, brand-aligned executive gala & seminar assets.</p>
-                            <div class="item-meta"><span>3-5 Days</span><span class="price">$150 - $500</span></div>
-                            <button class="btn-request" data-service-name="Corporate Events">Request Package</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -169,45 +145,24 @@
 
             <div class="portfolio-grid" id="portfolioGrid">
                 <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-display mock-design-1" id="dynamicPortfolioItem1"></div>
+                    <div class="portfolio-display" id="carouselDisplay-design"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Design Workspace</span>
-                        <h4>Dynamic Design Matrix Showcase</h4>
+                        <span class="category">🎨 Vector Design Work</span>
+                        <h4>Dynamic Identity Matrix</h4>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="photography">
-                    <div class="portfolio-display mock-photo-1"></div>
+                    <div class="portfolio-display" id="carouselDisplay-photography"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Photography</span>
+                        <span class="category">📸 Studio Photography</span>
                         <h4>Lumina Production Portfolio</h4>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="invitations">
-                    <div class="portfolio-display mock-invite-1"></div>
+                    <div class="portfolio-display" id="carouselDisplay-invitations"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Invitations</span>
-                        <h4>Vows & Custom Print Suites</h4>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-display mock-design-2"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">Design</span>
-                        <h4>NeoSpatial Structural Identity</h4>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="photography">
-                    <div class="portfolio-display mock-photo-2"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">Photography</span>
-                        <h4>Chronos Studio Visuals</h4>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="invitations">
-                    <div class="portfolio-display mock-invite-2"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">Invitations</span>
-                        <h4>Apex Executive Event Suite</h4>
+                        <span class="category">💌 Invitation Cards</span>
+                        <h4>Vows & Premium Custom Suites</h4>
                     </div>
                 </div>
             </div>
@@ -218,11 +173,7 @@
                 <div class="contact-info">
                     <span class="section-tag">Connect</span>
                     <h2>Let's build something beautiful.</h2>
-                    <p>Fill out the operational brief or chat with our automated director context assistant to auto-populate your timeline needs.</p>
-                    <div class="contact-details">
-                        <div class="detail-row">🌐 <span>www.gurustudios.media</span></div>
-                        <div class="detail-row">📍 <span>Studio Level 4, Innovation District</span></div>
-                    </div>
+                    <p>Fill out the operational brief or chat with our automated studio advisor assistant to auto-populate your timeline needs.</p>
                 </div>
 
                 <div class="contact-form-wrapper">
@@ -231,32 +182,6 @@
                             <div class="form-group">
                                 <label for="formName">Name</label>
                                 <input type="text" id="formName" required placeholder="Your full name">
-                            </div>
-                            <div class="form-group">
-                                <label for="formEmail">Email</label>
-                                <input type="email" id="formEmail" required placeholder="name@domain.com">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="formPhone">Phone Number</label>
-                                <input type="tel" id="formPhone" placeholder="+1 (555) 000-0000">
-                            </div>
-                            <div class="form-group">
-                                <label for="formService">Target Service Base</label>
-                                <select id="formService">
-                                    <option value="" disabled selected>Select a Service Area</option>
-                                    <option value="Logo Design">Logo Design</option>
-                                    <option value="Poster Design">Poster Design</option>
-                                    <option value="Branding Packages">Branding Packages</option>
-                                    <option value="UI/UX Design">UI/UX Design</option>
-                                    <option value="Event Coverage">Event Coverage</option>
-                                    <option value="Portrait Shoots">Portrait Shoots</option>
-                                    <option value="Product Shoots">Product Shoots</option>
-                                    <option value="Wedding Suites">Wedding Suites</option>
-                                    <option value="Birthday/Social">Birthday/Social</option>
-                                    <option value="Corporate Events">Corporate Events</option>
-                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -272,7 +197,7 @@
         <div class="ai-widget-wrapper" id="aiWidget">
             <button class="ai-widget-trigger" id="aiTrigger">
                 <span class="trigger-icon">✦</span>
-                <span class="trigger-text">Consult Assistant</span>
+                <span class="trigger-text">Consult Studio Advisor</span>
             </button>
 
             <div class="ai-chat-window hidden" id="aiChatWindow">
@@ -281,16 +206,14 @@
                         <div class="status-dot"></div>
                         <div>
                             <h4>Studio Consultant</h4>
-                            <p>Business Operations Intelligence</p>
+                            <p>Real-time Brand Strategist</p>
                         </div>
                     </div>
                     <button class="chat-close" id="aiClose">×</button>
                 </div>
-                
                 <div class="chat-messages" id="chatMessages"></div>
-
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Ask anything about our packages or pricing..." autocomplete="off">
+                    <input type="text" id="chatInput" placeholder="Ask me about our studio, packages, or pricing..." autocomplete="off">
                     <button id="chatSendBtn">✦</button>
                 </div>
             </div>
@@ -301,34 +224,92 @@
                 <div class="admin-header">
                     <div>
                         <h3>🛡️ Guru Studios Administrative Engine</h3>
-                        <p>Internal State Modification Panel - Modify Text Copy & Upload Local Device Assets</p>
+                        <p>Internal Layout Modification System — Adjust Copy, Theme Colors, Hardware Upload Assets, and Password Security Parameters</p>
                     </div>
                     <button class="btn btn-secondary" id="closeAdminBtn">Exit Terminal</button>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg-main); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                    <h4 style="color: var(--accent-fuchsia);">Front Page Text Modifiers</h4>
-                    <div class="form-group">
-                        <label>Hero Title Headline Banner</label>
-                        <input type="text" id="adminInputTitle" value="Creative Designs That Speak for You">
-                    </div>
-                    <div class="form-group">
-                        <label>Hero Subtitle Descriptive Block</label>
-                        <textarea id="adminInputSubtitle" rows="2">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</textarea>
+                <div class="admin-grid-layout" style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 2rem;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        
+                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                            <h4 style="color: var(--accent-fuchsia); margin-bottom: 1rem;">🖼️ Advanced Image Matrix & Timing Manager</h4>
+                            
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label for="adminTargetService">Target Service Channel</label>
+                                <select id="adminTargetService" style="width: 100%;">
+                                    <option value="design">🎨 Design Services Category</option>
+                                    <option value="photography">📸 Photography Services Category</option>
+                                    <option value="invitations">💌 Invitation Cards Category</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.25rem;">📤 Upload Multiple Pictures From Device Storage</label>
+                                <input type="file" id="adminMultiFilePicker" accept="image/*" multiple style="background: transparent; border: none; padding: 0; color: var(--text-secondary);">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">You can select up to 10+ local images to construct your fully custom randomized carousel stack.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; justify-content: space-between;">
+                                    <span>⏱️ Carousel Transition Intermission</span>
+                                    <span style="color: var(--accent-indigo); font-weight: 700;"><span id="adminDurationValue">3</span>s</span>
+                                </label>
+                                <input type="range" id="adminCarouselDuration" min="1" max="10" value="3" style="width: 100%; accent-color: var(--accent-indigo);">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Slide down to 1 second to make assets change rapidly and randomly every single second!</p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                            <h4 style="color: var(--accent-indigo); margin-bottom: 1rem;">🎨 Corporate Color Customizer Theme Mixer</h4>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div class="form-group">
+                                    <label>Background Main Color</label>
+                                    <input type="color" id="themeColorBg" value="#0B0B0F" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Surface Base Color</label>
+                                    <input type="color" id="themeColorSurface" value="#12121A" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Accent Indigo Secondary</label>
+                                    <input type="color" id="themeColorIndigo" value="#6366F1" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Accent Fuchsia Primary</label>
+                                    <input type="color" id="themeColorFuchsia" value="#EC4899" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                            <h4 style="color: #10B981; margin-bottom: 1rem;">🔑 Terminal Security Profile Settings</h4>
+                            <div class="form-group" style="margin-bottom: 1rem;">
+                                <label>New Admin Terminal Password</label>
+                                <input type="password" id="adminNewPasswordInput" placeholder="Set a strong new access code..." style="width: 100%;">
+                            </div>
+                            <div id="passwordVerificationBlock" class="hidden" style="background: rgba(16,185,129,0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16,185,129,0.2); margin-bottom: 1rem;">
+                                <p style="font-size: 0.8rem; color: #10B981; margin-bottom: 0.5rem;">⚠️ A secure request has been dispatched to authorization authority line <strong>+233591808780</strong>. Enter the generated clearance authorization key to complete verification:</p>
+                                <input type="text" id="adminPasswordAuthCode" placeholder="Enter clearance key..." style="width: 100%; background: var(--bg-surface);">
+                            </div>
+                            <button id="adminTriggerPasswordChangeBtn" class="btn btn-secondary btn-block" style="border-color: #10B981; color: #10B981;">Request Remote Phone Approval & Change</button>
+                        </div>
+
+                        <button id="adminSaveChangeBtn" class="btn btn-primary" style="padding: 1rem 3rem;">Commit All Engine Updates</button>
                     </div>
 
-                    <h4 style="color: var(--accent-indigo); margin-top: 1.5rem;">Asset Modifiers & Direct Device Uploads</h4>
-                    <div class="form-group">
-                        <label>Main Branding Text Logo</label>
-                        <input type="text" id="adminInputLogoText" value="GURU">
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <h4 style="color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">🖥️ Live Theme Mixer Real-time Preview</h4>
+                        <div id="themeLivePreviewWindow" style="flex: 1; border: 1px solid var(--border-active); border-radius: 12px; background: #0B0B0F; overflow: hidden; position: relative; min-height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+                             <div id="previewGlow" style="position: absolute; width: 150px; height: 150px; background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%); top: 20%; pointer-events: none;"></div>
+                             <h1 id="previewTitle" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white;">Aesthetic Sample</h1>
+                             <p id="previewSubtitle" style="font-size: 0.8rem; color: var(--text-secondary); max-width: 240px; margin-bottom: 1.5rem;">Dynamic system mock window rendering colors instantly.</p>
+                             <div style="display: flex; gap: 0.5rem; width: 100%; max-width: 240px;">
+                                 <div id="previewCard1" style="flex: 1; background: #12121A; padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; font-weight: 600; color: #EC4899;">🎨 Card Base</div>
+                                 <div id="previewCard2" style="flex: 1; background: #12121A; padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; font-weight: 600; color: #6366F1;">📸 Card Base</div>
+                             </div>
+                        </div>
                     </div>
-                    <div class="form-group" style="background: rgba(255,255,255,0.02); padding: 1.25rem; border-radius: 8px; border: 1px dashed var(--border-active);">
-                        <label style="color: var(--accent-fuchsia); margin-bottom: 0.5rem; display: block; font-weight: 600;">📤 Upload Picture Manually From Device Storage</label>
-                        <input type="file" id="adminLocalFilePicker" accept="image/*" style="background: transparent; border: none; padding: 0; color: var(--text-secondary); cursor: pointer;">
-                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Select any image layout file to instantly overwrite the primary dynamic portfolio item block.</p>
-                    </div>
-
-                    <button id="adminSaveChangeBtn" class="btn btn-primary" style="margin-top: 1rem; width: max-content; padding: 0.75rem 2.5rem;">Commit Engine Changes</button>
                 </div>
             </div>
         </div>
