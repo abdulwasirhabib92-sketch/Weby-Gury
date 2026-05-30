@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="gatekeeperOverlay" class="gatekeeper-screen">
         <div class="gatekeeper-card">
             <h2 class="logo">GURU<span>STUDIOS</span></h2>
-            <p>Welcome. Please authenticate your identity to enter the production space.</p>
+            <p>Welcome to the production space. Please authenticate your identity to step inside.</p>
             <div class="input-group">
                 <input type="text" id="gatekeeperNameInput" placeholder="Enter your name..." autocomplete="off">
                 <button id="gatekeeperBtn" class="btn btn-primary">Enter Site</button>
@@ -25,7 +25,7 @@
     <div id="mainApplicationLayout" class="hidden">
         <nav class="navbar">
             <div class="nav-container">
-                <a href="#" class="logo">GURU<span>STUDIOS</span></a>
+                <a href="#" class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
                 <div class="nav-links">
                     <a href="#services">Services</a>
                     <a href="#portfolio">Portfolio</a>
@@ -42,8 +42,8 @@
                 
                 <div class="welcome-back-card" id="welcomeBackContainer">
                     <h3 class="welcome-text">Welcome back, <span id="displayUserName" class="text-gradient">Visitor</span>!</h3>
-                    <p>Your tailored creative consultant is active below.</p>
-                    <button id="resetNameBtn" class="btn btn-secondary">Exit / Change Name</button>
+                    <p>Your creative AI companion is standing by to help customize your media paths.</p>
+                    <button id="resetNameBtn" class="btn btn-secondary" style="margin-top: 1rem;">Exit / Change Name</button>
                 </div>
             </div>
         </header>
@@ -159,10 +159,10 @@
 
             <div class="portfolio-grid" id="portfolioGrid">
                 <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-display mock-design-1"></div>
+                    <div class="portfolio-display mock-design-1" id="dynamicPortfolioItem1"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Design</span>
-                        <h4>Aetheris Brand Identity</h4>
+                        <span class="category">Design Workspace</span>
+                        <h4>Aetheris Brand Identity Asset</h4>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="photography">
@@ -277,11 +277,10 @@
                     <button class="chat-close" id="aiClose">×</button>
                 </div>
                 
-                <div class="chat-messages" id="chatMessages">
-                    </div>
+                <div class="chat-messages" id="chatMessages"></div>
 
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Type your response here..." autocomplete="off">
+                    <input type="text" id="chatInput" placeholder="Type your answer here..." autocomplete="off">
                     <button id="chatSendBtn">✦</button>
                 </div>
             </div>
@@ -295,61 +294,41 @@
         <div class="admin-dashboard-overlay hidden" id="adminDashboard">
             <div class="admin-window">
                 <div class="admin-header">
-                    <div class="header-meta">
-                        <h3>🛡️ Guru Studios Admin Operations Engine</h3>
-                        <p>Internal State Modification Panel - Edit Live Copy Below</p>
+                    <div>
+                        <h3>🛡️ Guru Studios Administrative Engine</h3>
+                        <p>Internal State Modification Panel - Edit Text Copy & Image Assets Live</p>
                     </div>
                     <button class="btn btn-secondary" id="closeAdminBtn">Exit Terminal</button>
                 </div>
 
-                <div style="margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg-main); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
-                    <h4 style="color: var(--accent-fuchsia);">Modify Landing Page Typography Assets</h4>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg-main); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                    <h4 style="color: var(--accent-fuchsia);">Front Page Text Modifiers</h4>
                     <div class="form-group">
-                        <label>Hero Headline Banner Copy</label>
+                        <label>Hero Title Headline Banner</label>
                         <input type="text" id="adminInputTitle" value="Creative Designs That Speak for You">
                     </div>
                     <div class="form-group">
                         <label>Hero Subtitle Descriptive Block</label>
                         <textarea id="adminInputSubtitle" rows="2">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</textarea>
                     </div>
-                    <button id="adminSaveChangeBtn" class="btn btn-primary">Commit Dynamic Changes</button>
-                </div>
 
-                <div class="admin-metrics-row">
-                    <div class="metric-card">
-                        <h5>Total Captured Leads</h5>
-                        <p id="metricLeads">0</p>
+                    <h4 style="color: var(--accent-indigo); margin-top: 1.5rem;">Asset and Picture Modifiers</h4>
+                    <div class="form-group">
+                        <label>Main Branding Text Logo</label>
+                        <input type="text" id="adminInputLogoText" value="GURU">
                     </div>
-                    <div class="metric-card">
-                        <h5>Active Session User</h5>
-                        <p id="metricUser">None Found</p>
+                    <div class="form-group">
+                        <label>Inject New Showcase Picture (External URL Link Address)</label>
+                        <input type="text" id="adminInputImageUrl" placeholder="Paste structural image resource link here... (e.g. https://images.unsplash.com/...)">
                     </div>
-                    <div class="metric-card">
-                        <h5>Most Inquired Domain</h5>
-                        <p id="metricInquiry">Design Pillar</p>
-                    </div>
-                </div>
 
-                <div class="admin-table-wrapper">
-                    <h4>Captured Operational Opportunities (Local Storage)</h4>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Timestamp</th>
-                                <th>Client Name</th>
-                                <th>Email Anchor</th>
-                                <th>Target Domain</th>
-                                <th>Project Scope Brief</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTableBody"></tbody>
-                    </table>
+                    <button id="adminSaveChangeBtn" class="btn btn-primary" style="margin-top: 1rem; width: max-content; padding: 0.75rem 2.5rem;">Commit Dynamic Changes</button>
                 </div>
             </div>
         </div>
 
         <footer class="global-footer">
-            <p>Powered by <span id="adminTriggerLink" style="cursor: pointer; text-decoration: underline; color: var(--text-primary); font-weight: 600;">Shadow Studios</span>. Realized via core structure assignment constraints.</p>
+            <p>Powered by <span id="adminTriggerLink" style="cursor: pointer; text-decoration: underline; color: var(--text-primary); font-weight: 600;">Shadow Studios</span>. Realized via core platform framework rules.</p>
         </footer>
     </div>
 
