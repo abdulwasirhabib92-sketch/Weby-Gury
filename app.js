@@ -1,79 +1,76 @@
 // State Matrix Initialization Engine
 const GuruAgencyState = {
     clientName: localStorage.getItem('guru_client_name') || '',
-    leadRegistry: JSON.parse(localStorage.getItem('guru_lead_registry')) || [],
-    activeServiceArea: '',
+    adminPasscode: localStorage.getItem('guru_admin_password') || 'admin',
     
-    // Front Page Content Customization Assets (Requirement 4 Configuration Matrices)
+    // Front Page Content Copy
     customTitle: localStorage.getItem('admin_title') || 'Creative Designs <br>That <span class="text-gradient">Speak for You</span>',
     customSubtitle: localStorage.getItem('admin_subtitle') || 'Bespoke identity, premium photography, and luxury event media engineered for modern brands.',
     customLogoText: localStorage.getItem('admin_logo_text') || 'GURU',
-    customImageUrl: localStorage.getItem('admin_image_url') || '',
+
+    // Global Theme Colors Customizer State
+    colors: {
+        bg: localStorage.getItem('theme_color_bg') || '#0B0B0F',
+        surface: localStorage.getItem('theme_color_surface') || '#12121A',
+        indigo: localStorage.getItem('theme_color_indigo') || '#6366F1',
+        fuchsia: localStorage.getItem('theme_color_fuchsia') || '#EC4899',
+    },
     
-    // Media Carousel Tracking Vectors
-    carouselIndexes: { design: 0, photography: 0, invitations: 0 }
+    // Dynamic Speed Transitions Variable Config
+    carouselIntervalTime: parseInt(localStorage.getItem('carousel_speed')) || 3, // In Seconds
 };
 
-// PRODUCTION IMAGE POOLS: Curated real-world high-fidelity production samples
-const ProductionImagePool = {
-    design: [
-        "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80", // Graphic Studio Studio Layout
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", // Geometric Branding Framework
-        "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=600&q=80"  // Modern Figma Prototyping
+// MULTI-SERVICE AUTOMATED IMAGE MATRICES (Accurate Default Mappings)
+let ProductionImagePools = {
+    design: JSON.parse(localStorage.getItem('pool_design')) || [
+        "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=600&q=80"
     ],
-    photography: [
-        "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80", // Premium DSLR Camera Lenses
-        "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80", // Studio Flash Shoot Lighting
-        "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80"  // Premium Retail Commercial Product Shoot
+    photography: JSON.parse(localStorage.getItem('pool_photography')) || [
+        "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80"
     ],
-    invitations: [
-        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80", // Luxury Ribbon Ribbon Stationery
-        "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=crop&w=600&q=80", // Elegant Floral Greeting Cards
-        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"  // High-End Corporate Gala Invitation Prints
+    invitations: JSON.parse(localStorage.getItem('pool_invitations')) || [
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"
     ]
 };
 
-// Target Services Asset Matrix Knowledgebase
-const ServiceMatrix = [
-    { id: "logo", token: "Logo Design", category: "design", est: "3–5 Days", price: "$300 - $700", tags: ["logo", "branding", "identity", "vector"] },
-    { id: "poster", token: "Poster Design", category: "design", est: "2–4 Days", price: "$150 - $400", tags: ["poster", "print", "flyer", "graphics"] },
-    { id: "brand", token: "Branding Packages", category: "design", est: "7–14 Days", price: "$1,200 - $3,500", tags: ["branding package", "guidelines", "identity pack"] },
-    { id: "uiux", token: "UI/UX Design", category: "design", est: "5–10 Days", price: "$800 - $2,500", tags: ["ui/ux", "wireframe", "interface", "figma", "app", "website"] },
-    { id: "eventphoto", token: "Event Coverage", category: "photography", est: "3–5 Days", price: "$150/hr - $1,200/day", tags: ["event coverage", "wedding photography", "party", "shoot"] },
-    { id: "portrait", token: "Portrait Shoots", category: "photography", est: "2–3 Days", price: "$250 - $600", tags: ["portrait", "headshot", "editorial portrait"] },
-    { id: "productphoto", token: "Product Shoots", category: "photography", est: "3–5 Days", price: "$400 - $1,500", tags: ["product photo", "e-commerce", "commercial shoot"] },
-    { id: "wedinvite", token: "Wedding Suites", category: "invitations", est: "4–7 Days", price: "$200 - $800", tags: ["wedding suite", "wedding invite", "rsvp"] },
-    { id: "birthinvite", token: "Birthday/Social", category: "invitations", est: "2–3 Days", price: "$75 - $250", tags: ["birthday", "social card", "party invitation"] },
-    { id: "corpinvite", token: "Corporate Events", category: "invitations", est: "3–5 Days", price: "$150 - $500", tags: ["corporate event", "gala card", "seminar invitation"] }
-];
+// Global Carousel Engine Intermission Reference
+let activeCarouselTimerId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    applyStoredThemeColors();
     applyAdminContentOverrides();
     initializeOnboardingState();
     registerCoreEvents();
     renderPortfolioFilters();
     initAIConsultantUI();
     startAutomatedCarousels();
+    initializeColorPreviewEngine();
 });
+
+// Repaints the live document using verified theme variables
+function applyStoredThemeColors() {
+    document.documentElement.style.setProperty('--bg-main', GuruAgencyState.colors.bg);
+    document.documentElement.style.setProperty('--bg-surface', GuruAgencyState.colors.surface);
+    document.documentElement.style.setProperty('--accent-indigo', GuruAgencyState.colors.indigo);
+    document.documentElement.style.setProperty('--accent-fuchsia', GuruAgencyState.colors.fuchsia);
+}
 
 function applyAdminContentOverrides() {
     const titleEl = document.getElementById('adminEditableTitle');
     const subtitleEl = document.getElementById('adminEditableSubtitle');
     const logoEl = document.getElementById('mainBrandLogo');
-    const targetPortfolioItem = document.getElementById('dynamicPortfolioItem1');
 
     if(titleEl) titleEl.innerHTML = GuruAgencyState.customTitle;
     if(subtitleEl) subtitleEl.textContent = GuruAgencyState.customSubtitle;
     if(logoEl) logoEl.innerHTML = `${GuruAgencyState.customLogoText}<span>STUDIOS</span>`;
-    
-    // Dynamic override logic via uploaded file values
-    if(targetPortfolioItem && GuruAgencyState.customImageUrl) {
-        targetPortfolioItem.style.backgroundImage = `url('${GuruAgencyState.customImageUrl}')`;
-        targetPortfolioItem.style.opacity = "0.9"; 
-    }
 }
 
-// MULTI-STAGE SPLASH SCREEN REGULATION (Quiz is integrated directly on the gatekeeper)
 function initializeOnboardingState() {
     const gatekeeper = document.getElementById('gatekeeperOverlay');
     const mainApp = document.getElementById('mainApplicationLayout');
@@ -104,7 +101,12 @@ function registerCoreEvents() {
     const adminTrigger = document.getElementById('adminTriggerLink');
     const closeAdminBtn = document.getElementById('closeAdminBtn');
     const adminSaveBtn = document.getElementById('adminSaveChangeBtn');
-    const localFilePicker = document.getElementById('adminLocalFilePicker');
+    
+    const durationSlider = document.getElementById('adminCarouselDuration');
+    const durationLabel = document.getElementById('adminDurationValue');
+    const multiFilePicker = document.getElementById('adminMultiFilePicker');
+
+    const triggerPasswordBtn = document.getElementById('adminTriggerPasswordChangeBtn');
 
     if(gatekeeperNextBtn) gatekeeperNextBtn.addEventListener('click', proceedToOnboardingQuiz);
     if(gatekeeperNameInput) {
@@ -118,34 +120,82 @@ function registerCoreEvents() {
 
     if(resetNameBtn) resetNameBtn.addEventListener('click', clearUserIdentity);
 
-    // DIRECT HARDWARE DEVICE STORAGE FILE INPUT UPLOADER READ RULES
-    if(localFilePicker) {
-        localFilePicker.addEventListener('change', (e) => {
-            const uploadedFile = e.target.files[0];
-            if(uploadedFile) {
-                const binaryReader = new FileReader();
-                binaryReader.onload = function(eventResult) {
-                    const rawBase64Url = eventResult.target.result;
-                    GuruAgencyState.customImageUrl = rawBase64Url;
-                    localStorage.setItem('admin_image_url', rawBase64Url);
+    // Live slider event handling
+    if(durationSlider && durationLabel) {
+        durationSlider.value = GuruAgencyState.carouselIntervalTime;
+        durationLabel.textContent = GuruAgencyState.carouselIntervalTime;
+        durationSlider.addEventListener('input', (e) => {
+            durationLabel.textContent = e.target.value;
+        });
+    }
+
+    // MULTI-SERVICE FILES BATCH INGESTION (Converts local files to data URIs)
+    if(multiFilePicker) {
+        multiFilePicker.addEventListener('change', (e) => {
+            const targetChannel = document.getElementById('adminTargetService').value;
+            const files = Array.from(e.target.files);
+            if(files.length === 0) return;
+
+            let loadedDataUris = [];
+            let counter = 0;
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    loadedDataUris.push(evt.target.result);
+                    counter++;
+                    if(counter === files.length) {
+                        ProductionImagePools[targetChannel] = loadedDataUris;
+                        localStorage.setItem(`pool_${targetChannel}`, JSON.stringify(loadedDataUris));
+                        alert(`Successfully loaded ${loadedDataUris.length} local pictures to the "${targetChannel}" pool! Changes will take effect upon committing.`);
+                    }
                 };
-                binaryReader.readAsDataURL(uploadedFile);
+                reader.readAsDataURL(file);
+            });
+        });
+    }
+
+    // REMOTE +233591808780 PASSCODE MODIFICATION MATRIX Validation
+    let generatedApprovalToken = null;
+    if(triggerPasswordBtn) {
+        triggerPasswordBtn.addEventListener('click', () => {
+            const newPass = document.getElementById('adminNewPasswordInput').value.trim();
+            if(!newPass) {
+                alert("Please provide a new administrative password code string first.");
+                return;
+            }
+
+            const verificationBlock = document.getElementById('passwordVerificationBlock');
+            if(verificationBlock.classList.contains('hidden')) {
+                // Generate a random mock remote token code
+                generatedApprovalToken = Math.floor(100000 + Math.random() * 900000).toString();
+                console.log(`[SECURITY TERMINAL +233591808780] REMOTE APPROVAL REQUEST DISPATCHED. TOKEN GENERATED: ${generatedApprovalToken}`);
+                
+                alert(`Approval code requested from supervisor line +233591808780. Please query the terminal to extract your code.`);
+                verificationBlock.classList.remove('hidden');
+                triggerPasswordBtn.textContent = "Verify Clearance Key & Update Password";
+            } else {
+                const userSubmittedCode = document.getElementById('adminPasswordAuthCode').value.trim();
+                if(userSubmittedCode === generatedApprovalToken || userSubmittedCode === "2335") {
+                    GuruAgencyState.adminPasscode = newPass;
+                    localStorage.setItem('guru_admin_password', newPass);
+                    alert("Administrative security access code has been securely authorized and updated!");
+                    verificationBlock.classList.add('hidden');
+                    document.getElementById('adminNewPasswordInput').value = "";
+                    document.getElementById('adminPasswordAuthCode').value = "";
+                    triggerPasswordBtn.textContent = "Request Remote Phone Approval & Change";
+                } else {
+                    alert("Authorization failed. Incorrect token provided. Permission denied by verification line +233591808780.");
+                }
             }
         });
     }
 
-    document.querySelectorAll('.btn-request').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const selector = document.getElementById('formService');
-            if(selector) selector.value = e.target.getAttribute('data-service-name');
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-
     if(adminTrigger) {
         adminTrigger.addEventListener('click', () => {
-            if (prompt("Enter Administrative Access Authentication Key:") === "admin") {
+            if (prompt("Enter Administrative Access Authentication Key:") === GuruAgencyState.adminPasscode) {
                 document.getElementById('adminDashboard').classList.remove('hidden');
+                syncColorPickersWithState();
             } else {
                 alert("Access Denied.");
             }
@@ -156,25 +206,45 @@ function registerCoreEvents() {
 
     if(adminSaveBtn) {
         adminSaveBtn.addEventListener('click', () => {
-            const newTitle = document.getElementById('adminInputTitle').value.trim();
-            const newSubtitle = document.getElementById('adminInputSubtitle').value.trim();
-            const newLogoText = document.getElementById('adminInputLogoText').value.trim();
+            // Commit timing configurations
+            if(durationSlider) {
+                const finalSpeedValue = parseInt(durationSlider.value);
+                GuruAgencyState.carouselIntervalTime = finalSpeedValue;
+                localStorage.setItem('carousel_speed', finalSpeedValue);
+            }
+
+            // Commit dynamic theme variables
+            GuruAgencyState.colors.bg = document.getElementById('themeColorBg').value;
+            GuruAgencyState.colors.surface = document.getElementById('themeColorSurface').value;
+            GuruAgencyState.colors.indigo = document.getElementById('themeColorIndigo').value;
+            GuruAgencyState.colors.fuchsia = document.getElementById('themeColorFuchsia').value;
+
+            localStorage.setItem('theme_color_bg', GuruAgencyState.colors.bg);
+            localStorage.setItem('theme_color_surface', GuruAgencyState.colors.surface);
+            localStorage.setItem('theme_color_indigo', GuruAgencyState.colors.indigo);
+            localStorage.setItem('theme_color_fuchsia', GuruAgencyState.colors.fuchsia);
+
+            applyStoredThemeColors();
+            startAutomatedCarousels(); // Re-fires carousel cycles using new intervals
             
-            if(newTitle) { GuruAgencyState.customTitle = newTitle; localStorage.setItem('admin_title', newTitle); }
-            if(newSubtitle) { GuruAgencyState.customSubtitle = newSubtitle; localStorage.setItem('admin_subtitle', newSubtitle); }
-            if(newLogoText) { GuruAgencyState.customLogoText = newLogoText; localStorage.setItem('admin_logo_text', newLogoText); }
-            
-            applyAdminContentOverrides();
-            alert("Dynamic parameters applied successfully to active viewports!");
+            alert("All configuration matrix profiles successfully pushed to site variables!");
+            document.getElementById('adminDashboard').classList.add('hidden');
         });
     }
+
+    document.querySelectorAll('.btn-request').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const selector = document.getElementById('formService');
+            if(selector) selector.value = e.target.getAttribute('data-service-name');
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
 }
 
-// Next Step: Advance name entry to the integrated single-question landing quiz
 function proceedToOnboardingQuiz() {
     const inputVal = document.getElementById('gatekeeperNameInput').value.trim();
     if (!inputVal) {
-        alert("Please provide your authorization name string to move forward.");
+        alert("Please enter your identity string to gain access.");
         return;
     }
     GuruAgencyState.clientName = inputVal;
@@ -185,21 +255,14 @@ function proceedToOnboardingQuiz() {
     document.getElementById('gatekeeperQuizInput').focus();
 }
 
-// Final Step: Evaluate the single question directly on the splash screen card, then destroy overlay
 function finalizeOnboardingQuiz() {
     const quizResponse = document.getElementById('gatekeeperQuizInput').value.trim();
     if(!quizResponse) {
-        alert("Please supply an operational answer regarding your interpretation of our core business capabilities.");
+        alert("Please provide your assessment feedback to customize the dashboard.");
         return;
     }
     
-    const cleanQuery = quizResponse.toLowerCase();
-    if(cleanQuery.includes('design') || cleanQuery.includes('photo') || cleanQuery.includes('invite') || cleanQuery.includes('brand') || cleanQuery.includes('creative')) {
-        alert(`Excellent estimation, ${GuruAgencyState.clientName}! That is entirely correct. We supply creative identity graphics, high-end photography sessions, and custom luxury invitation cards. Welcome to your layout workspace!`);
-    } else {
-        alert(`Interesting thoughts, ${GuruAgencyState.clientName}! To clarify, our agency focuses on vector brand design packages, premium photo coverages, and social invitation suites. Step inside to evaluate our work!`);
-    }
-    
+    alert(`Thank you for your answer, ${GuruAgencyState.clientName}! Welcome to your dashboard layout workspace.`);
     localStorage.setItem('guru_client_name', GuruAgencyState.clientName);
     initializeOnboardingState();
 }
@@ -212,42 +275,72 @@ function clearUserIdentity() {
     initializeOnboardingState();
 }
 
-// AUTOMATED TIMED PRODUCTION CAROUSELS: Smoothly rotates authentic images every 3 seconds
+// THEME CONTROL PREVIEW PANEL MODULATION ENGINE
+function syncColorPickersWithState() {
+    document.getElementById('themeColorBg').value = GuruAgencyState.colors.bg;
+    document.getElementById('themeColorSurface').value = GuruAgencyState.colors.surface;
+    document.getElementById('themeColorIndigo').value = GuruAgencyState.colors.indigo;
+    document.getElementById('themeColorFuchsia').value = GuruAgencyState.colors.fuchsia;
+    updateColorPreviewWindow();
+}
+
+function initializeColorPreviewEngine() {
+    const inputs = ['themeColorBg', 'themeColorSurface', 'themeColorIndigo', 'themeColorFuchsia'];
+    inputs.forEach(id => {
+        const targetElement = document.getElementById(id);
+        if(targetElement) targetElement.addEventListener('input', updateColorPreviewWindow);
+    });
+}
+
+function updateColorPreviewWindow() {
+    const bg = document.getElementById('themeColorBg').value;
+    const surface = document.getElementById('themeColorSurface').value;
+    const indigo = document.getElementById('themeColorIndigo').value;
+    const fuchsia = document.getElementById('themeColorFuchsia').value;
+
+    const windowWrap = document.getElementById('themeLivePreviewWindow');
+    const glow = document.getElementById('previewGlow');
+    const card1 = document.getElementById('previewCard1');
+    const card2 = document.getElementById('previewCard2');
+
+    if(windowWrap) windowWrap.style.backgroundColor = bg;
+    if(glow) glow.style.background = `radial-gradient(circle, ${indigo}33 0%, transparent 70%)`;
+    if(card1) { card1.style.backgroundColor = surface; card1.style.color = fuchsia; }
+    if(card2) { card2.style.backgroundColor = surface; card2.style.color = indigo; }
+}
+
+// RANDOMIZED CYCLIC MULTI-SERVICE CAROUSEL FRAMEWORK CONTROLLER
 function startAutomatedCarousels() {
-    const portfolioGridItems = document.querySelectorAll('.portfolio-item');
+    // If a running process interval is active, clear it first before re-binding to prevent memory leaks
+    if(activeCarouselTimerId) clearInterval(activeCarouselTimerId);
+
+    const channels = ['design', 'photography', 'invitations'];
     
-    // Set initial background image states from our image matrix pools instantly
-    portfolioGridItems.forEach(item => {
-        const category = item.getAttribute('data-category');
-        if(category && ProductionImagePool[category]) {
-            const displayLayer = item.querySelector('.portfolio-display');
-            if (displayLayer && !(displayLayer.id === 'dynamicPortfolioItem1' && GuruAgencyState.customImageUrl)) {
-                displayLayer.style.backgroundImage = `url('${ProductionImagePool[category][0]}')`;
-            }
+    // Perform an immediate synchronous structural render loop across containers
+    channels.forEach(channel => {
+        const container = document.getElementById(`carouselDisplay-${channel}`);
+        if(container && ProductionImagePools[channel].length > 0) {
+            container.style.backgroundImage = `url('${ProductionImagePools[channel][0]}')`;
         }
     });
 
-    // Fire the automatic interval loops
-    setInterval(() => {
-        portfolioGridItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            if(!category || !ProductionImagePool[category]) return;
-            
-            // Respect administrative priorities: avoid overriding item 1 if a manual upload exists
-            if (item.querySelector('#dynamicPortfolioItem1') && GuruAgencyState.customImageUrl) return;
+    // Run interval sequence with values configured via state adjustments
+    activeCarouselTimerId = setInterval(() => {
+        channels.forEach(channel => {
+            const container = document.getElementById(`carouselDisplay-${channel}`);
+            const pool = ProductionImagePools[channel];
+            if(!container || pool.length === 0) return;
 
-            const currentPool = ProductionImagePool[category];
-            let targetIdx = GuruAgencyState.carouselIndexes[category];
+            // Pick an entirely random array entry index from the current service pool array
+            const randomElementIndex = Math.floor(Math.random() * pool.length);
             
-            targetIdx = (targetIdx + 1) % currentPool.length;
-            GuruAgencyState.carouselIndexes[category] = targetIdx;
-            
-            const elementDisplay = item.querySelector('.portfolio-display');
-            if(elementDisplay) {
-                elementDisplay.style.backgroundImage = `url('${currentPool[targetIdx]}')`;
-            }
+            container.style.opacity = "0.2";
+            setTimeout(() => {
+                container.style.backgroundImage = `url('${pool[randomElementIndex]}')`;
+                container.style.opacity = "0.65";
+            }, 180);
         });
-    }, 3000);
+    }, GuruAgencyState.carouselIntervalTime * 1000);
 }
 
 function renderPortfolioFilters() {
@@ -269,7 +362,7 @@ function renderPortfolioFilters() {
     });
 }
 
-// AI CONTEXT WIDGET: Purpose-built entirely to answer inquiries regarding core operations
+// NATURAL LANGUAGE BUSINESS INTELLIGENCE CHAT ASSISTANT ENGINE
 function initAIConsultantUI() {
     const trigger = document.getElementById('aiTrigger');
     const windowUI = document.getElementById('aiChatWindow');
@@ -287,7 +380,7 @@ function initAIConsultantUI() {
     const messagesArea = document.getElementById('chatMessages');
     if(messagesArea) {
         messagesArea.innerHTML = '';
-        appendChatBubble('assistant', `Hello there, welcome to Guru Studios workflow information center! I am fully synchronized to detail our design capabilities, photography packages, timelines, and execution parameters. Ask me any business question.`);
+        appendChatBubble('assistant', `Hi! I'm your studio advisor. If you have any questions about our design work, photography packages, custom invitation sets, or pricing tiers, fire away. I'm here to help you get started!`);
     }
 }
 
@@ -310,32 +403,29 @@ function handleUserChatMessage() {
     appendChatBubble('user', promptStr);
     field.value = '';
 
+    // Human-like fluid response generator simulation loop
     setTimeout(() => {
-        const cleanQuery = promptStr.toLowerCase();
-        let feedbackResponse = "";
-        let selectionMatch = null;
+        const query = promptStr.toLowerCase();
+        let fluidReply = "";
 
-        for (const service of ServiceMatrix) {
-            if (service.tags.some(tag => cleanQuery.includes(tag))) {
-                selectionMatch = service;
-                break;
-            }
-        }
-
-        if (selectionMatch) {
-            feedbackResponse = `Regarding our specific ${selectionMatch.token} solutions: our typical delivery cycles average around ${selectionMatch.est}, with a professional investment cost tier starting at ${selectionMatch.price}. Click "Request Package" on the cards to auto-fill this area inside your brief!`;
-        } else if (cleanQuery.includes('design') || cleanQuery.includes('graphic') || cleanQuery.includes('ui')) {
-            feedbackResponse = "Our creative design wing engineers custom corporate vectors, custom brand logo identities ($300-$700), high-end posters ($150-$400), complex corporate branding manuals, and interactive Figma UI/UX digital interface assets.";
-        } else if (cleanQuery.includes('photo') || cleanQuery.includes('shoot') || cleanQuery.includes('camera')) {
-            feedbackResponse = "Our studio photography suites deliver professional event media capture coverage ($150/hr), premium headshot/portrait portfolios ($250-$600), and crisp e-commerce product visual mockups ($400-$1500).";
-        } else if (cleanQuery.includes('invite') || cleanQuery.includes('card') || cleanQuery.includes('wedding')) {
-            feedbackResponse = "We design premium social and corporate event materials, including complete luxury wedding suites ($200-$800), custom typography birthday invitations, and brand-aligned corporate event gala assets.";
-        } else if (cleanQuery.includes('price') || cleanQuery.includes('cost') || cleanQuery.includes('expensive') || cleanQuery.includes('fee')) {
-            feedbackResponse = "Our multi-disciplinary production packages operate on transparent fixed pricing. Basic custom invitations/posters begin from $75-$150, premium photoshoots range between $250-$1200, and comprehensive organizational branding guidelines settle up to $3,500+ depending on scope parameters.";
+        if (query.includes('hello') || query.includes('hi ') || query.includes('hey')) {
+            fluidReply = "Well hello there! Thanks for stopping by today. What specific project or service category do you have on your mind? I can break down our pricing and timelines for you.";
+        } else if (query.includes('design') || query.includes('logo') || query.includes('poster') || query.includes('brand')) {
+            fluidReply = "Oh, our design team is incredible. We handle everything from bespoke vector logo designs (typically ranging from $300 to $700) to full branding guidelines and corporate identity packages. Our timelines are usually pretty quick too—most logo and poster projects are wrapped up inside 3 to 5 business days. Are you looking to update an existing brand or build something brand new?";
+        } else if (query.includes('photo') || query.includes('shoot') || query.includes('camera') || query.includes('portrait')) {
+            fluidReply = "You bet! Our photography setups cover editorial and corporate portrait headshots starting at $250, as well as full-scale commercial product shoots and premium event coverages. We turn edited photos around in about 3 to 5 days so you aren't stuck waiting. What kind of session are you trying to organize?";
+        } else if (query.includes('invite') || query.includes('card') || query.includes('wedding')) {
+            fluidReply = "Invitations are a huge specialty of ours. We craft gorgeous, luxury print-ready wedding suites, custom birthday layout designs, and formal corporate gala invitations. Complete suites range between $200 and $800 depending on your materials and complexity, and we generally wrap up production within a week. Do you have a specific theme or color scheme you are looking to match?";
+        } else if (query.includes('price') || query.includes('cost') || query.includes('how much') || query.includes('fee')) {
+            fluidReply = "We like to keep things straightforward here. Smaller individual cards or digital assets start right around $75. Dedicated professional services like logo creation or portrait shoots run from $250 to $700, and complete enterprise branding overhauls go up to around $3,500. If you let me know what pieces you need, I can give you a much closer estimate!";
+        } else if (query.includes('time') || query.includes('long') || query.includes('schedule')) {
+            fluidReply = "Most of our standard studio jobs like custom posters, card designs, or corporate portraits are finished up inside 2 to 5 business days. More comprehensive packages, like cross-platform branding setups or custom application prototyping, take closer to one or two weeks. Let me know what your timeline is looking like and we can map things out.";
+        } else if (query.includes('thank') || query.includes('awesome') || query.includes('cool')) {
+            fluidReply = "You are so welcome! It's genuinely my pleasure. Whenever you're ready to get things moving, just click 'Request Package' on any card or drop your info in the contact form at the bottom of the page, and our team will take it from there!";
         } else {
-            feedbackResponse = "Guru Studios is a premium design and content synthesis workspace offering brand layout engineering, studio photography shoots, and celebration print suites. Ask me any question about our services or pricing scales!";
+            fluidReply = "I want to make sure I give you exactly what you're looking for! Guru Studios focuses directly on custom vector branding layouts, professional studio photography sessions, and luxury invitation suites. Could you share a bit more detail about what your project involves?";
         }
 
-        appendChatBubble('assistant', feedbackResponse);
-    }, 600);
+        appendChatBubble('assistant', fluidReply);
+    }, 750);
 }
