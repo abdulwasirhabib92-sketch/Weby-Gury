@@ -1,0 +1,38 @@
+/* Full Screen Onboarding Gatekeeper Screen Rules */
+.gatekeeper-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-main);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.gatekeeper-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-active);
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.gatekeeper-card .logo {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.gatekeeper-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
