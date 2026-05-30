@@ -4,368 +4,355 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru Studios | Creative Designs That Speak for You</title>
-    <style>
-        :root {
-            --bg-main: #0B0B0F;
-            --bg-surface: #12121A;
-            --bg-surface-elevated: #1A1A26;
-            --border-subtle: rgba(255, 255, 255, 0.05);
-            --border-active: rgba(255, 255, 255, 0.15);
-            --text-primary: #F3F4F6;
-            --text-secondary: #9CA3AF;
-            --text-muted: #6B7280;
-            --accent-indigo: #6366F1;
-            --accent-fuchsia: #EC4899;
-            --accent-glow: linear-gradient(135deg, #6366F1 0%, #EC4899 100%);
-            --font-stack: system-ui, -apple-system, sans-serif;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; font-family: var(--font-stack); background-color: var(--bg-main); color: var(--text-primary); overflow-x: hidden; }
-        .text-gradient { background: var(--accent-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hidden { display: none !important; }
-
-        /* Navigation */
-        .navbar { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(11, 11, 15, 0.75); backdrop-filter: blur(12px); border-bottom: var(--border-subtle); }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 700; text-decoration: none; color: var(--text-primary); font-size: 1.25rem; }
-        .logo span { font-weight: 300; color: var(--text-secondary); margin-left: 0.15rem; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; transition: 0.3s ease; }
-        .nav-links a:hover { color: var(--text-primary); }
-
-        /* Hero Onboarding */
-        .hero-section { position: relative; min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 2rem; }
-        .hero-container { max-width: 800px; z-index: 1; }
-        .hero-title { font-size: 3.5rem; line-height: 1.1; font-weight: 700; margin-bottom: 1.5rem; }
-        .hero-subtitle { font-size: 1.15rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem auto; }
-        
-        .onboarding-card, .welcome-back-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 2rem; border-radius: 16px; max-width: 500px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .input-group { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .input-group input { flex: 1; background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 0.75rem 1rem; border-radius: 8px; color: white; }
-        .input-group input:focus { outline: none; border-color: var(--accent-indigo); }
-        
-        .btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none; transition: 0.3s ease; }
-        .btn-primary { background: var(--accent-glow); color: white; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border: 1px solid var(--border-subtle); }
-
-        /* Matrix Capabilities Grid */
-        .services-section { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent-indigo); font-weight: 700; letter-spacing: 2px; }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .service-pillar-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 2rem; }
-        .pillar-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: var(--border-subtle); }
-        .service-item { padding: 1rem 0; border-bottom: rgba(255,255,255,0.02) 1px solid; }
-        .item-meta { display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 0.5rem; }
-        .price { color: var(--text-primary); font-weight: 600; }
-
-        /* Contact Intake Form Section */
-        .contact-section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
-        .contact-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 4rem; }
-        .contact-form-wrapper form { display: flex; flex-direction: column; gap: 1.5rem; }
-        .form-row { display: flex; gap: 1.5rem; }
-        .form-group { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-        .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; }
-        .form-group input, .form-group select, .form-group textarea { background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 0.85rem 1rem; border-radius: 8px; color: white; font-family: var(--font-stack); }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-indigo); }
-
-        /* Floating AI Assistant Chat Window */
-        .ai-widget-wrapper { position: fixed; bottom: 2rem; right: 2rem; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; }
-        .ai-widget-trigger { background: var(--accent-glow); border: none; padding: 1rem 1.5rem; border-radius: 30px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4); }
-        .ai-chat-window { width: 380px; height: 500px; background: var(--bg-surface-elevated); border: 1px solid var(--border-active); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; margin-bottom: 1rem; }
-        .chat-header { background: var(--bg-surface); padding: 1.25rem; border-bottom: var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
-        .chat-messages { flex: 1; padding: 1.25rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
-        .chat-bubble { max-width: 85%; padding: 0.85rem 1rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.4; }
-        .chat-bubble.assistant { background: var(--bg-surface); color: var(--text-primary); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border-subtle); }
-        .chat-bubble.user { background: var(--accent-glow); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-input-area { padding: 1rem; background: var(--bg-surface); border-top: var(--border-subtle); display: flex; gap: 0.5rem; }
-        .chat-input-area input { flex: 1; background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 0.75rem 1rem; border-radius: 8px; color: white; }
-        .chat-input-area button { background: var(--accent-indigo); border: none; color: white; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; }
-
-        /* Integrated Secret Admin Panel Layer overlay */
-        .admin-dashboard-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,8,0.98); z-index: 300; padding: 4rem 2rem; overflow-y: auto; }
-        .admin-window { max-width: 1100px; margin: 0 auto; background: var(--bg-surface); border: 1px solid var(--border-active); border-radius: 16px; padding: 3rem; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: var(--border-subtle); padding-bottom: 1.5rem; }
-        .admin-metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
-        .metric-card { background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 1.5rem; border-radius: 10px; }
-        .metric-card h5 { color: var(--text-secondary); text-transform: uppercase; font-size: 0.75rem; margin-bottom: 0.5rem; }
-        .metric-card p { font-size: 2rem; font-weight: 700; }
-        .admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; margin-top: 1rem; }
-        .admin-table th, .admin-table td { padding: 1rem; border-bottom: var(--border-subtle); }
-        .admin-table th { background: var(--bg-main); color: var(--text-secondary); }
-
-        /* Footer Frame */
-        .global-footer { text-align: center; padding: 4rem 2rem; border-top: var(--border-subtle); color: var(--text-muted); font-size: 0.85rem; }
-
-        @media (max-width: 1024px) { .services-grid, .contact-container { grid-template-columns: 1fr; } .form-row { flex-direction: column; } .ai-chat-window { width: calc(100vw - 4rem); } }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">GURU<span>STUDIOS</span></a>
-            <div class="nav-links"><a href="#services">Services</a><a href="#contact">Contact Brief</a></div>
-        </div>
-    </nav>
-
-    <header class="hero-section">
-        <div class="hero-container">
-            <h1 class="hero-title">Our Creative <span class="text-gradient">Matrix</span></h1>
-            <p class="hero-subtitle">Bespoke identity configurations and luxury media development suites.</p>
-            
-            <div class="onboarding-card" id="onboardingContainer">
-                <p style="color: var(--text-secondary)">Identify yourself to begin the studio context review:</p>
-                <div class="input-group">
-                    <input type="text" id="userNameInput" placeholder="Enter your name..." autocomplete="off">
-                    <button id="startJourneyBtn" class="btn btn-primary">Initialize Node</button>
-                </div>
-            </div>
-            
-            <div class="welcome-back-card hidden" id="welcomeBackContainer">
-                <h3>Welcome, <span id="displayUserName" class="text-gradient">Guest</span>!</h3>
-                <p style="color: var(--text-secondary); margin-top: 0.5rem;">Your real-time evaluation AI assistant is ready below.</p>
-            </div>
-        </div>
-    </header>
-
-    <section class="services-section" id="services">
-        <div class="section-header">
-            <span class="section-tag">Capabilities Portfolio</span>
-            <h2 style="font-size: 2rem; margin-top: 0.5rem;">Tailored Media Dimensions</h2>
-        </div>
-        <div class="services-grid">
-            <div class="service-pillar-card">
-                <div class="pillar-header"><h3>🎨 Design Frameworks</h3></div>
-                <div class="service-item">
-                    <h4>Logo & Identity Architecture</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Bespoke core brand vector identities.</p>
-                    <div class="item-meta"><span>3-5 Days</span><span class="price">$300 - $700</span></div>
-                </div>
-            </div>
-            <div class="service-pillar-card">
-                <div class="pillar-header"><h3>📸 Advanced Photography</h3></div>
-                <div class="service-item">
-                    <h4>Commercial Product Media</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">High-fidelity digital layout coverage assets.</p>
-                    <div class="item-meta"><span>3-5 Days</span><span class="price">$400 - $1,500</span></div>
-                </div>
-            </div>
-            <div class="service-pillar-card">
-                <div class="pillar-header"><h3>💌 Invitation Suites</h3></div>
-                <div class="service-item">
-                    <h4>Luxury Wedding Suites</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Premium print-ready print & graphic combinations.</p>
-                    <div class="item-meta"><span>4-7 Days</span><span class="price">$200 - $800</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-        <div class="contact-container">
-            <div>
-                <span class="section-tag">Project Intake</span>
-                <h2 style="margin-top:0.5rem; font-size:2rem;">Submit Project Parameters</h2>
-                <p style="color:var(--text-secondary); margin-top:1rem; line-height:1.5;">Submitting via this system portal dynamically aggregates metadata parameters to the local internal memory registry.</p>
-            </div>
-            <div class="contact-form-wrapper">
-                <form id="leadForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" id="formName" required placeholder="Your full name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="formEmail" required placeholder="name@domain.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Target Domain Area</label>
-                        <select id="formService">
-                            <option value="Logo Identity Architecture">Logo & Identity Architecture</option>
-                            <option value="Commercial Product Media">Commercial Product Media</option>
-                            <option value="Luxury Wedding Suites">Luxury Wedding Suites</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Operational Project Brief</label>
-                        <textarea id="formDesc" rows="3" placeholder="Provide structural assignment context notes..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Production Request</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <div class="ai-widget-wrapper">
-        <button class="ai-widget-trigger" id="aiTrigger">✦ Open Assignment Assistant</button>
-        <div class="ai-chat-window hidden" id="aiChatWindow">
-            <div class="chat-header">
-                <div>
-                    <h4 style="font-size: 0.9rem;">Assignment AI Evaluation Protocol</h4>
-                    <p style="font-size: 0.7rem; color: var(--text-muted);">Real-Time API Integration Pipeline</p>
-                </div>
-                <button id="aiClose" style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;">×</button>
-            </div>
-            <div class="chat-messages" id="chatMessages"></div>
-            <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="Submit your query or quiz answer..." autocomplete="off">
-                <button id="chatSendBtn">➔</button>
+    <div id="gatekeeperOverlay" class="gatekeeper-screen">
+        <div class="gatekeeper-card">
+            <h2 class="logo">GURU<span>STUDIOS</span></h2>
+            <p>Welcome. Please authenticate your identity to enter the production space.</p>
+            <div class="input-group">
+                <input type="text" id="gatekeeperNameInput" placeholder="Enter your name..." autocomplete="off">
+                <button id="gatekeeperBtn" class="btn btn-primary">Enter Site</button>
             </div>
         </div>
     </div>
 
-    <div class="admin-dashboard-overlay hidden" id="adminDashboard">
-        <div class="admin-window">
-            <div class="admin-header">
-                <div>
-                    <h3>🛡️ Analytics Configuration Terminal</h3>
-                    <p style="color:var(--text-secondary); font-size:0.85rem;">Internal State Registry & Active Leads Data Tracker</p>
+    <div id="mainApplicationLayout" class="hidden">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">GURU<span>STUDIOS</span></a>
+                <div class="nav-links">
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <button class="btn btn-secondary" id="closeAdminBtn">Exit Terminal</button>
             </div>
-            <div class="admin-metrics-row">
-                <div class="metric-card"><h5>Total Leads Stored</h5><p id="metricLeads">0</p></div>
-                <div class="metric-card"><h5>Active Session Context</h5><p id="metricUser">None</p></div>
-                <div class="metric-card"><h5>Assignment Verification</h5><p style="color:var(--accent-fuchsia);">Quiz-Enabled</p></div>
+        </nav>
+
+        <header class="hero-section" id="hero">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-container">
+                <h1 class="hero-title" id="adminEditableTitle">Creative Designs <br>That <span class="text-gradient">Speak for You</span></h1>
+                <p class="hero-subtitle" id="adminEditableSubtitle">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</p>
+                
+                <div class="welcome-back-card" id="welcomeBackContainer">
+                    <h3 class="welcome-text">Welcome back, <span id="displayUserName" class="text-gradient">Visitor</span>!</h3>
+                    <p>Your tailored creative consultant is active below.</p>
+                    <button id="resetNameBtn" class="btn btn-secondary">Exit / Change Name</button>
+                </div>
             </div>
-            <div>
-                <h4>Captured Project Request Matrix</h4>
-                <table class="admin-table">
-                    <thead><tr><th>Timestamp</th><th>Client Name</th><th>Email</th><th>Target Domain</th><th>Brief Notes</th></tr></thead>
-                    <tbody id="adminTableBody"></tbody>
-                </table>
+        </header>
+
+        <section class="services-section" id="services">
+            <div class="section-header">
+                <span class="section-tag">Capabilities</span>
+                <h2>Our Creative Matrix</h2>
+                <p>Tailored aesthetic solutions meticulously engineered across three core media pillars.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">🎨</span>
+                        <h3>Design Services</h3>
+                    </div>
+                    <div class="service-item-list">
+                        <div class="service-item" data-service="Logo Design">
+                            <h4>Logo Design</h4>
+                            <p>Bespoke vector brand identity assets.</p>
+                            <div class="item-meta"><span>3-5 Days</span><span class="price">$300 - $700</span></div>
+                            <button class="btn-request" data-service-name="Logo Design">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Poster Design">
+                            <h4>Poster Design</h4>
+                            <p>High-impact marketing & event print/digital media.</p>
+                            <div class="item-meta"><span>2-4 Days</span><span class="price">$150 - $400</span></div>
+                            <button class="btn-request" data-service-name="Poster Design">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Branding Packages">
+                            <h4>Branding Packages</h4>
+                            <p>Complete identity guidelines, typography systems, & assets.</p>
+                            <div class="item-meta"><span>7-14 Days</span><span class="price">$1,200 - $3,500</span></div>
+                            <button class="btn-request" data-service-name="Branding Packages">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="UI/UX Design">
+                            <h4>UI/UX Design</h4>
+                            <p>High-fidelity wireframes and interactive functional prototypes.</p>
+                            <div class="item-meta"><span>5-10 Days</span><span class="price">$800 - $2,500</span></div>
+                            <button class="btn-request" data-service-name="UI/UX Design">Request Package</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">📸</span>
+                        <h3>Photography</h3>
+                    </div>
+                    <div class="service-item-list">
+                        <div class="service-item" data-service="Event Coverage">
+                            <h4>Event Coverage</h4>
+                            <p>High-end candid & staged media capturing.</p>
+                            <div class="item-meta"><span>3-5 Days</span><span class="price">$150/hr - $1,200/day</span></div>
+                            <button class="btn-request" data-service-name="Event Coverage">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Portrait Shoots">
+                            <h4>Portrait Shoots</h4>
+                            <p>Studio or location editorial & corporate headshots.</p>
+                            <div class="item-meta"><span>2-3 Days</span><span class="price">$250 - $600</span></div>
+                            <button class="btn-request" data-service-name="Portrait Shoots">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Product Shoots">
+                            <h4>Product Shoots</h4>
+                            <p>Commercial-grade e-commerce & print product media.</p>
+                            <div class="item-meta"><span>3-5 Days</span><span class="price">$400 - $1,500</span></div>
+                            <button class="btn-request" data-service-name="Product Shoots">Request Package</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">💌</span>
+                        <h3>Invitation Cards</h3>
+                    </div>
+                    <div class="service-item-list">
+                        <div class="service-item" data-service="Wedding Suites">
+                            <h4>Wedding Suites</h4>
+                            <p>Luxury, cohesive print-ready & digital RSVP suites.</p>
+                            <div class="item-meta"><span>4-7 Days</span><span class="price">$200 - $800</span></div>
+                            <button class="btn-request" data-service-name="Wedding Suites">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Birthday/Social">
+                            <h4>Birthday/Social</h4>
+                            <p>Trendy, themed digital and print social identity cards.</p>
+                            <div class="item-meta"><span>2-3 Days</span><span class="price">$75 - $250</span></div>
+                            <button class="btn-request" data-service-name="Birthday/Social">Request Package</button>
+                        </div>
+                        <div class="service-item" data-service="Corporate Events">
+                            <h4>Corporate Events</h4>
+                            <p>Formal, brand-aligned executive gala & seminar assets.</p>
+                            <div class="item-meta"><span>3-5 Days</span><span class="price">$150 - $500</span></div>
+                            <button class="btn-request" data-service-name="Corporate Events">Request Package</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section" id="portfolio">
+            <div class="section-header">
+                <span class="section-tag">Showcase</span>
+                <h2>Curated Masterpieces</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All Work</button>
+                    <button class="filter-tab" data-filter="design">Design</button>
+                    <button class="filter-tab" data-filter="photography">Photography</button>
+                    <button class="filter-tab" data-filter="invitations">Invitations</button>
+                </div>
+            </div>
+
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-display mock-design-1"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Design</span>
+                        <h4>Aetheris Brand Identity</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="photography">
+                    <div class="portfolio-display mock-photo-1"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Photography</span>
+                        <h4>Lumina Editorial Shoot</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="invitations">
+                    <div class="portfolio-display mock-invite-1"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Invitations</span>
+                        <h4>Vows & Velvet Wedding Suite</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-display mock-design-2"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Design</span>
+                        <h4>NeoSpatial UI Framework</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="photography">
+                    <div class="portfolio-display mock-photo-2"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Photography</span>
+                        <h4>Chronos Product Lineup</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="invitations">
+                    <div class="portfolio-display mock-invite-2"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Invitations</span>
+                        <h4>Apex Executive Gala Asset</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <span class="section-tag">Connect</span>
+                    <h2>Let's build something beautiful.</h2>
+                    <p>Fill out the operational brief or chat with our automated director context assistant to auto-populate your timeline needs.</p>
+                    <div class="contact-details">
+                        <div class="detail-row">🌐 <span>www.gurustudios.media</span></div>
+                        <div class="detail-row">📍 <span>Studio Level 4, Innovation District</span></div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form id="leadForm" class="lead-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="formName">Name</label>
+                                <input type="text" id="formName" required placeholder="Your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmail">Email</label>
+                                <input type="email" id="formEmail" required placeholder="name@domain.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="formPhone">Phone Number</label>
+                                <input type="tel" id="formPhone" placeholder="+1 (555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="formService">Target Service Base</label>
+                                <select id="formService">
+                                    <option value="" disabled selected>Select a Service Area</option>
+                                    <option value="Logo Design">Logo Design</option>
+                                    <option value="Poster Design">Poster Design</option>
+                                    <option value="Branding Packages">Branding Packages</option>
+                                    <option value="UI/UX Design">UI/UX Design</option>
+                                    <option value="Event Coverage">Event Coverage</option>
+                                    <option value="Portrait Shoots">Portrait Shoots</option>
+                                    <option value="Product Shoots">Product Shoots</option>
+                                    <option value="Wedding Suites">Wedding Suites</option>
+                                    <option value="Birthday/Social">Birthday/Social</option>
+                                    <option value="Corporate Events">Corporate Events</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="formDesc">Project Brief / Structural Context</label>
+                            <textarea id="formDesc" rows="4" placeholder="Detail operational milestones or structural ideas..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Submit Production Request</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div class="ai-widget-wrapper" id="aiWidget">
+            <button class="ai-widget-trigger" id="aiTrigger">
+                <span class="trigger-icon">✦</span>
+                <span class="trigger-text">Consult Assistant</span>
+            </button>
+
+            <div class="ai-chat-window hidden" id="aiChatWindow">
+                <div class="chat-header">
+                    <div class="header-identity">
+                        <div class="status-dot"></div>
+                        <div>
+                            <h4>Studio Consultant</h4>
+                            <p>Creative AI Assistant</p>
+                        </div>
+                    </div>
+                    <button class="chat-close" id="aiClose">×</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Type your response here..." autocomplete="off">
+                    <button id="chatSendBtn">✦</button>
+                </div>
             </div>
         </div>
+
+        <div class="lightbox-modal hidden" id="lightbox">
+            <button class="lightbox-close" id="lightboxClose">×</button>
+            <div class="lightbox-content" id="lightboxContent"></div>
+        </div>
+
+        <div class="admin-dashboard-overlay hidden" id="adminDashboard">
+            <div class="admin-window">
+                <div class="admin-header">
+                    <div class="header-meta">
+                        <h3>🛡️ Guru Studios Admin Operations Engine</h3>
+                        <p>Internal State Modification Panel - Edit Live Copy Below</p>
+                    </div>
+                    <button class="btn btn-secondary" id="closeAdminBtn">Exit Terminal</button>
+                </div>
+
+                <div style="margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg-main); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                    <h4 style="color: var(--accent-fuchsia);">Modify Landing Page Typography Assets</h4>
+                    <div class="form-group">
+                        <label>Hero Headline Banner Copy</label>
+                        <input type="text" id="adminInputTitle" value="Creative Designs That Speak for You">
+                    </div>
+                    <div class="form-group">
+                        <label>Hero Subtitle Descriptive Block</label>
+                        <textarea id="adminInputSubtitle" rows="2">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</textarea>
+                    </div>
+                    <button id="adminSaveChangeBtn" class="btn btn-primary">Commit Dynamic Changes</button>
+                </div>
+
+                <div class="admin-metrics-row">
+                    <div class="metric-card">
+                        <h5>Total Captured Leads</h5>
+                        <p id="metricLeads">0</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Active Session User</h5>
+                        <p id="metricUser">None Found</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Most Inquired Domain</h5>
+                        <p id="metricInquiry">Design Pillar</p>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <h4>Captured Operational Opportunities (Local Storage)</h4>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Client Name</th>
+                                <th>Email Anchor</th>
+                                <th>Target Domain</th>
+                                <th>Project Scope Brief</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="global-footer">
+            <p>Powered by <span id="adminTriggerLink" style="cursor: pointer; text-decoration: underline; color: var(--text-primary); font-weight: 600;">Shadow Studios</span>. Realized via core structure assignment constraints.</p>
+        </footer>
     </div>
 
-    <footer class="global-footer">
-        <p>Assignment Hub: <a href="mailto:abdulwasirhabib92@gmail.com" style="color: var(--accent-indigo); text-decoration:none;">abdulwasirhabib92@gmail.com</a> | Contact: 0591808780</p>
-        <p style="margin-top: 0.5rem; opacity: 0.5;">Powered by <span id="adminTriggerLink" style="cursor: pointer; text-decoration: underline;">Shadow Studios</span> © 2026</p>
-    </footer>
-
-    <script>
-        const appState = { 
-            name: '', 
-            currentQuizStage: 0,
-            leads: JSON.parse(localStorage.getItem('guru_assignment_leads')) || []
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            syncAdminDashboard();
-            if(appState.name) document.getElementById('formName').value = appState.name;
-        });
-
-        document.getElementById('startJourneyBtn').addEventListener('click', () => {
-            const val = document.getElementById('userNameInput').value.trim();
-            if(!val) return;
-            appState.name = val;
-            document.getElementById('onboardingContainer').classList.add('hidden');
-            document.getElementById('welcomeBackContainer').classList.remove('hidden');
-            document.getElementById('displayUserName').textContent = val;
-            document.getElementById('formName').value = val;
-            
-            document.getElementById('aiChatWindow').classList.remove('hidden');
-            document.getElementById('aiTrigger').classList.add('hidden');
-            executeApiRoute('__INIT_GREETING__');
-            syncAdminDashboard();
-        });
-
-        document.getElementById('aiTrigger').addEventListener('click', () => {
-            document.getElementById('aiChatWindow').classList.remove('hidden');
-            document.getElementById('aiTrigger').classList.add('hidden');
-            if(!appState.name) appendBubble('assistant', 'System Notice: Please finalize onboarding registration inside the hero zone configuration view first.');
-        });
-
-        document.getElementById('aiClose').addEventListener('click', () => {
-            document.getElementById('aiChatWindow').classList.add('hidden');
-            document.getElementById('aiTrigger').classList.remove('hidden');
-        });
-
-        document.getElementById('chatSendBtn').addEventListener('click', processSend);
-        document.getElementById('chatInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') processSend(); });
-
-        function processSend() {
-            const input = document.getElementById('chatInput');
-            const txt = input.value.trim();
-            if(!txt) return;
-            appendBubble('user', txt);
-            input.value = '';
-            executeApiRoute(txt);
-        }
-
-        function appendBubble(role, content) {
-            const msgBox = document.getElementById('chatMessages');
-            const el = document.createElement('div');
-            el.classList.add('chat-bubble', role);
-            el.textContent = content;
-            msgBox.appendChild(el);
-            msgBox.scrollTop = msgBox.scrollHeight;
-        }
-
-        async function executeApiRoute(userPayload) {
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: userPayload,
-                        username: appState.name || 'Visitor',
-                        quizStage: appState.currentQuizStage
-                    })
-                });
-                const data = await response.json();
-                appState.currentQuizStage = data.nextQuizStage;
-                appendBubble('assistant', data.reply);
-            } catch(err) {
-                appendBubble('assistant', 'Error routing context to Node framework downstream: ' + err.message);
-            }
-        }
-
-        /* Form Processing and Local Administrative Panel Mapping Matrix Handlers */
-        document.getElementById('leadForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const lead = {
-                timestamp: new Date().toLocaleTimeString(),
-                name: document.getElementById('formName').value,
-                email: document.getElementById('formEmail').value,
-                domain: document.getElementById('formService').value,
-                desc: document.getElementById('formDesc').value || 'No additional parameters.'
-            };
-            appState.leads.push(lead);
-            localStorage.setItem('guru_assignment_leads', JSON.stringify(appState.leads));
-            alert('Parameters submitted to secure storage ledger.');
-            document.getElementById('leadForm').reset();
-            if(appState.name) document.getElementById('formName').value = appState.name;
-            syncAdminDashboard();
-        });
-
-        document.getElementById('adminTriggerLink').addEventListener('click', () => {
-            document.getElementById('adminDashboard').classList.remove('hidden');
-        });
-        document.getElementById('closeAdminBtn').addEventListener('click', () => {
-            document.getElementById('adminDashboard').classList.add('hidden');
-        });
-
-        function syncAdminDashboard() {
-            document.getElementById('metricLeads').textContent = appState.leads.length;
-            document.getElementById('metricUser').textContent = appState.name || "Anonymous Active Node";
-            
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = '';
-            if(appState.leads.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No inbound operational brief metadata loaded.</td></tr>`;
-                return;
-            }
-            appState.leads.forEach(l => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${l.timestamp}</td><td><strong>${l.name}</strong></td><td>${l.email}</td><td>${l.domain}</td><td>${l.desc}</td>`;
-                tbody.appendChild(row);
-            });
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
