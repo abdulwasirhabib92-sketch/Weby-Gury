@@ -44,12 +44,12 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* CRITICAL: Strict Hidden Operations Rule */
+/* STRICT APPLICATION GLOBAL UTILITY STATE HIDDEN RULE */
 .hidden {
     display: none !important;
 }
 
-/* Requirement 1: Dedicated Full Screen Landing Page Onboarding Gatekeeper */
+/* REQUIREMENT 1: Dynamic Full-Screen Gatekeeper Layer Layout Viewports */
 .gatekeeper-screen {
     position: fixed;
     top: 0;
@@ -67,16 +67,16 @@ body {
 .gatekeeper-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-active);
-    padding: 3rem;
-    border-radius: 16px;
-    max-width: 480px;
+    padding: 4rem 3rem;
+    border-radius: 20px;
+    max-width: 500px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
 }
 
 .gatekeeper-card .logo {
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin-bottom: 1rem;
     display: inline-block;
 }
@@ -84,11 +84,11 @@ body {
 .gatekeeper-card p {
     color: var(--text-secondary);
     font-size: 0.95rem;
-    margin-bottom: 2rem;
-    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
 }
 
-/* Global Navigation Header */
+/* Global Navigation Header Elements */
 .navbar {
     position: fixed;
     top: 0;
@@ -134,7 +134,7 @@ body {
     color: var(--text-primary);
 }
 
-/* Structural Layouts & Universal Button Architectures */
+/* Structural Universal Button Architectures */
 .btn {
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -151,7 +151,7 @@ body {
 }
 
 .btn-primary:hover {
-    opacity: 0.9;
+    opacity: 0.95;
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
@@ -170,7 +170,7 @@ body {
     width: 100%;
 }
 
-/* Sections Structure Layout */
+/* Page Section Content Containers */
 section {
     max-width: 1200px;
     margin: 0 auto;
@@ -203,7 +203,7 @@ section {
     margin-top: 0.75rem;
 }
 
-/* Hero Base Design System */
+/* Hero Display Design System Rules */
 .hero-section {
     position: relative;
     min-height: 90vh;
@@ -248,8 +248,7 @@ section {
     margin: 0 auto 3rem auto;
 }
 
-/* Adaptive Onboarding Modals */
-.onboarding-card, .welcome-back-card {
+.welcome-back-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     padding: 2rem;
@@ -257,12 +256,6 @@ section {
     max-width: 500px;
     margin: 0 auto;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-.onboarding-text {
-    margin-bottom: 1.25rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
 }
 
 .input-group {
@@ -291,7 +284,7 @@ section {
     margin-bottom: 0.5rem;
 }
 
-/* Triple Pillar Services Matrix Grid */
+/* Triple Pillar Services Capabilities System Matrix */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -387,7 +380,7 @@ section {
     color: var(--accent-fuchsia);
 }
 
-/* Portfolio Layout Infrastructure */
+/* Portfolio Gallery Showcase Rules */
 .filter-tabs {
     display: flex;
     justify-content: center;
@@ -445,7 +438,7 @@ section {
 }
 
 .portfolio-item:hover .portfolio-display {
-    opacity: 0.5;
+    opacity: 0.6;
     transform: scale(1.05);
 }
 
@@ -481,7 +474,7 @@ section {
     font-weight: 600;
 }
 
-/* Strategic Intake Brief Interface */
+/* Strategic Operational Intake Brief Interface */
 .contact-container {
     display: grid;
     grid-template-columns: 1fr 1.25fr;
@@ -559,7 +552,7 @@ section {
     border-color: var(--accent-indigo);
 }
 
-/* Floating AI Assistant Layer */
+/* Floating AI Chat Assistant Interface */
 .ai-widget-wrapper {
     position: fixed;
     bottom: 2rem;
@@ -701,7 +694,7 @@ section {
     font-size: 1rem;
 }
 
-/* Universal Lightbox Modal Structure */
+/* Universal Lightbox Modal Display System */
 .lightbox-modal {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -723,7 +716,7 @@ section {
     border-radius: 16px;
 }
 
-/* Hidden Operations Dashboard Structural Overlay Layer */
+/* Administrative Control Operations Layer */
 .admin-dashboard-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -734,7 +727,7 @@ section {
 }
 
 .admin-window {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     background: var(--bg-surface);
     border: 1px solid var(--border-active);
@@ -746,61 +739,12 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     border-bottom: var(--border-subtle);
     padding-bottom: 1.5rem;
 }
 
-.admin-metrics-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-}
-
-.metric-card {
-    background: var(--bg-main);
-    border: 1px solid var(--border-subtle);
-    padding: 1.5rem;
-    border-radius: 10px;
-}
-
-.metric-card h5 {
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-}
-
-.metric-card p {
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.admin-table-wrapper h4 {
-    margin-bottom: 1rem;
-}
-
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.85rem;
-}
-
-.admin-table th, .admin-table td {
-    padding: 1rem;
-    border-bottom: var(--border-subtle);
-}
-
-.admin-table th {
-    background: var(--bg-main);
-    color: var(--text-secondary);
-    font-weight: 600;
-}
-
-/* Universal Minimal Footer Layout */
+/* Global Footer Alignment Guidelines */
 .global-footer {
     text-align: center;
     padding: 4rem 2rem;
@@ -809,7 +753,7 @@ section {
     font-size: 0.85rem;
 }
 
-/* Media Inversion Fluid Architecture Queries */
+/* Fluid Layout Responsive Viewport Queries */
 @media (max-width: 1024px) {
     .services-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-container { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
@@ -819,6 +763,5 @@ section {
     .services-grid, .portfolio-grid { grid-template-columns: 1fr; }
     .form-row { flex-direction: column; gap: 1.5rem; }
     .hero-title { font-size: 2.75rem; }
-    .admin-metrics-row { grid-template-columns: 1fr; }
     .ai-chat-window { width: calc(100vw - 4rem); }
 }
