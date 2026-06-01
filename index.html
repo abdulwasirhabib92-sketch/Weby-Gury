@@ -4,321 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru Studios | Creative Designs That Speak for You</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FIX: safer rendering -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
 </head>
+
 <body>
 
-    <div id="gatekeeperOverlay" class="gatekeeper-screen">
-        <div class="gatekeeper-card" id="gatekeeperIdentityStep">
-            <h2 class="logo">GURU<span>STUDIOS</span></h2>
-            <p>Welcome to the production space. Please authenticate your identity to step inside.</p>
-            <div class="input-group">
-                <input type="text" id="gatekeeperNameInput" placeholder="Enter your name..." autocomplete="off">
-                <button id="gatekeeperNextBtn" class="btn btn-primary">Next</button>
-            </div>
-        </div>
+<!-- GATEKEEPER -->
+<div id="gatekeeperOverlay" class="gatekeeper-screen">
+    <div class="gatekeeper-card" id="gatekeeperIdentityStep">
+        <h2 class="logo">GURU<span>STUDIOS</span></h2>
+        <p>Please enter your identity to continue.</p>
 
-        <div class="gatekeeper-card hidden" id="gatekeeperQuizStep">
-            <h2 class="logo">GURU<span>STUDIOS</span></h2>
-            <p style="color: var(--accent-fuchsia); font-weight: 600; margin-bottom: 0.5rem;">Welcome, <span id="quizGreetingName"></span>!</p>
-            <p>Before we unlock your custom workspace parameters, please answer this quick question:<br><br><strong>What do you think this website does?</strong></p>
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <input type="text" id="gatekeeperQuizInput" placeholder="Type your thoughts here..." autocomplete="off" style="width: 100%; background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: 8px; color: white;">
-            </div>
-            <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary btn-block">Submit & Enter Site</button>
+        <div class="input-group">
+            <input type="text" id="gatekeeperNameInput" placeholder="Enter your name..." autocomplete="off">
+            <button id="gatekeeperNextBtn" class="btn btn-primary">Next</button>
         </div>
     </div>
 
-    <div id="mainApplicationLayout" class="hidden">
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="#" class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
-                <div class="nav-links">
-                    <a href="#services">Services</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#contact">Contact</a>
-                </div>
+    <div class="gatekeeper-card hidden" id="gatekeeperQuizStep">
+        <h2 class="logo">GURU<span>STUDIOS</span></h2>
+
+        <p>Welcome, <span id="quizGreetingName"></span>!</p>
+
+        <p><strong>What do you think this website does?</strong></p>
+
+        <input type="text" id="gatekeeperQuizInput" placeholder="Type answer..." style="width:100%; padding:0.8rem; margin-bottom:1rem;">
+
+        <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary btn-block">
+            Enter Site
+        </button>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApplicationLayout" class="hidden">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact</a>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <header class="hero-section" id="hero">
-            <div class="hero-bg-glow"></div>
-            <div class="hero-container">
-                <h1 class="hero-title" id="adminEditableTitle">Creative Designs <br>That <span class="text-gradient">Speak for You</span></h1>
-                <p class="hero-subtitle" id="adminEditableSubtitle">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</p>
-                
-                <div class="welcome-back-card" id="welcomeBackContainer">
-                    <h3 class="welcome-text">Welcome back, <span id="displayUserName" class="text-gradient">Visitor</span>!</h3>
-                    <p>Your creative companion is standing by to chat naturally about our portfolio offerings.</p>
-                    <button id="resetNameBtn" class="btn btn-secondary" style="margin-top: 1rem;">Exit / Change Name</button>
-                </div>
-            </div>
-        </header>
+    <header class="hero-section">
+        <div class="hero-container">
 
-        <section class="services-section" id="services">
-            <div class="section-header">
-                <span class="section-tag">Capabilities</span>
-                <h2>Our Creative Matrix</h2>
-                <p>Tailored aesthetic solutions meticulously engineered across three core media pillars.</p>
-            </div>
+            <h1 id="adminEditableTitle">
+                Creative Designs <br>That <span class="text-gradient">Speak for You</span>
+            </h1>
 
-            <div class="services-grid">
-                <div class="service-pillar-card">
-                    <div class="pillar-header">
-                        <span class="pillar-icon">🎨</span>
-                        <h3>Design Services</h3>
-                    </div>
-                    <div class="service-item-list">
-                        <div class="service-item" data-service="Logo Design">
-                            <h4>Logo Design</h4>
-                            <p>Bespoke vector brand identity assets.</p>
-                            <div class="item-meta"><span>3-5 Days</span><span class="price">$300 - $700</span></div>
-                            <button class="btn-request" data-service-name="Logo Design">Request Package</button>
-                        </div>
-                        <div class="service-item" data-service="Poster Design">
-                            <h4>Poster Design</h4>
-                            <p>High-impact marketing & event print/digital media.</p>
-                            <div class="item-meta"><span>2-4 Days</span><span class="price">$150 - $400</span></div>
-                            <button class="btn-request" data-service-name="Poster Design">Request Package</button>
-                        </div>
-                    </div>
-                </div>
+            <p id="adminEditableSubtitle">
+                Bespoke identity, premium photography, and luxury event media.
+            </p>
 
-                <div class="service-pillar-card">
-                    <div class="pillar-header">
-                        <span class="pillar-icon">📸</span>
-                        <h3>Photography</h3>
-                    </div>
-                    <div class="service-item-list">
-                        <div class="service-item" data-service="Event Coverage">
-                            <h4>Event Coverage</h4>
-                            <p>High-end candid & staged media capturing.</p>
-                            <div class="item-meta"><span>3-5 Days</span><span class="price">$150/hr - $1,200/day</span></div>
-                            <button class="btn-request" data-service-name="Event Coverage">Request Package</button>
-                        </div>
-                        <div class="service-item" data-service="Portrait Shoots">
-                            <h4>Portrait Shoots</h4>
-                            <p>Studio or location editorial & corporate headshots.</p>
-                            <div class="item-meta"><span>2-3 Days</span><span class="price">$250 - $600</span></div>
-                            <button class="btn-request" data-service-name="Portrait Shoots">Request Package</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-pillar-card">
-                    <div class="pillar-header">
-                        <span class="pillar-icon">💌</span>
-                        <h3>Invitation Cards</h3>
-                    </div>
-                    <div class="service-item-list">
-                        <div class="service-item" data-service="Wedding Suites">
-                            <h4>Wedding Suites</h4>
-                            <p>Luxury, cohesive print-ready & digital RSVP suites.</p>
-                            <div class="item-meta"><span>4-7 Days</span><span class="price">$200 - $800</span></div>
-                            <button class="btn-request" data-service-name="Wedding Suites">Request Package</button>
-                        </div>
-                        <div class="service-item" data-service="Birthday/Social">
-                            <h4>Birthday/Social</h4>
-                            <p>Trendy, themed digital and print social identity cards.</p>
-                            <div class="item-meta"><span>2-3 Days</span><span class="price">$75 - $250</span></div>
-                            <button class="btn-request" data-service-name="Birthday/Social">Request Package</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="portfolio-section" id="portfolio">
-            <div class="section-header">
-                <span class="section-tag">Showcase</span>
-                <h2>Curated Masterpieces</h2>
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Work</button>
-                    <button class="filter-tab" data-filter="design">Design</button>
-                    <button class="filter-tab" data-filter="photography">Photography</button>
-                    <button class="filter-tab" data-filter="invitations">Invitations</button>
-                </div>
+            <div class="welcome-back-card">
+                <h3>Welcome, <span id="displayUserName">Visitor</span></h3>
+                <button id="resetNameBtn" class="btn btn-secondary">Reset Name</button>
             </div>
 
-            <div class="portfolio-grid" id="portfolioGrid">
-                <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-display" id="carouselDisplay-design"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">🎨 Vector Design Work</span>
-                        <h4>Dynamic Identity Matrix</h4>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="photography">
-                    <div class="portfolio-display" id="carouselDisplay-photography"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">📸 Studio Photography</span>
-                        <h4>Lumina Production Portfolio</h4>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="invitations">
-                    <div class="portfolio-display" id="carouselDisplay-invitations"></div>
-                    <div class="portfolio-overlay">
-                        <span class="category">💌 Invitation Cards</span>
-                        <h4>Vows & Premium Custom Suites</h4>
-                    </div>
-                </div>
+        </div>
+    </header>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="services-grid">
+
+            <div class="service-item">
+                <h3>Logo Design</h3>
+                <button class="btn-request" data-service-name="Logo Design">Request</button>
             </div>
-        </section>
 
-        <section class="contact-section" id="contact">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <span class="section-tag">Connect</span>
-                    <h2>Let's build something beautiful.</h2>
-                    <p>Fill out the operational brief or chat with our automated studio advisor assistant to auto-populate your timeline needs.</p>
-                </div>
-
-                <div class="contact-form-wrapper">
-                    <form id="leadForm" class="lead-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="formName">Name</label>
-                                <input type="text" id="formName" required placeholder="Your full name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="formDesc">Project Brief / Structural Context</label>
-                            <textarea id="formDesc" rows="4" placeholder="Detail operational milestones or structural ideas..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Submit Production Request</button>
-                    </form>
-                </div>
+            <div class="service-item">
+                <h3>Photography</h3>
+                <button class="btn-request" data-service-name="Event Coverage">Request</button>
             </div>
-        </section>
 
-        <div class="ai-widget-wrapper" id="aiWidget">
-            <button class="ai-widget-trigger" id="aiTrigger">
-                <span class="trigger-icon">✦</span>
-                <span class="trigger-text">Consult Studio Advisor</span>
+            <div class="service-item">
+                <h3>Invitations</h3>
+                <button class="btn-request" data-service-name="Wedding Suites">Request</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="portfolio-grid">
+
+            <div class="portfolio-item" data-category="design">
+                <div class="portfolio-display" id="carouselDisplay-design"></div>
+            </div>
+
+            <div class="portfolio-item" data-category="photography">
+                <div class="portfolio-display" id="carouselDisplay-photography"></div>
+            </div>
+
+            <div class="portfolio-item" data-category="invitations">
+                <div class="portfolio-display" id="carouselDisplay-invitations"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <form id="leadForm">
+
+            <input type="text" id="formName" placeholder="Name">
+
+            <!-- FIXED -->
+            <select id="formService">
+                <option value="Logo Design">Logo Design</option>
+                <option value="Poster Design">Poster Design</option>
+                <option value="Event Coverage">Event Coverage</option>
+                <option value="Portrait Shoots">Portrait Shoots</option>
+                <option value="Wedding Suites">Wedding Suites</option>
+                <option value="Birthday/Social">Birthday/Social</option>
+            </select>
+
+            <textarea id="formDesc" placeholder="Project brief"></textarea>
+
+            <button class="btn btn-primary" type="submit">
+                Submit
             </button>
 
-            <div class="ai-chat-window hidden" id="aiChatWindow">
-                <div class="chat-header">
-                    <div class="header-identity">
-                        <div class="status-dot"></div>
-                        <div>
-                            <h4>Studio Consultant</h4>
-                            <p>Real-time Brand Strategist</p>
-                        </div>
-                    </div>
-                    <button class="chat-close" id="aiClose">×</button>
-                </div>
-                <div class="chat-messages" id="chatMessages"></div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Ask me about our studio, packages, or pricing..." autocomplete="off">
-                    <button id="chatSendBtn">✦</button>
-                </div>
+        </form>
+    </section>
+
+    <!-- AI CHAT -->
+    <div class="ai-widget-wrapper">
+
+        <button id="aiTrigger" class="ai-widget-trigger">Chat</button>
+
+        <div id="aiChatWindow" class="ai-chat-window hidden">
+
+            <div class="chat-header">
+                <span>Studio AI</span>
+                <button id="aiClose">X</button>
             </div>
+
+            <div id="chatMessages" class="chat-messages"></div>
+
+            <div class="chat-input-area">
+                <input id="chatInput" type="text" placeholder="Ask something...">
+                <button id="chatSendBtn">Send</button>
+            </div>
+
         </div>
 
-        <div class="admin-dashboard-overlay hidden" id="adminDashboard">
-            <div class="admin-window">
-                <div class="admin-header">
-                    <div>
-                        <h3>🛡️ Guru Studios Administrative Engine</h3>
-                        <p>Internal Layout Modification System — Adjust Copy, Theme Colors, Hardware Upload Assets, and Password Security Parameters</p>
-                    </div>
-                    <button class="btn btn-secondary" id="closeAdminBtn">Exit Terminal</button>
-                </div>
-
-                <div class="admin-grid-layout" style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 2rem;">
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        
-                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                            <h4 style="color: var(--accent-fuchsia); margin-bottom: 1rem;">🖼️ Advanced Image Matrix & Timing Manager</h4>
-                            
-                            <div class="form-group" style="margin-bottom: 1rem;">
-                                <label for="adminTargetService">Target Service Channel</label>
-                                <select id="adminTargetService" style="width: 100%;">
-                                    <option value="design">🎨 Design Services Category</option>
-                                    <option value="photography">📸 Photography Services Category</option>
-                                    <option value="invitations">💌 Invitation Cards Category</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group" style="margin-bottom: 1rem;">
-                                <label style="display: block; margin-bottom: 0.25rem;">📤 Upload Multiple Pictures From Device Storage</label>
-                                <input type="file" id="adminMultiFilePicker" accept="image/*" multiple style="background: transparent; border: none; padding: 0; color: var(--text-secondary);">
-                                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">You can select up to 10+ local images to construct your fully custom randomized carousel stack.</p>
-                            </div>
-
-                            <div class="form-group">
-                                <label style="display: flex; justify-content: space-between;">
-                                    <span>⏱️ Carousel Transition Intermission</span>
-                                    <span style="color: var(--accent-indigo); font-weight: 700;"><span id="adminDurationValue">3</span>s</span>
-                                </label>
-                                <input type="range" id="adminCarouselDuration" min="1" max="10" value="3" style="width: 100%; accent-color: var(--accent-indigo);">
-                                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Slide down to 1 second to make assets change rapidly and randomly every single second!</p>
-                            </div>
-                        </div>
-
-                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                            <h4 style="color: var(--accent-indigo); margin-bottom: 1rem;">🎨 Corporate Color Customizer Theme Mixer</h4>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                                <div class="form-group">
-                                    <label>Background Main Color</label>
-                                    <input type="color" id="themeColorBg" value="#0B0B0F" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
-                                </div>
-                                <div class="form-group">
-                                    <label>Surface Base Color</label>
-                                    <input type="color" id="themeColorSurface" value="#12121A" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
-                                </div>
-                                <div class="form-group">
-                                    <label>Accent Indigo Secondary</label>
-                                    <input type="color" id="themeColorIndigo" value="#6366F1" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
-                                </div>
-                                <div class="form-group">
-                                    <label>Accent Fuchsia Primary</label>
-                                    <input type="color" id="themeColorFuchsia" value="#EC4899" style="width: 100%; height: 40px; padding: 0; cursor: pointer; border: none; background: transparent;">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                            <h4 style="color: #10B981; margin-bottom: 1rem;">🔑 Terminal Security Profile Settings</h4>
-                            <div class="form-group" style="margin-bottom: 1rem;">
-                                <label>New Admin Terminal Password</label>
-                                <input type="password" id="adminNewPasswordInput" placeholder="Set a strong new access code..." style="width: 100%;">
-                            </div>
-                            <div id="passwordVerificationBlock" class="hidden" style="background: rgba(16,185,129,0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(16,185,129,0.2); margin-bottom: 1rem;">
-                                <p style="font-size: 0.8rem; color: #10B981; margin-bottom: 0.5rem;">⚠️ A secure request has been dispatched to authorization authority line <strong>+233591808780</strong>. Enter the generated clearance authorization key to complete verification:</p>
-                                <input type="text" id="adminPasswordAuthCode" placeholder="Enter clearance key..." style="width: 100%; background: var(--bg-surface);">
-                            </div>
-                            <button id="adminTriggerPasswordChangeBtn" class="btn btn-secondary btn-block" style="border-color: #10B981; color: #10B981;">Request Remote Phone Approval & Change</button>
-                        </div>
-
-                        <button id="adminSaveChangeBtn" class="btn btn-primary" style="padding: 1rem 3rem;">Commit All Engine Updates</button>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <h4 style="color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">🖥️ Live Theme Mixer Real-time Preview</h4>
-                        <div id="themeLivePreviewWindow" style="flex: 1; border: 1px solid var(--border-active); border-radius: 12px; background: #0B0B0F; overflow: hidden; position: relative; min-height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
-                             <div id="previewGlow" style="position: absolute; width: 150px; height: 150px; background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%); top: 20%; pointer-events: none;"></div>
-                             <h1 id="previewTitle" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white;">Aesthetic Sample</h1>
-                             <p id="previewSubtitle" style="font-size: 0.8rem; color: var(--text-secondary); max-width: 240px; margin-bottom: 1.5rem;">Dynamic system mock window rendering colors instantly.</p>
-                             <div style="display: flex; gap: 0.5rem; width: 100%; max-width: 240px;">
-                                 <div id="previewCard1" style="flex: 1; background: #12121A; padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; font-weight: 600; color: #EC4899;">🎨 Card Base</div>
-                                 <div id="previewCard2" style="flex: 1; background: #12121A; padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem; font-weight: 600; color: #6366F1;">📸 Card Base</div>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="global-footer">
-            <p>Powered by <span id="adminTriggerLink" style="cursor: pointer; text-decoration: underline; color: var(--text-primary); font-weight: 600;">Shadow Studios</span>. Realized via core platform framework rules.</p>
-        </footer>
     </div>
 
-    <script src="app.js"></script>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
