@@ -4,15 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru Studios | Creative Designs That Speak for You</title>
-
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- FIX: safer rendering -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
 </head>
 
 <body>
@@ -21,23 +14,19 @@
 <div id="gatekeeperOverlay" class="gatekeeper-screen">
     <div class="gatekeeper-card" id="gatekeeperIdentityStep">
         <h2 class="logo">GURU<span>STUDIOS</span></h2>
-        <p>Please enter your identity to continue.</p>
+        <p>Authenticate to enter workspace</p>
 
         <div class="input-group">
-            <input type="text" id="gatekeeperNameInput" placeholder="Enter your name..." autocomplete="off">
+            <input type="text" id="gatekeeperNameInput" placeholder="Enter your name...">
             <button id="gatekeeperNextBtn" class="btn btn-primary">Next</button>
         </div>
     </div>
 
     <div class="gatekeeper-card hidden" id="gatekeeperQuizStep">
         <h2 class="logo">GURU<span>STUDIOS</span></h2>
+        <p>Welcome, <span id="quizGreetingName"></span></p>
 
-        <p>Welcome, <span id="quizGreetingName"></span>!</p>
-
-        <p><strong>What do you think this website does?</strong></p>
-
-        <input type="text" id="gatekeeperQuizInput" placeholder="Type answer..." style="width:100%; padding:0.8rem; margin-bottom:1rem;">
-
+        <input type="text" id="gatekeeperQuizInput" placeholder="What is this website?">
         <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary btn-block">
             Enter Site
         </button>
@@ -47,126 +36,88 @@
 <!-- MAIN APP -->
 <div id="mainApplicationLayout" class="hidden">
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
-            <div class="nav-links">
-                <a href="#services">Services</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#contact">Contact</a>
-            </div>
+<nav class="navbar">
+    <div class="nav-container">
+        <a class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
         </div>
-    </nav>
-
-    <header class="hero-section">
-        <div class="hero-container">
-
-            <h1 id="adminEditableTitle">
-                Creative Designs <br>That <span class="text-gradient">Speak for You</span>
-            </h1>
-
-            <p id="adminEditableSubtitle">
-                Bespoke identity, premium photography, and luxury event media.
-            </p>
-
-            <div class="welcome-back-card">
-                <h3>Welcome, <span id="displayUserName">Visitor</span></h3>
-                <button id="resetNameBtn" class="btn btn-secondary">Reset Name</button>
-            </div>
-
-        </div>
-    </header>
-
-    <!-- SERVICES -->
-    <section id="services">
-        <div class="services-grid">
-
-            <div class="service-item">
-                <h3>Logo Design</h3>
-                <button class="btn-request" data-service-name="Logo Design">Request</button>
-            </div>
-
-            <div class="service-item">
-                <h3>Photography</h3>
-                <button class="btn-request" data-service-name="Event Coverage">Request</button>
-            </div>
-
-            <div class="service-item">
-                <h3>Invitations</h3>
-                <button class="btn-request" data-service-name="Wedding Suites">Request</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-        <div class="portfolio-grid">
-
-            <div class="portfolio-item" data-category="design">
-                <div class="portfolio-display" id="carouselDisplay-design"></div>
-            </div>
-
-            <div class="portfolio-item" data-category="photography">
-                <div class="portfolio-display" id="carouselDisplay-photography"></div>
-            </div>
-
-            <div class="portfolio-item" data-category="invitations">
-                <div class="portfolio-display" id="carouselDisplay-invitations"></div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <form id="leadForm">
-
-            <input type="text" id="formName" placeholder="Name">
-
-            <!-- FIXED -->
-            <select id="formService">
-                <option value="Logo Design">Logo Design</option>
-                <option value="Poster Design">Poster Design</option>
-                <option value="Event Coverage">Event Coverage</option>
-                <option value="Portrait Shoots">Portrait Shoots</option>
-                <option value="Wedding Suites">Wedding Suites</option>
-                <option value="Birthday/Social">Birthday/Social</option>
-            </select>
-
-            <textarea id="formDesc" placeholder="Project brief"></textarea>
-
-            <button class="btn btn-primary" type="submit">
-                Submit
-            </button>
-
-        </form>
-    </section>
-
-    <!-- AI CHAT -->
-    <div class="ai-widget-wrapper">
-
-        <button id="aiTrigger" class="ai-widget-trigger">Chat</button>
-
-        <div id="aiChatWindow" class="ai-chat-window hidden">
-
-            <div class="chat-header">
-                <span>Studio AI</span>
-                <button id="aiClose">X</button>
-            </div>
-
-            <div id="chatMessages" class="chat-messages"></div>
-
-            <div class="chat-input-area">
-                <input id="chatInput" type="text" placeholder="Ask something...">
-                <button id="chatSendBtn">Send</button>
-            </div>
-
-        </div>
-
     </div>
+</nav>
 
+<header class="hero-section">
+    <h1 id="adminEditableTitle">
+        Creative Designs <span class="text-gradient">That Speak for You</span>
+    </h1>
+
+    <p id="adminEditableSubtitle"></p>
+
+    <div class="welcome-back-card">
+        <h3>Welcome, <span id="displayUserName">Visitor</span></h3>
+        <button id="resetNameBtn" class="btn btn-secondary">Reset</button>
+    </div>
+</header>
+
+<!-- SERVICES -->
+<section id="services">
+    <h2>Services</h2>
+
+    <!-- FIX: service selector (was missing) -->
+    <select id="formService">
+        <option value="Logo Design">Logo Design</option>
+        <option value="Poster Design">Poster Design</option>
+        <option value="Event Coverage">Event Coverage</option>
+        <option value="Portrait Shoots">Portrait Shoots</option>
+        <option value="Wedding Suites">Wedding Suites</option>
+        <option value="Birthday/Social">Birthday/Social</option>
+    </select>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <form id="leadForm">
+        <input id="formName" placeholder="Name">
+        <textarea id="formDesc" placeholder="Project brief"></textarea>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</section>
+
+<!-- AI -->
+<div class="ai-widget-wrapper">
+    <button id="aiTrigger">Chat</button>
+
+    <div id="aiChatWindow" class="hidden">
+        <div id="chatMessages"></div>
+
+        <input id="chatInput" placeholder="Ask...">
+        <button id="chatSendBtn">Send</button>
+
+        <button id="aiClose">Close</button>
+    </div>
 </div>
+
+<!-- ADMIN -->
+<div id="adminDashboard" class="admin-dashboard-overlay hidden">
+    <button id="closeAdminBtn">Close</button>
+
+    <input id="themeColorBg" type="color">
+    <input id="themeColorSurface" type="color">
+    <input id="themeColorIndigo" type="color">
+    <input id="themeColorFuchsia" type="color">
+
+    <input id="adminNewPasswordInput" type="password">
+    <input id="adminPasswordAuthCode">
+
+    <button id="adminTriggerPasswordChangeBtn">Update Password</button>
+    <button id="adminSaveChangeBtn">Save</button>
+</div>
+
+<footer>
+    <span id="adminTriggerLink">Admin</span>
+</footer>
 
 <script src="app.js"></script>
 </body>
