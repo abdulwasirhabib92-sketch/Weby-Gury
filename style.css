@@ -1,73 +1,59 @@
 :root {
-    --bg-main:#0B0B0F;
-    --bg-surface:#12121A;
-    --text:#F3F4F6;
-    --muted:#9CA3AF;
-    --indigo:#6366F1;
-    --fuchsia:#EC4899;
+    --bg-main: #0B0B0F;
+    --bg-surface: #12121A;
+    --text-primary: #F3F4F6;
+    --text-secondary: #9CA3AF;
+    --accent-indigo: #6366F1;
+    --accent-fuchsia: #EC4899;
 }
 
 * {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background:var(--bg-main);
-    color:var(--text);
-    font-family:'Plus Jakarta Sans',sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.hidden { display:none !important; }
-
-.navbar {
-    padding:1rem;
-    background:rgba(0,0,0,0.4);
+/* FIXED HIDDEN STATE */
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
-.hero-section {
-    padding:4rem;
-    text-align:center;
+/* INPUT SAFETY */
+input, select, textarea {
+    background: var(--bg-surface);
+    color: white;
+    border: 1px solid #222;
+    padding: 10px;
 }
 
-.services-grid,
-.portfolio-grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:1rem;
-    padding:2rem;
-}
-
-.service-item,
-.portfolio-item {
-    background:var(--bg-surface);
-    padding:1rem;
-    border-radius:10px;
-}
-
+/* BUTTONS */
 .btn {
-    padding:0.7rem 1rem;
-    border:none;
-    cursor:pointer;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary {
-    background:linear-gradient(135deg,var(--indigo),var(--fuchsia));
-    color:white;
+    background: linear-gradient(135deg, var(--accent-indigo), var(--accent-fuchsia));
+    color: white;
 }
 
-.ai-chat-window {
-    position:fixed;
-    bottom:80px;
-    right:20px;
-    width:300px;
-    background:var(--bg-surface);
-    border-radius:10px;
-    padding:1rem;
+/* SIMPLE LAYOUT SAFETY */
+section {
+    padding: 60px;
 }
 
-.chat-bubble {
-    margin:0.5rem 0;
-    padding:0.5rem;
+/* AI WINDOW SAFETY */
+.ai-widget-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }
