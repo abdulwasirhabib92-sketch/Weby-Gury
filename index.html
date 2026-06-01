@@ -3,122 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guru Studios | Creative Designs That Speak for You</title>
+    <title>GURU STUDIOS | Elite Creative Agency Workspace</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- GATEKEEPER -->
-<div id="gatekeeperOverlay" class="gatekeeper-screen">
-    <div class="gatekeeper-card" id="gatekeeperIdentityStep">
-        <h2 class="logo">GURU<span>STUDIOS</span></h2>
-        <p>Authenticate to enter workspace</p>
+    <div id="gatekeeperOverlay" class="gatekeeper-screen hidden">
+        <div id="gatekeeperIdentityStep" class="gatekeeper-card hidden">
+            <div class="logo text-gradient">GURU</div>
+            <h2>Initialize Identity String</h2>
+            <p>Please provide your secure identity signature authorization to initialize your custom agency studio dashboard layout.</p>
+            <div class="input-group">
+                <input type="text" id="gatekeeperNameInput" placeholder="Enter Client or Admin Name..." autocomplete="off">
+                <button id="gatekeeperNextBtn" class="btn btn-primary">Initialize</button>
+            </div>
+        </div>
 
-        <div class="input-group">
-            <input type="text" id="gatekeeperNameInput" placeholder="Enter your name...">
-            <button id="gatekeeperNextBtn" class="btn btn-primary">Next</button>
+        <div id="gatekeeperQuizStep" class="gatekeeper-card hidden">
+            <div class="logo text-gradient">GURU</div>
+            <h2>Workspace Diagnostic</h2>
+            <p>Welcome, <span id="quizGreetingName" class="text-gradient"></span>. To optimize your asset pipeline, what is the primary objective of your design run today?</p>
+            <div class="input-group">
+                <input type="text" id="gatekeeperQuizInput" placeholder="e.g., Brand Strategy, Event Coverages..." autocomplete="off">
+                <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary">Commit Workspace</button>
+            </div>
         </div>
     </div>
 
-    <div class="gatekeeper-card hidden" id="gatekeeperQuizStep">
-        <h2 class="logo">GURU<span>STUDIOS</span></h2>
-        <p>Welcome, <span id="quizGreetingName"></span></p>
+    <main id="mainApplicationLayout" class="hidden">
+        
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" id="mainBrandLogo" class="logo">GURU<span>STUDIOS</span></a>
+                <div class="nav-links">
+                    <a href="#services">Services Workspace</a>
+                    <a href="#portfolio">Showcase Matrix</a>
+                    <a href="#contact">Secure Pipeline</a>
+                    <a href="#" id="adminTriggerLink" style="border: 1px solid var(--border-active); padding: 0.5rem 1rem; border-radius: 6px;">Terminal Console</a>
+                </div>
+            </div>
+        </nav>
 
-        <input type="text" id="gatekeeperQuizInput" placeholder="What is this website?">
-        <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary btn-block">
-            Enter Site
-        </button>
-    </div>
-</div>
+        <section class="hero-section">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-container">
+                <h1 id="adminEditableTitle" class="hero-title">Creative Designs <br>That <span class="text-gradient">Speak for You</span></h1>
+                <p id="adminEditableSubtitle" class="hero-subtitle">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</p>
+                
+                <div class="welcome-back-card">
+                    <h3 class="welcome-text">Active Profile: <span id="displayUserName" class="text-gradient">Guest Workspace</span></h3>
+                    <button id="resetNameBtn" class="btn btn-secondary btn-block">Flush Cached Identity Key</button>
+                </div>
+            </div>
+        </section>
 
-<!-- MAIN APP -->
-<div id="mainApplicationLayout" class="hidden">
+        <section id="services">
+            <div class="section-header">
+                <span class="section-tag">Production Verticals</span>
+                <h2>Matrix Services Display</h2>
+                <p>Dynamic asset generation classes backed by real-time engine processing speeds.</p>
+            </div>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <a class="logo" id="mainBrandLogo">GURU<span>STUDIOS</span></a>
-        <div class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
+            <div class="services-grid">
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">📐</span>
+                        <h3>Brand & Vector Design</h3>
+                    </div>
+                    <div id="carouselDisplay-design" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
+                    <div class="service-item-list">
+                        <div class="service-item">
+                            <h4>Bespoke Vector Identity</h4>
+                            <p>Complete multi-format vector scaling blueprints for cross-platform corporate consistency.</p>
+                            <div class="item-meta"><span class="eta">3-5 Days</span><span class="price">$500 Baseline</span></div>
+                            <button class="btn-request" data-service-name="brand-design">Initialize Transfer &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">📷</span>
+                        <h3>Editorial Photography</h3>
+                    </div>
+                    <div id="carouselDisplay-photography" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
+                    <div class="service-item-list">
+                        <div class="service-item">
+                            <h4>Commercial Asset Capture</h4>
+                            <p>High-fidelity photography production cycles including custom studio lighting and post-processing.</p>
+                            <div class="item-meta"><span class="eta">3-5 Days</span><span class="price">$250 Baseline</span></div>
+                            <button class="btn-request" data-service-name="photography">Initialize Transfer &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">✉️</span>
+                        <h3>Stationery & Print</h3>
+                    </div>
+                    <div id="carouselDisplay-invitations" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
+                    <div class="service-item-list">
+                        <div class="service-item">
+                            <h4>Luxury Invitation Suites</h4>
+                            <p>High-grade corporate invitations and custom matrimonial print suites mapped to design profiles.</p>
+                            <div class="item-meta"><span class="eta">5-7 Days</span><span class="price">$400 Baseline</span></div>
+                            <button class="btn-request" data-service-name="stationery">Initialize Transfer &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="section-header">
+                <span class="section-tag">Historical Ledger</span>
+                <h2>Portfolio Portfolio Index</h2>
+                <p>Filter active runtime files dynamically across local memory vectors.</p>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All Profiles</button>
+                    <button class="filter-tab" data-filter="brand-design">Design Core</button>
+                    <button class="filter-tab" data-filter="photography">Optics</button>
+                    <button class="filter-tab" data-filter="stationery">Stationery</button>
+                </div>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="brand-design">
+                    <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Design Core</span>
+                        <h4>Vector Monolith</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="photography">
+                    <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Optics</span>
+                        <h4>Luminescent Shift</h4>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="stationery">
+                    <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-overlay">
+                        <span class="category">Stationery</span>
+                        <h4>Premium Press Suite</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <span class="section-tag">Secure Ingestion</span>
+                    <h2>Initialize Project Data Pipeline</h2>
+                    <p>Transmit processing requirements directly into active system queues. Response times track within standard processing bounds.</p>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form id="ingestionForm" onsubmit="event.preventDefault(); alert('Transmission Authenticated.');">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Identity Anchor</label>
+                                <input type="text" placeholder="Your full title..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Target Class Channel</label>
+                                <select id="formService">
+                                    <option value="brand-design">Brand & Vector Design</option>
+                                    <option value="photography">Editorial Photography</option>
+                                    <option value="stationery">Stationery & Print</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Data Payload Requirements</label>
+                            <textarea rows="4" placeholder="Detail your project specifications..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Dispatch Transmission Payload</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div id="adminDashboard" class="admin-dashboard-overlay hidden">
+            <div class="admin-window">
+                <div class="admin-header">
+                    <div>
+                        <h2>Administrative Terminal Settings</h2>
+                        <p>Modify structural system overrides and runtime environmental design structures live.</p>
+                    </div>
+                    <button id="closeAdminBtn" class="btn btn-secondary">Terminate Console Connection</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem;" class="admin-grid-layout">
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <h3>Environmental Customization Controls</h3>
+                        
+                        <div class="form-group">
+                            <label>System Variable Base Theme Color BG</label>
+                            <input type="color" id="themeColorBg">
+                        </div>
+                        <div class="form-group">
+                            <label>System Variable Surface Containment Color</label>
+                            <input type="color" id="themeColorSurface">
+                        </div>
+                        <div class="form-group">
+                            <label>System Accent Vector Color Indigo</label>
+                            <input type="color" id="themeColorIndigo">
+                        </div>
+                        <div class="form-group">
+                            <label>System Accent Vector Color Fuchsia</label>
+                            <input type="color" id="themeColorFuchsia">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dynamic Carousel Rotation Interval Duration: <span id="adminDurationValue" class="text-gradient">3</span>s</label>
+                            <input type="range" id="adminCarouselDuration" min="1" max="10" step="1" style="width:100%;">
+                        </div>
+
+                        <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+                            <h3>Dynamic Asset Pool Ingestion Stack</h3>
+                            <div class="form-row" style="margin-top: 1rem;">
+                                <div class="form-group">
+                                    <label>Target Ingestion Class Pipeline</label>
+                                    <select id="adminTargetService">
+                                        <option value="design">Design Module Pool</option>
+                                        <option value="photography">Photography Module Pool</option>
+                                        <option value="invitations">Invitations Module Pool</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Matrix Assets</label>
+                                    <input type="file" id="adminMultiFilePicker" multiple accept="image/*" style="padding: 0.5rem 0;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                            <h3>Credential Cryptography Management</h3>
+                            <div class="form-group">
+                                <label>Target Replacement Credentials String</label>
+                                <input type="password" id="adminNewPasswordInput" placeholder="Passphrase String Definition..." autocomplete="new-password">
+                            </div>
+                            
+                            <div id="passwordVerificationBlock" class="form-group hidden">
+                                <label style="color: var(--accent-fuchsia);">Validation Entry Key Required</label>
+                                <input type="text" id="adminPasswordAuthCode" placeholder="Enter Dynamic Security Key String Token..." autocomplete="off">
+                            </div>
+
+                            <button id="adminTriggerPasswordChangeBtn" class="btn btn-secondary btn-block">Request Remote Authorization & Mutate Code</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 1.5rem;">Terminal Render Preview</h3>
+                        <div id="themeLivePreviewWindow" style="border: 1px solid var(--border-active); border-radius: 12px; height: 350px; position: relative; padding: 2rem; overflow: hidden; background-color: #0B0B0F;">
+                            <div id="previewGlow" style="position: absolute; width: 150px; height: 150px; border-radius: 50%; top: 20%; left: 20%; pointer-events: none;"></div>
+                            <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="font-weight:700; font-size:1.25rem;">Preview Architecture</div>
+                                <div id="previewCard1" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Control Vector Object Delta Alpha</div>
+                                <div id="previewCard2" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Control Vector Object Delta Beta</div>
+                            </div>
+                        </div>
+                        <button id="adminSaveChangeBtn" class="btn btn-primary btn-block" style="margin-top: 2rem; padding: 1.25rem;">Commit Engine Updates To Main Environment</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
 
-<header class="hero-section">
-    <h1 id="adminEditableTitle">
-        Creative Designs <span class="text-gradient">That Speak for You</span>
-    </h1>
+        <div class="ai-widget-wrapper">
+            <div id="aiChatWindow" class="ai-chat-window hidden">
+                <div class="chat-header">
+                    <div class="header-identity">
+                        <div class="status-dot"></div>
+                        <div>
+                            <h4>Studio Consultation Core</h4>
+                            <p>Automated Business Intelligence System</p>
+                        </div>
+                    </div>
+                    <button id="aiClose" class="chat-close">&times;</button>
+                </div>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Query processing pipelines, rates, timelines..." autocomplete="off">
+                    <button id="chatSendBtn">&#10148;</button>
+                </div>
+            </div>
+            <button id="aiTrigger" class="ai-widget-trigger">
+                <span>💬</span> Studio Advisor Core
+            </button>
+        </div>
 
-    <p id="adminEditableSubtitle"></p>
+        <footer class="global-footer">
+            <p>&copy; 2026 GURU STUDIOS. Systems Audited. Data Operations Encrypted Securely.</p>
+        </footer>
 
-    <div class="welcome-back-card">
-        <h3>Welcome, <span id="displayUserName">Visitor</span></h3>
-        <button id="resetNameBtn" class="btn btn-secondary">Reset</button>
-    </div>
-</header>
+    </main>
 
-<!-- SERVICES -->
-<section id="services">
-    <h2>Services</h2>
-
-    <!-- FIX: service selector (was missing) -->
-    <select id="formService">
-        <option value="Logo Design">Logo Design</option>
-        <option value="Poster Design">Poster Design</option>
-        <option value="Event Coverage">Event Coverage</option>
-        <option value="Portrait Shoots">Portrait Shoots</option>
-        <option value="Wedding Suites">Wedding Suites</option>
-        <option value="Birthday/Social">Birthday/Social</option>
-    </select>
-
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-    <form id="leadForm">
-        <input id="formName" placeholder="Name">
-        <textarea id="formDesc" placeholder="Project brief"></textarea>
-        <button class="btn btn-primary">Submit</button>
-    </form>
-</section>
-
-<!-- AI -->
-<div class="ai-widget-wrapper">
-    <button id="aiTrigger">Chat</button>
-
-    <div id="aiChatWindow" class="hidden">
-        <div id="chatMessages"></div>
-
-        <input id="chatInput" placeholder="Ask...">
-        <button id="chatSendBtn">Send</button>
-
-        <button id="aiClose">Close</button>
-    </div>
-</div>
-
-<!-- ADMIN -->
-<div id="adminDashboard" class="admin-dashboard-overlay hidden">
-    <button id="closeAdminBtn">Close</button>
-
-    <input id="themeColorBg" type="color">
-    <input id="themeColorSurface" type="color">
-    <input id="themeColorIndigo" type="color">
-    <input id="themeColorFuchsia" type="color">
-
-    <input id="adminNewPasswordInput" type="password">
-    <input id="adminPasswordAuthCode">
-
-    <button id="adminTriggerPasswordChangeBtn">Update Password</button>
-    <button id="adminSaveChangeBtn">Save</button>
-</div>
-
-<footer>
-    <span id="adminTriggerLink">Admin</span>
-</footer>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
