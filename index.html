@@ -3,128 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GURU STUDIOS | Elite Creative Agency Workspace</title>
+    <title>GURU STUDIOS | Creative Design & Photography Agency</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Onboarding Welcome Screen Overlay -->
     <div id="gatekeeperOverlay" class="gatekeeper-screen hidden">
+        <!-- Step 1: Name Input -->
         <div id="gatekeeperIdentityStep" class="gatekeeper-card hidden">
             <div class="logo text-gradient">GURU</div>
-            <h2>Initialize Identity String</h2>
-            <p>Please provide your secure identity signature authorization to initialize your custom agency studio dashboard layout.</p>
+            <h2>Welcome to Guru Studios</h2>
+            <p>Please enter your name below so we can personalize your experience today.</p>
             <div class="input-group">
-                <input type="text" id="gatekeeperNameInput" placeholder="Enter Client or Admin Name..." autocomplete="off">
-                <button id="gatekeeperNextBtn" class="btn btn-primary">Initialize</button>
+                <input type="text" id="gatekeeperNameInput" placeholder="Your name..." autocomplete="off">
+                <button id="gatekeeperNextBtn" class="btn btn-primary">Continue</button>
             </div>
         </div>
 
+        <!-- Step 2: Quick Question -->
         <div id="gatekeeperQuizStep" class="gatekeeper-card hidden">
             <div class="logo text-gradient">GURU</div>
-            <h2>Workspace Diagnostic</h2>
-            <p>Welcome, <span id="quizGreetingName" class="text-gradient"></span>. To optimize your asset pipeline, what is the primary objective of your design run today?</p>
+            <h2>Tell Us About Your Project</h2>
+            <p>Welcome, <span id="quizGreetingName" class="text-gradient"></span>! What are you looking to create or capture today?</p>
             <div class="input-group">
-                <input type="text" id="gatekeeperQuizInput" placeholder="e.g., Brand Strategy, Event Coverages..." autocomplete="off">
-                <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary">Commit Workspace</button>
+                <input type="text" id="gatekeeperQuizInput" placeholder="e.g., Wedding invitations, brand logo, photoshoot..." autocomplete="off">
+                <button id="gatekeeperSubmitQuizBtn" class="btn btn-primary">Enter Website</button>
             </div>
         </div>
     </div>
 
+    <!-- Main Website Layout -->
     <main id="mainApplicationLayout" class="hidden">
         
+        <!-- Navigation Bar -->
         <nav class="navbar">
             <div class="nav-container">
                 <a href="#" id="mainBrandLogo" class="logo">GURU<span>STUDIOS</span></a>
                 <div class="nav-links">
-                    <a href="#services">Services Workspace</a>
-                    <a href="#portfolio">Showcase Matrix</a>
-                    <a href="#contact">Secure Pipeline</a>
-                    <a href="#" id="adminTriggerLink" style="border: 1px solid var(--border-active); padding: 0.5rem 1rem; border-radius: 6px;">Terminal Console</a>
+                    <a href="#services">Our Services</a>
+                    <a href="#portfolio">Our Portfolio</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#" id="adminTriggerLink" style="border: 1px solid var(--border-active); padding: 0.5rem 1rem; border-radius: 6px;">Admin Settings</a>
                 </div>
             </div>
         </nav>
 
+        <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-bg-glow"></div>
             <div class="hero-container">
                 <h1 id="adminEditableTitle" class="hero-title">Creative Designs <br>That <span class="text-gradient">Speak for You</span></h1>
-                <p id="adminEditableSubtitle" class="hero-subtitle">Bespoke identity, premium photography, and luxury event media engineered for modern brands.</p>
+                <p id="adminEditableSubtitle" class="hero-subtitle">Beautiful branding, professional photography, and custom invitation suites designed to make your special moments unforgettable.</p>
                 
                 <div class="welcome-back-card">
-                    <h3 class="welcome-text">Active Profile: <span id="displayUserName" class="text-gradient">Guest Workspace</span></h3>
-                    <button id="resetNameBtn" class="btn btn-secondary btn-block">Flush Cached Identity Key</button>
+                    <h3 class="welcome-text">Hello, <span id="displayUserName" class="text-gradient">Guest</span></h3>
+                    <button id="resetNameBtn" class="btn btn-secondary btn-block">Change Name</button>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services">
             <div class="section-header">
-                <span class="section-tag">Production Verticals</span>
-                <h2>Matrix Services Display</h2>
-                <p>Dynamic asset generation classes backed by real-time engine processing speeds.</p>
+                <span class="section-tag">What We Do</span>
+                <h2>Our Premium Services</h2>
+                <p>Explore our main creative categories below. Click any service to start your request.</p>
             </div>
 
             <div class="services-grid">
+                <!-- Service 1: Graphic Design -->
                 <div class="service-pillar-card">
                     <div class="pillar-header">
                         <span class="pillar-icon">📐</span>
-                        <h3>Brand & Vector Design</h3>
+                        <h3>Graphic & Logo Design</h3>
                     </div>
                     <div id="carouselDisplay-design" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
                     <div class="service-item-list">
                         <div class="service-item">
-                            <h4>Bespoke Vector Identity</h4>
-                            <p>Complete multi-format vector scaling blueprints for cross-platform corporate consistency.</p>
-                            <div class="item-meta"><span class="eta">3-5 Days</span><span class="price">$500 Baseline</span></div>
-                            <button class="btn-request" data-service-name="brand-design">Initialize Transfer &rarr;</button>
+                            <h4>Custom Brand Identity</h4>
+                            <p>Professional custom logos and brand guidelines created to make your business stand out from the crowd.</p>
+                            <div class="item-meta"><span class="eta">3-5 Days Turnaround</span><span class="price">From $500</span></div>
+                            <button class="btn-request" data-service-name="brand-design">Book This Service &rarr;</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Service 2: Photography -->
                 <div class="service-pillar-card">
                     <div class="pillar-header">
                         <span class="pillar-icon">📷</span>
-                        <h3>Editorial Photography</h3>
+                        <h3>Professional Photography</h3>
                     </div>
                     <div id="carouselDisplay-photography" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
                     <div class="service-item-list">
                         <div class="service-item">
-                            <h4>Commercial Asset Capture</h4>
-                            <p>High-fidelity photography production cycles including custom studio lighting and post-processing.</p>
-                            <div class="item-meta"><span class="eta">3-5 Days</span><span class="price">$250 Baseline</span></div>
-                            <button class="btn-request" data-service-name="photography">Initialize Transfer &rarr;</button>
+                            <h4>Commercial & Portrait Sessions</h4>
+                            <p>High-quality photography shoots with creative studio lighting and pro color-correction editing included.</p>
+                            <div class="item-meta"><span class="eta">3-5 Days Turnaround</span><span class="price">From $250</span></div>
+                            <button class="btn-request" data-service-name="photography">Book This Service &rarr;</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Service 3: Invitations -->
                 <div class="service-pillar-card">
                     <div class="pillar-header">
                         <span class="pillar-icon">✉️</span>
-                        <h3>Stationery & Print</h3>
+                        <h3>Custom Invitations</h3>
                     </div>
                     <div id="carouselDisplay-invitations" class="portfolio-item" style="margin-bottom: 1.5rem; aspect-ratio: 16/9; background-size: cover; background-position: center; transition: var(--transition-smooth); opacity: 0.65;"></div>
                     <div class="service-item-list">
                         <div class="service-item">
-                            <h4>Luxury Invitation Suites</h4>
-                            <p>High-grade corporate invitations and custom matrimonial print suites mapped to design profiles.</p>
-                            <div class="item-meta"><span class="eta">5-7 Days</span><span class="price">$400 Baseline</span></div>
-                            <button class="btn-request" data-service-name="stationery">Initialize Transfer &rarr;</button>
+                            <h4>Luxury Print & Wedding Suites</h4>
+                            <p>Elegant layouts and fine print files tailored perfectly to match your wedding theme or corporate event.</p>
+                            <div class="item-meta"><span class="eta">5-7 Days Turnaround</span><span class="price">From $400</span></div>
+                            <button class="btn-request" data-service-name="stationery">Book This Service &rarr;</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Portfolio Showcase Matrix -->
         <section id="portfolio">
             <div class="section-header">
-                <span class="section-tag">Historical Ledger</span>
-                <h2>Portfolio Portfolio Index</h2>
-                <p>Filter active runtime files dynamically across local memory vectors.</p>
+                <span class="section-tag">Our Gallery</span>
+                <h2>Browse Our Work</h2>
+                <p>Filter through our projects below to see examples of what we can create for you.</p>
                 <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Profiles</button>
-                    <button class="filter-tab" data-filter="brand-design">Design Core</button>
-                    <button class="filter-tab" data-filter="photography">Optics</button>
-                    <button class="filter-tab" data-filter="stationery">Stationery</button>
+                    <button class="filter-tab active" data-filter="all">All Projects</button>
+                    <button class="filter-tab" data-filter="brand-design">Logo Design</button>
+                    <button class="filter-tab" data-filter="photography">Photography</button>
+                    <button class="filter-tab" data-filter="stationery">Invitations</button>
                 </div>
             </div>
 
@@ -132,171 +143,178 @@
                 <div class="portfolio-item" data-category="brand-design">
                     <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80');"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Design Core</span>
-                        <h4>Vector Monolith</h4>
+                        <span class="category">Logo Design</span>
+                        <h4>Modern Geometric Identity</h4>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="photography">
                     <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80');"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Optics</span>
-                        <h4>Luminescent Shift</h4>
+                        <span class="category">Photography</span>
+                        <h4>Studio Lighting Portrait</h4>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="stationery">
                     <div class="portfolio-display" style="background-image: url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80');"></div>
                     <div class="portfolio-overlay">
-                        <span class="category">Stationery</span>
-                        <h4>Premium Press Suite</h4>
+                        <span class="category">Invitations</span>
+                        <h4>Premium Event Invitation Suite</h4>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Contact Form Section -->
         <section id="contact">
             <div class="contact-container">
                 <div class="contact-info">
-                    <span class="section-tag">Secure Ingestion</span>
-                    <h2>Initialize Project Data Pipeline</h2>
-                    <p>Transmit processing requirements directly into active system queues. Response times track within standard processing bounds.</p>
+                    <span class="section-tag">Let's Work Together</span>
+                    <h2>Start Your Project Today</h2>
+                    <p>Send us your ideas and service requirements. Our creative team will get back to you as soon as possible with your next steps.</p>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form id="ingestionForm" onsubmit="event.preventDefault(); alert('Transmission Authenticated.');">
+                    <form id="ingestionForm" onsubmit="event.preventDefault(); alert('Thank you! Your inquiry has been sent successfully.');">
                         <div class="form-row">
                             <div class="form-group">
-                                <label>Identity Anchor</label>
-                                <input type="text" placeholder="Your full title..." required>
+                                <label>Your Full Name</label>
+                                <input type="text" placeholder="John Doe" required>
                             </div>
                             <div class="form-group">
-                                <label>Target Class Channel</label>
+                                <label>Select a Service</label>
                                 <select id="formService">
-                                    <option value="brand-design">Brand & Vector Design</option>
-                                    <option value="photography">Editorial Photography</option>
-                                    <option value="stationery">Stationery & Print</option>
+                                    <option value="brand-design">Graphic & Logo Design</option>
+                                    <option value="photography">Professional Photography</option>
+                                    <option value="stationery">Custom Invitations</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Data Payload Requirements</label>
-                            <textarea rows="4" placeholder="Detail your project specifications..." required></textarea>
+                            <label>Project Details & Questions</label>
+                            <textarea rows="4" placeholder="Tell us about your theme, timeline, ideas..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Dispatch Transmission Payload</button>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
 
+        <!-- Admin Control Panel (Hidden from Users) -->
         <div id="adminDashboard" class="admin-dashboard-overlay hidden">
             <div class="admin-window">
                 <div class="admin-header">
                     <div>
-                        <h2>Administrative Terminal Settings</h2>
-                        <p>Modify structural system overrides and runtime environmental design structures live.</p>
+                        <h2>Admin Customizer Settings</h2>
+                        <p>Change your website colors, image rotation speeds, and security codes instantly.</p>
                     </div>
-                    <button id="closeAdminBtn" class="btn btn-secondary">Terminate Console Connection</button>
+                    <button id="closeAdminBtn" class="btn btn-secondary">Close Settings Panel</button>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem;" class="admin-grid-layout">
+                    <!-- Configurations -->
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
-                        <h3>Environmental Customization Controls</h3>
+                        <h3>Website Theme Controls</h3>
                         
                         <div class="form-group">
-                            <label>System Variable Base Theme Color BG</label>
+                            <label>Main Background Color</label>
                             <input type="color" id="themeColorBg">
                         </div>
                         <div class="form-group">
-                            <label>System Variable Surface Containment Color</label>
+                            <label>Card Background Color</label>
                             <input type="color" id="themeColorSurface">
                         </div>
                         <div class="form-group">
-                            <label>System Accent Vector Color Indigo</label>
+                            <label>Primary Theme Accent Color (Indigo)</label>
                             <input type="color" id="themeColorIndigo">
                         </div>
                         <div class="form-group">
-                            <label>System Accent Vector Color Fuchsia</label>
+                            <label>Secondary Theme Accent Color (Pink)</label>
                             <input type="color" id="themeColorFuchsia">
                         </div>
 
                         <div class="form-group">
-                            <label>Dynamic Carousel Rotation Interval Duration: <span id="adminDurationValue" class="text-gradient">3</span>s</label>
+                            <label>Image Slider Speed Duration: <span id="adminDurationValue" class="text-gradient">3</span> seconds</label>
                             <input type="range" id="adminCarouselDuration" min="1" max="10" step="1" style="width:100%;">
                         </div>
 
                         <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
-                            <h3>Dynamic Asset Pool Ingestion Stack</h3>
+                            <h3>Upload New Service Images</h3>
                             <div class="form-row" style="margin-top: 1rem;">
                                 <div class="form-group">
-                                    <label>Target Ingestion Class Pipeline</label>
+                                    <label>Select Target Service</label>
                                     <select id="adminTargetService">
-                                        <option value="design">Design Module Pool</option>
-                                        <option value="photography">Photography Module Pool</option>
-                                        <option value="invitations">Invitations Module Pool</option>
+                                        <option value="design">Design Portfolio Images</option>
+                                        <option value="photography">Photography Portfolio Images</option>
+                                        <option value="invitations">Invitations Portfolio Images</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Select Matrix Assets</label>
+                                    <label>Choose Images From Device</label>
                                     <input type="file" id="adminMultiFilePicker" multiple accept="image/*" style="padding: 0.5rem 0;">
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Password Change -->
                         <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
-                            <h3>Credential Cryptography Management</h3>
+                            <h3>Change Admin Password</h3>
                             <div class="form-group">
-                                <label>Target Replacement Credentials String</label>
-                                <input type="password" id="adminNewPasswordInput" placeholder="Passphrase String Definition..." autocomplete="new-password">
+                                <label>New Admin Password</label>
+                                <input type="password" id="adminNewPasswordInput" placeholder="Enter new password code..." autocomplete="new-password">
                             </div>
                             
                             <div id="passwordVerificationBlock" class="form-group hidden">
-                                <label style="color: var(--accent-fuchsia);">Validation Entry Key Required</label>
-                                <input type="text" id="adminPasswordAuthCode" placeholder="Enter Dynamic Security Key String Token..." autocomplete="off">
+                                <label style="color: var(--accent-fuchsia);">Enter Security Verification Code</label>
+                                <input type="text" id="adminPasswordAuthCode" placeholder="Enter verification token code..." autocomplete="off">
                             </div>
 
-                            <button id="adminTriggerPasswordChangeBtn" class="btn btn-secondary btn-block">Request Remote Authorization & Mutate Code</button>
+                            <button id="adminTriggerPasswordChangeBtn" class="btn btn-secondary btn-block">Verify Security & Update Password</button>
                         </div>
                     </div>
 
+                    <!-- Live Preview Window -->
                     <div>
-                        <h3 style="margin-bottom: 1.5rem;">Terminal Render Preview</h3>
+                        <h3 style="margin-bottom: 1.5rem;">Live Color Preview</h3>
                         <div id="themeLivePreviewWindow" style="border: 1px solid var(--border-active); border-radius: 12px; height: 350px; position: relative; padding: 2rem; overflow: hidden; background-color: #0B0B0F;">
                             <div id="previewGlow" style="position: absolute; width: 150px; height: 150px; border-radius: 50%; top: 20%; left: 20%; pointer-events: none;"></div>
                             <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1rem;">
-                                <div style="font-weight:700; font-size:1.25rem;">Preview Architecture</div>
-                                <div id="previewCard1" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Control Vector Object Delta Alpha</div>
-                                <div id="previewCard2" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Control Vector Object Delta Beta</div>
+                                <div style="font-weight:700; font-size:1.25rem;">Visual Site Preview</div>
+                                <div id="previewCard1" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Sample Card Layout A</div>
+                                <div id="previewCard2" style="padding: 1rem; border-radius: 8px; font-weight: 600;">Sample Card Layout B</div>
                             </div>
                         </div>
-                        <button id="adminSaveChangeBtn" class="btn btn-primary btn-block" style="margin-top: 2rem; padding: 1.25rem;">Commit Engine Updates To Main Environment</button>
+                        <button id="adminSaveChangeBtn" class="btn btn-primary btn-block" style="margin-top: 2rem; padding: 1.25rem;">Save & Apply Settings Live</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Floating Chat Consultant Widget -->
         <div class="ai-widget-wrapper">
             <div id="aiChatWindow" class="ai-chat-window hidden">
                 <div class="chat-header">
                     <div class="header-identity">
                         <div class="status-dot"></div>
                         <div>
-                            <h4>Studio Consultation Core</h4>
-                            <p>Automated Business Intelligence System</p>
+                            <h4>Studio Assistant Core</h4>
+                            <p>Online & Ready to Help</p>
                         </div>
                     </div>
                     <button id="aiClose" class="chat-close">&times;</button>
                 </div>
                 <div id="chatMessages" class="chat-messages"></div>
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Query processing pipelines, rates, timelines..." autocomplete="off">
+                    <input type="text" id="chatInput" placeholder="Ask about our pricing, timelines, packages..." autocomplete="off">
                     <button id="chatSendBtn">&#10148;</button>
                 </div>
             </div>
             <button id="aiTrigger" class="ai-widget-trigger">
-                <span>💬</span> Studio Advisor Core
+                <span>💬</span> Talk to Studio Advisor
             </button>
         </div>
 
+        <!-- Footer -->
         <footer class="global-footer">
-            <p>&copy; 2026 GURU STUDIOS. Systems Audited. Data Operations Encrypted Securely.</p>
+            <p>&copy; 2026 GURU STUDIOS. All client information and connection channels are securely protected.</p>
         </footer>
 
     </main>
