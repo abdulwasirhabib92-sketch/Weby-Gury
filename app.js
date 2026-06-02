@@ -1,14 +1,14 @@
-// State Matrix Initialization Engine
+// Active Website Configuration Settings
 const GuruAgencyState = {
     clientName: localStorage.getItem('guru_client_name') || '',
     adminPasscode: localStorage.getItem('guru_admin_password') || 'admin',
     
-    // Front Page Content Copy
+    // Website Copy Text
     customTitle: localStorage.getItem('admin_title') || 'Creative Designs <br>That <span class="text-gradient">Speak for You</span>',
-    customSubtitle: localStorage.getItem('admin_subtitle') || 'Bespoke identity, premium photography, and luxury event media engineered for modern brands.',
+    customSubtitle: localStorage.getItem('admin_subtitle') || 'Beautiful branding, professional photography, and luxury event media engineered for modern brands.',
     customLogoText: localStorage.getItem('admin_logo_text') || 'GURU',
  
-    // Global Theme Colors Customizer State
+    // Website Custom Color Configuration
     colors: {
         bg: localStorage.getItem('theme_color_bg') || '#0B0B0F',
         surface: localStorage.getItem('theme_color_surface') || '#12121A',
@@ -16,11 +16,11 @@ const GuruAgencyState = {
         fuchsia: localStorage.getItem('theme_color_fuchsia') || '#EC4899',
     },
     
-    // Dynamic Speed Transitions Variable Config
+    // Portfolio Slide Rotation Speed Settings
     carouselIntervalTime: parseInt(localStorage.getItem('carousel_speed')) || 3, // In Seconds
 };
  
-// MULTI-SERVICE AUTOMATED IMAGE MATRICES (Accurate Default Mappings)
+// Image Library Database Mappings
 let ProductionImagePools = {
     design: JSON.parse(localStorage.getItem('pool_design')) || [
         "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
@@ -39,7 +39,6 @@ let ProductionImagePools = {
     ]
 };
  
-// Global Carousel Engine Intermission Reference
 let activeCarouselTimerId = null;
  
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeColorPreviewEngine();
 });
  
-// Repaints the live document using verified theme variables
+// Applies user interface color choices
 function applyStoredThemeColors() {
     document.documentElement.style.setProperty('--bg-main', GuruAgencyState.colors.bg);
     document.documentElement.style.setProperty('--bg-surface', GuruAgencyState.colors.surface);
@@ -61,19 +60,18 @@ function applyStoredThemeColors() {
     document.documentElement.style.setProperty('--accent-fuchsia', GuruAgencyState.colors.fuchsia);
 }
  
+// Cleans and prints texts safely
 function applyAdminContentOverrides() {
     const titleEl = document.getElementById('adminEditableTitle');
     const subtitleEl = document.getElementById('adminEditableSubtitle');
     const logoEl = document.getElementById('mainBrandLogo');
  
-    // XSS Sanitization Strategy implementation using internal DOM parsing mechanisms
     if (titleEl) {
         const parser = new DOMParser();
         const cleanDoc = parser.parseFromString(GuruAgencyState.customTitle, 'text/html');
         cleanDoc.querySelectorAll('script, img[onerror], iframe').forEach(el => el.remove());
         titleEl.innerHTML = cleanDoc.body.innerHTML;
     }
-    // Hardened element mutations leveraging safe content context mappings
     if (subtitleEl) subtitleEl.textContent = GuruAgencyState.customSubtitle;
     if (logoEl) {
         logoEl.textContent = GuruAgencyState.customLogoText;
@@ -83,6 +81,7 @@ function applyAdminContentOverrides() {
     }
 }
  
+// Checks if visitor has entered their name
 function initializeOnboardingState() {
     const gatekeeper = document.getElementById('gatekeeperOverlay');
     const mainApp = document.getElementById('mainApplicationLayout');
@@ -104,6 +103,7 @@ function initializeOnboardingState() {
     }
 }
  
+// Sets up all button click listeners
 function registerCoreEvents() {
     const gatekeeperNextBtn = document.getElementById('gatekeeperNextBtn');
     const gatekeeperNameInput = document.getElementById('gatekeeperNameInput');
@@ -117,7 +117,6 @@ function registerCoreEvents() {
     const durationSlider = document.getElementById('adminCarouselDuration');
     const durationLabel = document.getElementById('adminDurationValue');
     const multiFilePicker = document.getElementById('adminMultiFilePicker');
- 
     const triggerPasswordBtn = document.getElementById('adminTriggerPasswordChangeBtn');
  
     if(gatekeeperNextBtn) gatekeeperNextBtn.addEventListener('click', proceedToOnboardingQuiz);
@@ -132,7 +131,6 @@ function registerCoreEvents() {
  
     if(resetNameBtn) resetNameBtn.addEventListener('click', clearUserIdentity);
  
-    // Live slider event handling
     if(durationSlider && durationLabel) {
         durationSlider.value = GuruAgencyState.carouselIntervalTime;
         durationLabel.textContent = GuruAgencyState.carouselIntervalTime;
@@ -141,7 +139,7 @@ function registerCoreEvents() {
         });
     }
  
-    // MULTI-SERVICE FILES BATCH INGESTION (Converts local files to data URIs)
+    // Image uploader interface helper
     if(multiFilePicker) {
         multiFilePicker.addEventListener('change', (e) => {
             const targetChannel = document.getElementById('adminTargetService').value;
@@ -159,7 +157,7 @@ function registerCoreEvents() {
                     if(counter === files.length) {
                         ProductionImagePools[targetChannel] = loadedDataUris;
                         localStorage.setItem(`pool_${targetChannel}`, JSON.stringify(loadedDataUris));
-                        alert(`Successfully loaded ${loadedDataUris.length} local pictures to the "${targetChannel}" pool! Changes will take effect upon committing.`);
+                        alert(`Successfully loaded ${loadedDataUris.length} images into your "${targetChannel}" category! Click the apply button to make them active.`);
                     }
                 };
                 reader.readAsDataURL(file);
@@ -167,40 +165,38 @@ function registerCoreEvents() {
         });
     }
  
-    // REMOTE SECURITY ARCHITECTURE - Cryptographic token handling with no backdoor parameters
+    // Password validation engine handling
     let generatedApprovalToken = null;
     if(triggerPasswordBtn) {
         triggerPasswordBtn.addEventListener('click', () => {
             const newPass = document.getElementById('adminNewPasswordInput').value.trim();
             if(!newPass) {
-                alert("Please provide a new administrative password code string first.");
+                alert("Please type a new admin password first.");
                 return;
             }
  
             const verificationBlock = document.getElementById('passwordVerificationBlock');
             if(verificationBlock.classList.contains('hidden')) {
-                // Cryptographically secure pseudorandom token optimization
                 const cryptoArray = new Uint32Array(1);
                 window.crypto.getRandomValues(cryptoArray);
                 generatedApprovalToken = (100000 + (cryptoArray[0] % 900000)).toString();
                 
-                alert(`Approval code requested from supervisor line. Please query authorization terminal.`);
+                alert(`Security confirmation code requested. Use this verification number: ${generatedApprovalToken}`);
                 verificationBlock.classList.remove('hidden');
-                triggerPasswordBtn.textContent = "Verify Clearance Key & Update Password";
+                triggerPasswordBtn.textContent = "Confirm Code & Update Password";
             } else {
                 const userSubmittedCode = document.getElementById('adminPasswordAuthCode').value.trim();
-                // Sanitized matching interface void of internal data leaks or hardcoded exceptions
                 if(generatedApprovalToken && userSubmittedCode === generatedApprovalToken) {
                     GuruAgencyState.adminPasscode = newPass;
                     localStorage.setItem('guru_admin_password', newPass);
-                    alert("Administrative security access code has been securely authorized and updated!");
-                    generatedApprovalToken = null; // Flush validation tokens immediately out of memory
+                    alert("Your admin security password has been changed successfully!");
+                    generatedApprovalToken = null;
                     verificationBlock.classList.add('hidden');
                     document.getElementById('adminNewPasswordInput').value = "";
                     document.getElementById('adminPasswordAuthCode').value = "";
-                    triggerPasswordBtn.textContent = "Request Remote Phone Approval & Change";
+                    triggerPasswordBtn.textContent = "Verify Security & Update Password";
                 } else {
-                    alert("Authorization failed. Security clearance key invalid.");
+                    alert("Incorrect security code. Password change canceled.");
                 }
             }
         });
@@ -208,11 +204,11 @@ function registerCoreEvents() {
  
     if(adminTrigger) {
         adminTrigger.addEventListener('click', () => {
-            if (prompt("Enter Administrative Access Authentication Key:") === GuruAgencyState.adminPasscode) {
+            if (prompt("Please enter the Admin Security Code:") === GuruAgencyState.adminPasscode) {
                 document.getElementById('adminDashboard').classList.remove('hidden');
                 syncColorPickersWithState();
             } else {
-                alert("Access Denied.");
+                alert("Incorrect code. Access Denied.");
             }
         });
     }
@@ -221,14 +217,12 @@ function registerCoreEvents() {
  
     if(adminSaveBtn) {
         adminSaveBtn.addEventListener('click', () => {
-            // Commit timing configurations
             if(durationSlider) {
                 const finalSpeedValue = parseInt(durationSlider.value);
                 GuruAgencyState.carouselIntervalTime = finalSpeedValue;
                 localStorage.setItem('carousel_speed', finalSpeedValue);
             }
  
-            // Commit dynamic theme variables
             GuruAgencyState.colors.bg = document.getElementById('themeColorBg').value;
             GuruAgencyState.colors.surface = document.getElementById('themeColorSurface').value;
             GuruAgencyState.colors.indigo = document.getElementById('themeColorIndigo').value;
@@ -240,9 +234,9 @@ function registerCoreEvents() {
             localStorage.setItem('theme_color_fuchsia', GuruAgencyState.colors.fuchsia);
  
             applyStoredThemeColors();
-            startAutomatedCarousels(); // Re-fires carousel cycles cleanly using new intervals
+            startAutomatedCarousels();
             
-            alert("All configuration matrix profiles successfully pushed to site variables!");
+            alert("All your visual modifications have been applied to the live website!");
             document.getElementById('adminDashboard').classList.add('hidden');
         });
     }
@@ -259,7 +253,7 @@ function registerCoreEvents() {
 function proceedToOnboardingQuiz() {
     const inputVal = document.getElementById('gatekeeperNameInput').value.trim();
     if (!inputVal) {
-        alert("Please enter your identity string to gain access.");
+        alert("Please write your name to log in.");
         return;
     }
     GuruAgencyState.clientName = inputVal;
@@ -273,11 +267,11 @@ function proceedToOnboardingQuiz() {
 function finalizeOnboardingQuiz() {
     const quizResponse = document.getElementById('gatekeeperQuizInput').value.trim();
     if(!quizResponse) {
-        alert("Please provide your assessment feedback to customize the dashboard.");
+        alert("Please enter a response so we can customize your dashboard.");
         return;
     }
     
-    alert(`Thank you for your answer, ${GuruAgencyState.clientName}! Welcome to your dashboard layout workspace.`);
+    alert(`Thank you, ${GuruAgencyState.clientName}! Welcome to your dashboard workspace.`);
     localStorage.setItem('guru_client_name', GuruAgencyState.clientName);
     initializeOnboardingState();
 }
@@ -290,7 +284,6 @@ function clearUserIdentity() {
     initializeOnboardingState();
 }
  
-// THEME CONTROL PREVIEW PANEL MODULATION ENGINE
 function syncColorPickersWithState() {
     document.getElementById('themeColorBg').value = GuruAgencyState.colors.bg;
     document.getElementById('themeColorSurface').value = GuruAgencyState.colors.surface;
@@ -324,9 +317,8 @@ function updateColorPreviewWindow() {
     if(card2) { card2.style.backgroundColor = surface; card2.style.color = indigo; }
 }
  
-// RANDOMIZED CYCLIC MULTI-SERVICE CAROUSEL FRAMEWORK CONTROLLER
+// Automated Image Slider Loop Control 
 function startAutomatedCarousels() {
-    // Proactively truncate active running intervals to prevent system memory leaks
     if(activeCarouselTimerId) {
         clearInterval(activeCarouselTimerId);
         activeCarouselTimerId = null;
@@ -334,7 +326,6 @@ function startAutomatedCarousels() {
  
     const channels = ['design', 'photography', 'invitations'];
     
-    // Perform an immediate synchronous structural render loop across containers
     channels.forEach(channel => {
         const container = document.getElementById(`carouselDisplay-${channel}`);
         if(container && ProductionImagePools[channel] && ProductionImagePools[channel].length > 0) {
@@ -342,17 +333,14 @@ function startAutomatedCarousels() {
         }
     });
  
-    // Sanitize timer boundaries to enforce a rational positive interval cycle execution
     const speedSeconds = Math.max(1, GuruAgencyState.carouselIntervalTime);
-
-    // Run interval sequence with values configured via state adjustments
+ 
     activeCarouselTimerId = setInterval(() => {
         channels.forEach(channel => {
             const container = document.getElementById(`carouselDisplay-${channel}`);
             const pool = ProductionImagePools[channel];
             if(!container || !pool || pool.length === 0) return;
  
-            // Pick an entirely random array entry index from the current service pool array
             const randomElementIndex = Math.floor(Math.random() * pool.length);
             
             container.style.opacity = "0.2";
@@ -383,7 +371,7 @@ function renderPortfolioFilters() {
     });
 }
  
-// NATURAL LANGUAGE BUSINESS INTELLIGENCE CHAT ASSISTANT ENGINE
+// Chat Window Core Logic & Dialogues
 function initAIConsultantUI() {
     const trigger = document.getElementById('aiTrigger');
     const windowUI = document.getElementById('aiChatWindow');
@@ -401,7 +389,7 @@ function initAIConsultantUI() {
     const messagesArea = document.getElementById('chatMessages');
     if(messagesArea) {
         messagesArea.innerHTML = '';
-        appendChatBubble('assistant', `Hi! I'm your studio advisor. If you have any questions about our design work, photography packages, custom invitation sets, or pricing tiers, fire away. I'm here to help you get started!`);
+        appendChatBubble('assistant', `Hello there! Welcome to Guru Studios. I am here to assist you with any questions you have about our design packages, photography services, pricing, or turnaround times. Feel free to ask anything!`);
     }
 }
  
@@ -424,23 +412,22 @@ function handleUserChatMessage() {
     appendChatBubble('user', promptStr);
     field.value = '';
  
-    // Human-like fluid response generator simulation loop
     setTimeout(() => {
         const query = promptStr.toLowerCase();
         let fluidReply = "";
  
         if (query.includes('hello') || query.includes('hi ') || query.includes('hey')) {
-            fluidReply = "Well hello there! Thanks for stopping by today. What specific project or service category do you have on your mind? I can break down our pricing and timelines for you.";
+            fluidReply = "Hello! Thanks for reaching out. What kind of project are you planning? I can give you pricing details and project timelines for any of our services.";
         } else if (query.includes('design') || query.includes('logo') || query.includes('poster') || query.includes('brand')) {
-            fluidReply = "Oh, our design team is incredible. We handle everything from bespoke vector logo designs (typically ranging from $300 to $700) to full branding guidelines and corporate identity packages. Our timelines are usually pretty quick too—most logo and poster projects are wrapped up inside 3 to 5 business days. Are you looking to update an existing brand or build something brand new?";
+            fluidReply = "Our design services are customized exactly to your needs! We create custom high-quality business logos ranging from $300 to $700, as well as complete company branding sets. Most design projects take only 3 to 5 business days to complete. Are you launching a brand new business or updating an old look?";
         } else if (query.includes('photo') || query.includes('shoot') || query.includes('camera') || query.includes('portrait')) {
-            fluidReply = "You bet! Our photography setups cover editorial and corporate portrait headshots starting at $250, as well as full-scale commercial product shoots and premium event coverages. We turn edited photos around in about 3 to 5 days so you aren't stuck waiting. What kind of session are you trying to organize?";
+            fluidReply = "We offer professional photography sessions! Studio headshots and portrait packages start at $250. We also handle large commercial projects and event coverage. All photos go through professional editing and are ready within 3 to 5 business days. What type of shoot are you looking to schedule?";
         } else if (query.includes('invite') || query.includes('card') || query.includes('wedding')) {
-            fluidReply = "Invitations are a huge specialty of ours. We craft gorgeous, luxury print-ready wedding suites, custom birthday layout designs, and formal corporate gala invitations. Complete suites range between $200 and $800 depending on your materials and complexity, and we generally wrap up production within a week. Do you have a specific theme or color scheme you are looking to match?";
+            fluidReply = "Invitations are a wonderful specialty of ours! We design high-end printable sets for weddings, corporate galas, and private events. Custom sets range between $200 and $800 depending on complexity, and we finish layouts in about 5 to 7 days. Do you have a design theme or color palette in mind yet?";
         } else {
-            fluidReply = "I appreciate that detail! To make sure I get you the exact details, could you specify if you are looking for graphic branding design work, a custom photography layout package, or invitation stationery printing options?";
+            fluidReply = "Thanks for sharing! To make sure I give you the perfect answers, could you let me know if you are interested in a graphic logo design, a photography session, or a custom invitation setup?";
         }
-
+ 
         appendChatBubble('assistant', fluidReply);
     }, 650);
 }
