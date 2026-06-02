@@ -1,4 +1,4 @@
-/* Realized Global Tokens and Design Variables */
+/* Core Design Tokens */
 :root {
     --bg-main: #0B0B0F;
     --bg-surface: #12121A;
@@ -17,14 +17,12 @@
     --font-stack: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Centralized Layer Orchestration Tokens */
     --z-index-widget: 90;
     --z-index-navbar: 100;
     --z-index-admin: 1000;
     --z-index-gatekeeper: 2000;
 }
  
-/* Base Level Formats */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -54,7 +52,7 @@ body {
     display: none !important;
 }
  
-/* Gatekeeper Onboarding Viewports Layer Setup */
+/* Welcome Screen Overlay Style */
 .gatekeeper-screen {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -90,7 +88,7 @@ body {
     line-height: 1.6;
 }
  
-/* Global Navigation Layout */
+/* Navigation Styles */
 .navbar {
     position: fixed;
     top: 0; width: 100%; z-index: var(--z-index-navbar);
@@ -118,7 +116,7 @@ body {
  
 .nav-links a:hover { color: var(--text-primary); }
  
-/* Buttons Set Architectures */
+/* Buttons */
 .btn {
     padding: 0.75rem 1.5rem; border-radius: 8px;
     font-weight: 600; font-size: 0.9rem; cursor: pointer;
@@ -137,7 +135,7 @@ body {
 .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
 .btn-block { width: 100%; }
  
-/* Sections Global Architectures */
+/* Sections Layout */
 section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-tag {
@@ -147,7 +145,7 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .section-header h2 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
 .section-header p { color: var(--text-secondary); margin-top: 0.75rem; }
  
-/* Hero Core Modules */
+/* Hero Showcase Area */
 .hero-section {
     position: relative; min-height: 90vh; display: flex;
     align-items: center; justify-content: center; text-align: center;
@@ -176,7 +174,7 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .input-group input:focus { outline: none; border-color: var(--accent-indigo); }
 .welcome-text { font-size: 1.5rem; margin-bottom: 0.5rem; }
  
-/* Matrix Services Display Framework */
+/* Services Grid Blocks */
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 .service-pillar-card {
     background: var(--bg-surface); border: 1px solid var(--border-subtle);
@@ -200,7 +198,7 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 }
 .btn-request:hover { color: var(--accent-fuchsia); }
  
-/* Portfolio Section Showcase */
+/* Gallery / Portfolio Layout */
 .filter-tabs { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
 .filter-tab {
     background: var(--bg-surface); border: 1px solid var(--border-subtle);
@@ -224,7 +222,7 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .portfolio-overlay .category { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-fuchsia); margin-bottom: 0.25rem; }
 .portfolio-overlay h4 { font-size: 1.1rem; font-weight: 600; }
  
-/* Contact Interface */
+/* Contact Section Form Container */
 .contact-container { display: grid; grid-template-columns: 1fr 1.25fr; gap: 4rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 4rem; }
 .contact-info h2 { font-size: 2.5rem; line-height: 1.2; margin-top: 0.5rem; margin-bottom: 1rem; }
 .contact-info p { color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; }
@@ -235,7 +233,7 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .form-group input, .form-group select, .form-group textarea { background: var(--bg-main); border: 1px solid var(--border-subtle); padding: 0.85rem 1rem; border-radius: 8px; color: white; font-family: var(--font-stack); transition: var(--transition-smooth); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-indigo); }
  
-/* Floating AI Chat Assistant Window Layout */
+/* Assistant Chat Panel Elements */
 .ai-widget-wrapper { position: fixed; bottom: 2rem; right: 2rem; z-index: var(--z-index-widget); display: flex; flex-direction: column; align-items: flex-end; }
 .ai-widget-trigger {
     background: var(--accent-glow); border: none; padding: 1rem 1.5rem; border-radius: 30px;
@@ -253,33 +251,9 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .header-identity h4 { font-size: 0.95rem; font-weight: 600; }
 .header-identity p { font-size: 0.75rem; color: var(--text-muted); }
 .chat-close { background: transparent; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
-
-/* Structural containment and break-rules patch for streaming content */
-.chat-messages { 
-    flex: 1; 
-    padding: 1.25rem; 
-    overflow-y: auto; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 1rem; 
-    scrollbar-width: thin; 
-    contain: content;
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
+.chat-messages { flex: 1; padding: 1.25rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; scrollbar-width: thin; contain: content; word-break: break-word; overflow-wrap: break-word; }
 .chat-bubble { max-width: 85%; padding: 0.85rem 1rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.45; animation: bubbleSpawn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
-
-/* GPU Composition Hardware Acceleration Patch */
-@keyframes bubbleSpawn { 
-    from { 
-        opacity: 0; 
-        transform: translate3d(0, 8px, 0); 
-    } 
-    to { 
-        opacity: 1; 
-        transform: translate3d(0, 0, 0); 
-    } 
-}
+@keyframes bubbleSpawn { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
 .chat-bubble.assistant { background: var(--bg-surface); color: var(--text-primary); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border-subtle); }
 .chat-bubble.user { background: var(--accent-glow); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
 .chat-input-area { padding: 1rem; background: var(--bg-surface); border-top: var(--border-subtle); display: flex; gap: 0.5rem; }
@@ -287,14 +261,13 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 .chat-input-area input:focus { outline: none; border-color: var(--accent-indigo); }
 #chatSendBtn { background: var(--accent-indigo); border: none; color: white; width: 38px; height: 38px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
  
-/* Admin Dashboard Modification Viewports */
+/* Administrative Interface Styling */
 .admin-dashboard-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,8,0.98); z-index: var(--z-index-admin); padding: 4rem 2rem; overflow-y: auto; }
 .admin-window { max-width: 1100px; margin: 0 auto; background: var(--bg-surface); border: 1px solid var(--border-active); border-radius: 16px; padding: 3rem; }
 .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; border-bottom: var(--border-subtle); padding-bottom: 1.5rem; }
  
-/* Global Footer Alignment */
 .global-footer { text-align: center; padding: 4rem 2rem; border-top: var(--border-subtle); color: var(--text-muted); font-size: 0.85rem; }
  
-/* Responsive Grid Queries */
+/* Responsive Media Screen Adjustments */
 @media (max-width: 1024px) { .services-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); } .contact-container { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; } .admin-grid-layout { grid-template-columns: 1fr !important; } }
 @media (max-width: 768px) { .services-grid, .portfolio-grid { grid-template-columns: 1fr; } .form-row { flex-direction: column; gap: 1.5rem; } .hero-title { font-size: 2.75rem; } .ai-chat-window { width: calc(100vw - 4rem); } }
