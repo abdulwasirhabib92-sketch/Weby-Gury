@@ -221,6 +221,13 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 }
 .portfolio-overlay .category { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-fuchsia); margin-bottom: 0.25rem; }
 .portfolio-overlay h4 { font-size: 1.1rem; font-weight: 600; }
+
+/* Dynamic Carousel Opacity Transition Modification Hook */
+#carouselDisplay-design, 
+#carouselDisplay-photography, 
+#carouselDisplay-invitations {
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
  
 /* Contact Section Form Container */
 .contact-container { display: grid; grid-template-columns: 1fr 1.25fr; gap: 4rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 4rem; }
