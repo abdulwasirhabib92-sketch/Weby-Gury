@@ -40,6 +40,7 @@ let ProductionImagePools = {
 };
  
 let activeCarouselTimerId = null;
+let aiConversationHistoryLog = []; // NEW: Array stack tracking the live discussion memory
  
 document.addEventListener('DOMContentLoaded', () => {
     applyStoredThemeColors();
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeColorPreviewEngine();
 });
  
-// Applies user interface color choices
 function applyStoredThemeColors() {
     document.documentElement.style.setProperty('--bg-main', GuruAgencyState.colors.bg);
     document.documentElement.style.setProperty('--bg-surface', GuruAgencyState.colors.surface);
@@ -60,7 +60,6 @@ function applyStoredThemeColors() {
     document.documentElement.style.setProperty('--accent-fuchsia', GuruAgencyState.colors.fuchsia);
 }
  
-// Cleans and prints texts safely
 function applyAdminContentOverrides() {
     const titleEl = document.getElementById('adminEditableTitle');
     const subtitleEl = document.getElementById('adminEditableSubtitle');
@@ -81,7 +80,6 @@ function applyAdminContentOverrides() {
     }
 }
  
-// Checks if visitor has entered their name
 function initializeOnboardingState() {
     const gatekeeper = document.getElementById('gatekeeperOverlay');
     const mainApp = document.getElementById('mainApplicationLayout');
@@ -103,7 +101,6 @@ function initializeOnboardingState() {
     }
 }
  
-// Sets up all button click listeners
 function registerCoreEvents() {
     const gatekeeperNextBtn = document.getElementById('gatekeeperNextBtn');
     const gatekeeperNameInput = document.getElementById('gatekeeperNameInput');
@@ -139,7 +136,6 @@ function registerCoreEvents() {
         });
     }
  
-    // Image uploader interface helper
     if(multiFilePicker) {
         multiFilePicker.addEventListener('change', (e) => {
             const targetChannel = document.getElementById('adminTargetService').value;
@@ -165,7 +161,6 @@ function registerCoreEvents() {
         });
     }
  
-    // Password validation engine handling
     let generatedApprovalToken = null;
     if(triggerPasswordBtn) {
         triggerPasswordBtn.addEventListener('click', () => {
@@ -317,7 +312,6 @@ function updateColorPreviewWindow() {
     if(card2) { card2.style.backgroundColor = surface; card2.style.color = indigo; }
 }
  
-// Automated Image Slider Loop Control 
 function startAutomatedCarousels() {
     if(activeCarouselTimerId) {
         clearInterval(activeCarouselTimerId);
@@ -371,7 +365,6 @@ function renderPortfolioFilters() {
     });
 }
  
-// Chat Window Core Logic & Dialogues
 function initAIConsultantUI() {
     const trigger = document.getElementById('aiTrigger');
     const windowUI = document.getElementById('aiChatWindow');
@@ -403,6 +396,7 @@ function appendChatBubble(role, systemMessage) {
     container.scrollTop = container.scrollHeight;
 }
  
+// FIXED: Completely reconstructed layout linking to your active Vercel backend proxy channel
 function handleUserChatMessage() {
     const field = document.getElementById('chatInput');
     if(!field) return;
@@ -412,22 +406,49 @@ function handleUserChatMessage() {
     appendChatBubble('user', promptStr);
     field.value = '';
  
-    setTimeout(() => {
-        const query = promptStr.toLowerCase();
-        let fluidReply = "";
+    // Create element structure for visual loading feedback status
+    const container = document.getElementById('chatMessages');
+    const loadingBubble = document.createElement('div');
+    loadingBubble.classList.add('chat-bubble', 'assistant');
+    loadingBubble.id = 'ai-typing-loader';
+    loadingBubble.textContent = "Guru AI is typing...";
+    container.appendChild(loadingBubble);
+    container.scrollTop = container.scrollHeight;
  
-        if (query.includes('hello') || query.includes('hi ') || query.includes('hey')) {
-            fluidReply = "Hello! Thanks for reaching out. What kind of project are you planning? I can give you pricing details and project timelines for any of our services.";
-        } else if (query.includes('design') || query.includes('logo') || query.includes('poster') || query.includes('brand')) {
-            fluidReply = "Our design services are customized exactly to your needs! We create custom high-quality business logos ranging from $300 to $700, as well as complete company branding sets. Most design projects take only 3 to 5 business days to complete. Are you launching a brand new business or updating an old look?";
-        } else if (query.includes('photo') || query.includes('shoot') || query.includes('camera') || query.includes('portrait')) {
-            fluidReply = "We offer professional photography sessions! Studio headshots and portrait packages start at $250. We also handle large commercial projects and event coverage. All photos go through professional editing and are ready within 3 to 5 business days. What type of shoot are you looking to schedule?";
-        } else if (query.includes('invite') || query.includes('card') || query.includes('wedding')) {
-            fluidReply = "Invitations are a wonderful specialty of ours! We design high-end printable sets for weddings, corporate galas, and private events. Custom sets range between $200 and $800 depending on complexity, and we finish layouts in about 5 to 7 days. Do you have a design theme or color palette in mind yet?";
+    // CHANGE THIS VARIABLE STRING VALUE TO YOUR ACTUAL LIVE VERCEL SUBDOMAIN URL (e.g., 'https://guru-studios-backend.vercel.app/api/chat')
+    const PROXY_BACKEND_ENDPOINT = '/api/chat';
+ 
+    fetch(PROXY_BACKEND_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            currentMessage: promptStr,
+            conversationHistory: aiConversationHistoryLog
+        })
+    })
+    .then(res => {
+        if(!res.ok) throw new Error(`Server returned error status code: ${res.status}`);
+        return res.json();
+    })
+    .then(data => {
+        const loader = document.getElementById('ai-typing-loader');
+        if(loader) loader.remove();
+ 
+        if (data.reply) {
+            appendChatBubble('assistant', data.reply);
+            // Push thread into storage array memory
+            aiConversationHistoryLog.push({ role: 'user', text: promptStr });
+            aiConversationHistoryLog.push({ role: 'model', text: data.reply });
         } else {
-            fluidReply = "Thanks for sharing! To make sure I give you the perfect answers, could you let me know if you are interested in a graphic logo design, a photography session, or a custom invitation setup?";
+            appendChatBubble('assistant', "I encountered an issue gathering text content data. Please try again.");
         }
- 
-        appendChatBubble('assistant', fluidReply);
-    }, 650);
+    })
+    .catch(err => {
+        console.error("Communication failure route mapping:", err);
+        const loader = document.getElementById('ai-typing-loader');
+        if(loader) loader.remove();
+        appendChatBubble('assistant', "Connection pipeline failed. Ensure backend routing addresses are configured properly.");
+    });
 }
