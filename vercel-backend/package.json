@@ -4,8 +4,7 @@
   "description": "Secure internal chat proxy for GURU STUDIOS on Vercel",
   "main": "api/chat.js",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Vercel builds automatically'"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "@google/genai": "^2.7.0"
