@@ -1,81 +1,65 @@
-export default async function handler(req, res) {
-  // Setup standard headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+import { GoogleGenAI } from '@google/genai';
 
-  if (req.method === "OPTIONS") {
+export default async function handler(req, res) {
+  // 1. Enable CORS so your frontend can talk to your backend safely
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+
+  if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ reply: "Use POST request only." });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
     const { currentMessage, conversationHistory } = req.body;
 
-    if (!currentMessage) {
-      return res.status(400).json({ reply: "No message received." });
-    }
-
+    // 2. Safely grab your Gemini API key from Vercel's environment settings
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ reply: "Backend Config Error: Missing GEMINI_API_KEY variable on Vercel." });
+      throw new Error("GEMINI_API_KEY environment variable is missing on Vercel.");
     }
 
-    // Construct the standard conversation history payload
-    const contentsPayload = [];
-    
-    if (Array.isArray(conversationHistory)) {
+    // 3. Initialize the modern Google Gen AI client
+    const ai = new GoogleGenAI({ apiKey: apiKey });
+
+    // 4. Format historical context so Gemini understands the continuous chat flow
+    const formattedContents = [];
+    if (conversationHistory && Array.isArray(conversationHistory)) {
       conversationHistory.forEach(msg => {
-        contentsPayload.push({
-          role: msg.role === 'user' ? 'user' : 'model',
+        formattedContents.push({
+          role: msg.role === 'assistant' ? 'model' : 'user',
           parts: [{ text: msg.text }]
         });
       });
     }
-    
-    // Add current user prompt
-    contentsPayload.push({
+    // Append the brand new user message to the end of the history array
+    formattedContents.push({
       role: 'user',
-      parts: [{ text: currentMessage }]
+      parts: [{ text: promptStr || currentMessage }]
     });
 
-    // Native fetch request to Google's official REST API endpoint
-    const systemInstruction = "You are the Guru Studios Consultant. Help clients understand design packages ($500+, 3-5 days turnaround), portraiture sessions ($250+, 3-5 days), and custom invitation suites ($400+, 5-7 days). Be brief, professional, and guide them to fill out the contact form.";
-    const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    const geminiResponse = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: contentsPayload,
-        systemInstruction: {
-          parts: [{ text: systemInstruction }]
-        }
-      })
+    // 5. Query the robust, stable flash model 
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: formattedContents,
+      config: {
+        systemInstruction: "You are 'Studio Consultant', an automated, professional AI agent interface for GURU STUDIOS. Help clients navigate services like professional branding, luxury web design, photography, and high-end event media with confidence and wit.",
+      }
     });
 
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.json();
-      console.error("Google API Direct Error:", errorData);
-      throw new Error(`Google API returned status code ${geminiResponse.status}`);
-    }
-
-    const data = await geminiResponse.json();
-    const aiTextReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    return res.status(200).json({
-      reply: aiTextReply || "Empty response from Gemini endpoints."
-    });
+    // 6. Return the direct text reply clean and clear
+    const replyText = response.text || "I processed your request but could not construct a text reply.";
+    return res.status(200).json({ reply: replyText });
 
   } catch (error) {
     console.error("Direct Pipeline Error:", error);
-    return res.status(500).json({
-      reply: "Server function executed successfully, but failed to call Gemini API."
+    return res.status(500).json({ 
+      error: "Internal pipeline exception raised", 
+      details: error.message 
     });
   }
 }
