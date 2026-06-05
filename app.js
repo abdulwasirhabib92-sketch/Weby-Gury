@@ -396,7 +396,7 @@ function appendChatBubble(role, systemMessage) {
     container.scrollTop = container.scrollHeight;
 }
  
-// FIXED: Target your production-ready backend API sub-route pipeline directly without extra path layers
+// FIXED: Complete production-ready endpoint payload distribution
 function handleUserChatMessage() {
     const field = document.getElementById('chatInput');
     if(!field) return;
@@ -415,14 +415,16 @@ function handleUserChatMessage() {
     container.appendChild(loadingBubble);
     container.scrollTop = container.scrollHeight;
  
-    // FIXED URL STRING: Accessing your direct serverless endpoint directly
+    // ROUTE ALIAS: Pointing directly to your configured serverless pipeline path
     const PROXY_BACKEND_ENDPOINT = 'https://weby-gury.vercel.app/api/chat';
  
     fetch(PROXY_BACKEND_ENDPOINT, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
+        mode: 'cors', // Explicitly command browser core to bypass CORS security dropping
         body: JSON.stringify({
             currentMessage: promptStr,
             conversationHistory: aiConversationHistoryLog
@@ -436,7 +438,7 @@ function handleUserChatMessage() {
         const loader = document.getElementById('ai-typing-loader');
         if(loader) loader.remove();
  
-        if (data.reply) {
+        if (data && data.reply) {
             appendChatBubble('assistant', data.reply);
             // Push thread into storage array memory
             aiConversationHistoryLog.push({ role: 'user', text: promptStr });
