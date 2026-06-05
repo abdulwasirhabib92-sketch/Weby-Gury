@@ -40,29 +40,29 @@ try {
 }
 
 export default async function handler(req, res) {
+    // Force direct CORS execution flags
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
     res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).end();
     }
 
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed. Use POST.' });
+        return res.status(405).json({ reply: "Method not allowed. Please submit requests using POST routing parameters." });
     }
 
     try {
         const { conversationHistory, currentMessage } = req.body;
 
         if (!currentMessage || typeof currentMessage !== 'string') {
-            return res.status(400).json({ error: "Missing or invalid 'currentMessage' field" });
+            return res.status(400).json({ reply: "I didn't receive your message correctly. Please try typing it again!" });
         }
 
         if (!aiClient) {
-            return res.status(500).json({ error: "AI service not initialized. Check GEMINI_API_KEY on Vercel." });
+            return res.status(500).json({ reply: "The connection pipeline failed. Please ensure backend routing addresses are configured properly with an API key." });
         }
 
         const contents = [];
@@ -82,7 +82,6 @@ export default async function handler(req, res) {
             parts: [{ text: currentMessage }]
         });
 
-        // Fixed modern SDK implementation parameters
         const response = await aiClient.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: contents,
@@ -95,13 +94,13 @@ export default async function handler(req, res) {
 
         const reply = response.text;
         if (!reply) {
-            return res.status(500).json({ error: "AI generated empty response" });
+            return res.status(500).json({ reply: "I processed an empty response. Could you ask your question one more time?" });
         }
 
         return res.status(200).json({ reply: reply.trim() });
 
     } catch (error) {
         console.error('Chat API Error:', error.message);
-        return res.status(500).json({ error: error.message || "Internal server error" });
+        return res.status(500).json({ reply: "Connection pipeline failed. Ensure backend routing addresses are configured properly." });
     }
 }
