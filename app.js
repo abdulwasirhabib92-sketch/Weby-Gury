@@ -432,7 +432,8 @@ function handleUserChatMessage() {
     container.appendChild(loadingBubble);
     container.scrollTop = container.scrollHeight;
  
-    const PROXY_BACKEND_ENDPOINT = 'https://weby-gury.vercel.app/api/chat';
+    // FIXED: Swapped to dynamic relative routing schema to ensure universal pipeline compatibility
+    const PROXY_BACKEND_ENDPOINT = '/api/chat';
  
     fetch(PROXY_BACKEND_ENDPOINT, {
         method: 'POST',
