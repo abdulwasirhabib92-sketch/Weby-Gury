@@ -2,6 +2,7 @@
   "name": "guru-studios-ai-backend",
   "version": "1.0.0",
   "description": "Secure internal chat proxy for GURU STUDIOS on Vercel",
+  "type": "module",
   "main": "api/chat.js",
   "scripts": {
     "dev": "vercel dev"
@@ -10,6 +11,6 @@
     "@google/genai": "^2.7.0"
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   }
 }
