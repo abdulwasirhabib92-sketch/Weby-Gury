@@ -1,10 +1,5 @@
-import { GoogleGenAI } from "@google/genai";
-
-// Initialize using the modern, unified Google Gen AI SDK protocol
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 export default async function handler(req, res) {
-  // Global CORS headers mapping
+  // Setup standard headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -24,7 +19,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ reply: "No message received." });
     }
 
-    // Map passed client thread logs directly into structured Gemini contents schemas
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ reply: "Backend Config Error: Missing GEMINI_API_KEY variable on Vercel." });
+    }
+
+    // Construct the standard conversation history payload
     const contentsPayload = [];
     
     if (Array.isArray(conversationHistory)) {
@@ -36,29 +36,46 @@ export default async function handler(req, res) {
       });
     }
     
-    // Append the user's latest incoming conversational message turn
+    // Add current user prompt
     contentsPayload.push({
       role: 'user',
       parts: [{ text: currentMessage }]
     });
 
-    // Execute standard content generation sequence with system context constraints
-    const responseInstance = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: contentsPayload,
-      config: {
-        systemInstruction: "You are the Guru Studios Consultant. Your objective is to help clients understand design packages ($500+, 3-5 days turnaround), portraiture sessions ($250+, 3-5 days), and custom invitation suites ($400+, 5-7 days). Be brief, professional, and guide them to select their service or fill out the contact form."
-      }
+    // Native fetch request to Google's official REST API endpoint
+    const systemInstruction = "You are the Guru Studios Consultant. Help clients understand design packages ($500+, 3-5 days turnaround), portraiture sessions ($250+, 3-5 days), and custom invitation suites ($400+, 5-7 days). Be brief, professional, and guide them to fill out the contact form.";
+    const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const geminiResponse = await fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: contentsPayload,
+        systemInstruction: {
+          parts: [{ text: systemInstruction }]
+        }
+      })
     });
 
+    if (!geminiResponse.ok) {
+      const errorData = await geminiResponse.json();
+      console.error("Google API Direct Error:", errorData);
+      throw new Error(`Google API returned status code ${geminiResponse.status}`);
+    }
+
+    const data = await geminiResponse.json();
+    const aiTextReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
     return res.status(200).json({
-      reply: responseInstance.text || "Empty response from Gemini."
+      reply: aiTextReply || "Empty response from Gemini endpoints."
     });
 
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Direct Pipeline Error:", error);
     return res.status(500).json({
-      reply: "Server error while connecting to Gemini AI."
+      reply: "Server function executed successfully, but failed to call Gemini API."
     });
   }
 }
