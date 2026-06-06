@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       });
     }
     
-    // FIX: Using currentMessage directly instead of promptStr
+    // Crucial Fix: Use currentMessage directly. (Removed the broken promptStr reference)
     formattedContents.push({
       role: 'user',
       parts: [{ text: currentMessage }]
