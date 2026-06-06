@@ -26,34 +26,44 @@ export default async function handler(req, res) {
     // Initialize the Groq client
     const groq = new Groq({ apiKey: apiKey });
 
-    // Format the messages array using standard ChatCompletion format
-    const formattedMessages = [
-      {
-        role: "system",
-        content: "You are 'Studio Consultant', an automated, professional AI agent interface for GURU STUDIOS. Help clients navigate services like professional branding, luxury web design, photography, and high-end event media with confidence and wit."
-      }
-    ];
+    // Initialize clean messages structure
+    const formattedMessages = [];
 
-    // Append historical context if it exists
+    // Add your system instruction first
+    formattedMessages.push({
+      role: "system",
+      content: "You are 'Studio Consultant', an automated, professional AI agent interface for GURU STUDIOS. Help clients navigate services like professional branding, luxury web design, photography, and high-end event media with confidence and wit."
+    });
+
+    // Clean up and append chat history safely
     if (conversationHistory && Array.isArray(conversationHistory)) {
       conversationHistory.forEach(msg => {
-        formattedMessages.push({
-          role: msg.role === 'assistant' ? 'assistant' : 'user',
-          content: msg.text
-        });
+        // Only push if role and text properties are valid strings
+        if (msg && msg.text) {
+          formattedMessages.push({
+            role: msg.role === 'assistant' ? 'assistant' : 'user',
+            content: String(msg.text)
+          });
+        }
       });
     }
     
-    // Append the new incoming user message
+    // Append the current incoming user prompt
+    if (!currentMessage) {
+      return res.status(400).json({ error: "Missing currentMessage payload parameter" });
+    }
+    
     formattedMessages.push({
       role: 'user',
-      content: currentMessage
+      content: String(currentMessage)
     });
 
-    // Query a fast, reliable model hosted on Groq (e.g., Llama 3)
+    // Query the optimized production Llama 3.3 model on Groq
     const completion = await groq.chat.completions.create({
       messages: formattedMessages,
-      model: 'llama3-8b-8192',
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.7,
+      max_tokens: 1024
     });
 
     const replyText = completion.choices[0]?.message?.content || "I processed your request but could not construct a text reply.";
