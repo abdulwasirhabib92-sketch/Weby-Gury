@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
 export default async function handler(req, res) {
-  // 1. Enable CORS so your frontend can talk to your backend safely
+  // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
@@ -17,16 +17,16 @@ export default async function handler(req, res) {
   try {
     const { currentMessage, conversationHistory } = req.body;
 
-    // 2. Safely grab your Gemini API key from Vercel's environment settings
+    // Grab your Gemini API key from Vercel settings
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       throw new Error("GEMINI_API_KEY environment variable is missing on Vercel.");
     }
 
-    // 3. Initialize the modern Google Gen AI client
+    // Initialize modern Google Gen AI client
     const ai = new GoogleGenAI({ apiKey: apiKey });
 
-    // 4. Format historical context so Gemini understands the continuous chat flow
+    // Format historical context
     const formattedContents = [];
     if (conversationHistory && Array.isArray(conversationHistory)) {
       conversationHistory.forEach(msg => {
@@ -36,13 +36,14 @@ export default async function handler(req, res) {
         });
       });
     }
-    // Append the brand new user message to the end of the history array
+    
+    // FIX: Using currentMessage directly instead of promptStr
     formattedContents.push({
       role: 'user',
-      parts: [{ text: promptStr || currentMessage }]
+      parts: [{ text: currentMessage }]
     });
 
-    // 5. Query the robust, stable flash model 
+    // Query the flash model
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: formattedContents,
@@ -51,7 +52,6 @@ export default async function handler(req, res) {
       }
     });
 
-    // 6. Return the direct text reply clean and clear
     const replyText = response.text || "I processed your request but could not construct a text reply.";
     return res.status(200).json({ reply: replyText });
 
