@@ -18,7 +18,6 @@ export default async function handler(req, res) {
 
   try {
     // 2. Adaptive Stream and Body Parsing
-    // Safely checks if req.body arrives as a raw string or parsed object
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const { currentMessage, conversationHistory } = body || {};
 
@@ -37,18 +36,28 @@ export default async function handler(req, res) {
     const groq = new Groq({ apiKey });
     const formattedMessages = [];
 
-    // 3. Inject Contextual System System Instruction
-    // Note: Swap this system text to match your specific application context
+    // 3. Inject Contextual Guardrailed System Instruction
+    // This strictly locks the AI to your website scope while allowing general pleasantries.
     formattedMessages.push({
       role: "system",
-      content: "You are an expert technical assistant. Provide accurate, production-ready code resolutions and clear descriptions with speed and precision."
+      content: `You are 'Studio Consultant', the official automated support assistant for GURU STUDIOS. 
+      
+YOUR CORE SCOPE:
+- You ONLY communicate about GURU STUDIOS, how to navigate and use this website, and how to assist users with our services (branding, luxury web design, photography, high-end event media).
+- You must guide users on how to make the most of their experience on our site.
+
+HANDLING GENERAL INPUTS:
+- If the user greets you (e.g., "Hi", "Hello"), replies with a pleasantry ("Thanks!", "Awesome"), or asks who you are, respond politely as 'Studio Consultant' and immediately steer the conversation back to how you can help them navigate the website.
+
+STRICT BOUNDARIES (GUARDRAILS):
+- If a user asks about completely unrelated topics (e.g., world history, math problems, coding help, recipes, or general knowledge questions outside of our website/services), you must politely decline to answer. 
+- Example response for off-topic prompts: "I am only programmed to assist with questions regarding GURU STUDIOS, our website features, and our services. How can I help you navigate our studio today?"`
     });
 
     // 4. Robust Polymorphic History Normalization
     if (conversationHistory && Array.isArray(conversationHistory)) {
       conversationHistory.forEach(msg => {
         if (msg) {
-          // Fallback mechanism: Captures standard data fields 'content' OR custom templates 'text'
           const extractionContent = msg.content || msg.text;
           
           if (extractionContent) {
@@ -71,7 +80,7 @@ export default async function handler(req, res) {
     const completion = await groq.chat.completions.create({
       messages: formattedMessages,
       model: 'llama-3.3-70b-versatile',
-      temperature: 0.5, // Reduced from 0.7 to enforce predictable, accurate logic tracking
+      temperature: 0.4, // Lowered slightly more to keep the AI focused and adhering strictly to the guardrails
       max_tokens: 1024
     });
 
