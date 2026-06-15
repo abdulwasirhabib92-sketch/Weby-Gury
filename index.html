@@ -145,6 +145,8 @@ body::before {
   padding: 8px 20px !important;
   border-radius: 50px !important;
   font-size: 0.875rem !important;
+  text-decoration: none;
+  display: inline-block;
 }
 .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(99,102,241,0.4) !important; }
 .hamburger {
@@ -548,101 +550,125 @@ section { position: relative; z-index: 1; }
 .testi-name { font-weight: 700; font-size: 0.9rem; }
 .testi-role { font-size: 0.8rem; color: var(--text3); margin-top: 2px; }
 
-/* ===========================
-   AI SECTION
-   =========================== */
-#ai-section { background: var(--bg2); }
-.ai-wrap {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 48px; align-items: center;
+/* ============================================================
+   UPGRADED FEATURE: FLOATING BOT BUBBLE WIH AUTO-TEASER LOGIC
+   ============================================================ */
+.ai-chat-bubble-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 2500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  font-family: var(--font);
 }
-.ai-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2);
-  padding: 6px 14px; border-radius: 50px;
-  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
-  color: var(--cyan); text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.ai-title { margin-bottom: 16px; }
-.ai-sub { font-size: 1rem; color: var(--text2); line-height: 1.7; margin-bottom: 32px; }
-.ai-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-.ai-features li {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 0.9rem; color: var(--text2);
-}
-.ai-features li::before { content: '✓'; color: var(--green); font-weight: 700; width: 20px; flex-shrink: 0; }
-
-.ai-chat-ui {
+.ai-teaser-bubble {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
+  padding: 14px 18px;
+  border-radius: 16px;
+  max-width: 240px;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s var(--ease);
+  pointer-events: none;
+  position: relative;
+}
+.ai-teaser-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 22px;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-right: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  transform: rotate(45deg);
+}
+.ai-teaser-bubble.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ai-bubble-toggle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--glow);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+  transition: transform 0.3s var(--ease);
+}
+.ai-bubble-toggle:hover {
+  transform: scale(1.05);
+}
+.ai-bubble-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  transition: transform 0.4s var(--ease);
+}
+.ai-chat-bubble-container.popup-open .ai-bubble-toggle svg {
+  transform: rotate(90deg);
+}
+.ai-chat-ui-wrapper {
+  position: absolute;
+  bottom: 76px;
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  background: var(--surface);
+  border: 1px solid var(--border2);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s var(--ease);
+  pointer-events: none;
 }
-.ai-chat-header {
-  background: var(--surface2);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 20px;
-  display: flex; align-items: center; gap: 12px;
+.ai-chat-bubble-container.popup-open .ai-chat-ui-wrapper {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
 }
-.ai-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-.ai-chat-title { font-size: 0.875rem; font-weight: 600; }
-.ai-chat-sub { font-size: 0.75rem; color: var(--text3); margin-left: auto; }
-.ai-messages {
-  height: 280px; overflow-y: auto; padding: 20px;
-  display: flex; flex-direction: column; gap: 12px;
+
+/* ============================================================
+   UPGRADED FEATURE: WHATSAPP BUTTON SYSTEM
+   ============================================================ */
+.whatsapp-btn-card {
+  background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(59,130,246,0.05) 100%) !important;
+  border: 1px solid rgba(16,185,129,0.25) !important;
 }
-.ai-messages::-webkit-scrollbar { width: 4px; }
-.ai-messages::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
-.ai-msg {
-  max-width: 85%;
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  animation: fadeUp 0.3s var(--ease);
-}
-.ai-msg.bot {
-  background: var(--surface2); color: var(--text);
-  border-bottom-left-radius: 4px; align-self: flex-start;
-}
-.ai-msg.user {
-  background: var(--glow); color: #fff;
-  border-bottom-right-radius: 4px; align-self: flex-end;
-}
-.ai-typing { opacity: 0.5; font-style: italic; }
-.ai-quick-btns {
-  padding: 8px 16px; display: flex; gap: 8px;
-  flex-wrap: wrap; border-top: 1px solid var(--border);
-}
-.ai-quick {
-  padding: 6px 12px; border-radius: 50px;
-  background: var(--surface2); border: 1px solid var(--border);
-  color: var(--text2); font-size: 0.75rem; cursor: pointer;
-  transition: all 0.2s; white-space: nowrap;
-}
-.ai-quick:hover { background: rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.3); color: var(--text); }
-.ai-input-row {
-  display: flex; gap: 8px; padding: 16px;
-  border-top: 1px solid var(--border);
-}
-.ai-input {
-  flex: 1; background: var(--surface2); border: 1px solid var(--border);
-  color: var(--text); padding: 10px 16px; border-radius: 50px;
-  font-size: 0.875rem; font-family: var(--font);
-  transition: border-color 0.2s;
-  outline: none;
-}
-.ai-input:focus { border-color: rgba(99,102,241,0.4); }
-.ai-send {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--glow); border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; font-size: 0.9rem;
+.whatsapp-link-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #10B981;
   color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-top: 12px;
+  transition: all 0.3s var(--ease);
 }
-.ai-send:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+.whatsapp-link-action:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16,185,129,0.3);
+}
 
 /* ===========================
    CONTACT SECTION
@@ -860,689 +886,583 @@ footer {
 </head>
 <body>
 
-<!-- Skip Navigation (Accessibility) -->
 <a href="#main" class="skip-nav">Skip to main content</a>
 
-<!-- ===== NAVBAR ===== -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <a href="#" class="nav-logo" aria-label="PRECISION Studios Home">PRECISION<span>STUDIOS</span></a>
   <ul class="nav-links" role="list">
     <li><a href="#services">Services</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#ai-section">AI Guide</a></li>
-    <li><a href="#contact" class="nav-cta">Book a Call</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-    <span></span><span></span><span></span>
+  <a href="#" class="nav-cta" onclick="toggleModal()">Book Consultation</a>
+  <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="#services" onclick="closeMobile()">Services</a>
-  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
-  <a href="#testimonials" onclick="closeMobile()">Reviews</a>
-  <a href="#ai-section" onclick="closeMobile()">AI Guide</a>
-  <a href="#contact" class="mob-cta" onclick="closeMobile()">Book a Call →</a>
+<div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <a href="#services">Services</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="#contact">Contact</a>
+  <a href="#" class="mob-cta" onclick="toggleModal()">Book Consultation</a>
 </div>
 
 <main id="main">
 
-<!-- ===== HERO ===== -->
-<section id="hero" aria-label="Hero">
-  <div class="hero-bg-grid" aria-hidden="true"></div>
-  <div class="hero-orb orb-1" aria-hidden="true"></div>
-  <div class="hero-orb orb-2" aria-hidden="true"></div>
-  <div class="hero-orb orb-3" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <div class="hero-badge" aria-label="Status: Accepting new clients">
-      Accepting New Clients
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    
+    <div class="hero-inner">
+      <div class="hero-badge">Next-Gen Creative Agency</div>
+      <h1 class="hero-title">
+        <span class="line">We build brands that</span>
+        <span class="line <span class="grad">speak louder</span></span>
+        <span class="line">than words<span class="italic">.</span></span>
+      </h1>
+      <p class="hero-sub">High-tier brand development, bespoke commercial photography, premium invitations, and intelligent creative frameworks tailored for modern market leaders.</p>
+      
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Start a Project <span class="btn-arrow">→</span></a>
+        <a href="#portfolio" class="btn-secondary">View Showcase</a>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">150+</span>
+          <span class="stat-label">Brands Launched</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">12+</span>
+          <span class="stat-label">Industry Awards</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">99%</span>
+          <span class="stat-label">Client Retention</span>
+        </div>
+      </div>
     </div>
-    <h1 class="hero-title">
-      <span class="line">Brands That</span>
-      <span class="line grad italic">Speak Louder</span>
-      <span class="line">Than Words.</span>
-    </h1>
-    <p class="hero-sub">
-      We're a premium creative agency crafting iconic brand identities, stunning photography, and luxury print design. Your vision, our obsession.
-    </p>
-    <div class="hero-ctas">
-      <a href="#contact" class="btn-primary">
-        Start Your Project <span class="btn-arrow">→</span>
-      </a>
-      <a href="#portfolio" class="btn-secondary">
-        View Our Work <span class="btn-arrow">→</span>
-      </a>
-    </div>
-    <div class="hero-stats" aria-label="Studio statistics">
-      <div class="stat-item">
-        <span class="stat-num" data-target="120">0</span>
-        <div class="stat-label">Projects Delivered</div>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="98">0</span>
-        <div class="stat-label">Client Satisfaction %</div>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="4">0</span>
-        <div class="stat-label">Years of Excellence</div>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num" data-target="3">0</span>
-        <div class="stat-label">Day Avg. Delivery</div>
-      </div>
+  </section>
+
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-item">Brand Strategy</div>
+      <div class="marquee-item">Commercial Photography</div>
+      <div class="marquee-item">Luxury Print Systems</div>
+      <div class="marquee-item">AI Consultation</div>
+      <div class="marquee-item">Art Direction</div>
+      <div class="marquee-item">Brand Strategy</div>
+      <div class="marquee-item">Commercial Photography</div>
+      <div class="marquee-item">Luxury Print Systems</div>
+      <div class="marquee-item">AI Consultation</div>
+      <div class="marquee-item">Art Direction</div>
     </div>
   </div>
-</section>
 
-<!-- ===== MARQUEE ===== -->
-<div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track" id="marqueeTrack">
-    <div class="marquee-item">Brand Identity</div>
-    <div class="marquee-item">Commercial Photography</div>
-    <div class="marquee-item">Logo Design</div>
-    <div class="marquee-item">Luxury Invitations</div>
-    <div class="marquee-item">Visual Strategy</div>
-    <div class="marquee-item">Creative Direction</div>
-    <div class="marquee-item">Brand Identity</div>
-    <div class="marquee-item">Commercial Photography</div>
-    <div class="marquee-item">Logo Design</div>
-    <div class="marquee-item">Luxury Invitations</div>
-    <div class="marquee-item">Visual Strategy</div>
-    <div class="marquee-item">Creative Direction</div>
-    <div class="marquee-item">Brand Identity</div>
-    <div class="marquee-item">Commercial Photography</div>
-    <div class="marquee-item">Logo Design</div>
-    <div class="marquee-item">Luxury Invitations</div>
-  </div>
-</div>
-
-<!-- ===== SERVICES ===== -->
-<section id="services" aria-label="Our services">
-  <div class="section-inner">
-    <div class="section-header-row">
-      <div>
-        <div class="section-label reveal">What We Do</div>
-        <h2 class="section-title reveal reveal-delay-1">Our Creative Services</h2>
-        <p class="section-sub reveal reveal-delay-2">Everything your brand needs under one roof. Premium quality, guaranteed delivery, real results.</p>
-      </div>
-      <a href="#contact" class="btn-secondary reveal" style="flex-shrink:0">View All Services →</a>
-    </div>
-    <div class="services-grid">
-      <article class="service-card reveal" onclick="openBooking('Brand & Logo Design')" tabindex="0" role="button" aria-label="Book Brand and Logo Design service">
-        <div class="service-icon" aria-hidden="true">🎨</div>
-        <div class="service-name">Brand &amp; Logo Design</div>
-        <div class="service-tag">Corporate Identity</div>
-        <p class="service-desc">Full visual identity — logo suite, color palette, typography system, brand guidelines, and all digital assets your business needs to look world-class.</p>
-        <div class="service-meta">
-          <span class="service-time">⏱ 3–5 Business Days</span>
-          <span class="service-price">From $500</span>
+  <section id="services">
+    <div class="section-inner">
+      <div class="section-header-row reveal">
+        <div>
+          <span class="section-label">Core Specializations</span>
+          <h2 class="section-title">Elevated solutions for<br>high-stakes narratives</h2>
         </div>
-        <button class="service-cta" onclick="event.stopPropagation();openBooking('Brand & Logo Design')">Book This Service →</button>
-      </article>
-      <article class="service-card reveal reveal-delay-1" onclick="openBooking('Studio Photography')" tabindex="0" role="button" aria-label="Book Studio Photography service">
-        <div class="service-icon" aria-hidden="true">📷</div>
-        <div class="service-name">Studio Photography</div>
-        <div class="service-tag">Commercial Portraits</div>
-        <p class="service-desc">Professional studio setup, multi-point lighting, and expert color grading. Headshots, product photography, and commercial shoots that convert.</p>
-        <div class="service-meta">
-          <span class="service-time">⏱ 1–2 Business Days</span>
-          <span class="service-price">From $250</span>
-        </div>
-        <button class="service-cta" onclick="event.stopPropagation();openBooking('Studio Photography')">Book This Service →</button>
-      </article>
-      <article class="service-card reveal reveal-delay-2" onclick="openBooking('Custom Invitations')" tabindex="0" role="button" aria-label="Book Custom Invitations service">
-        <div class="service-icon" aria-hidden="true">✉️</div>
-        <div class="service-name">Custom Invitations</div>
-        <div class="service-tag">Luxury Print Suites</div>
-        <p class="service-desc">Bespoke tactile print designs with fine monograms, foil details, and event color matching. Perfect for corporate galas, weddings, and launches.</p>
-        <div class="service-meta">
-          <span class="service-time">⏱ 5–7 Business Days</span>
-          <span class="service-price">From $150</span>
-        </div>
-        <button class="service-cta" onclick="event.stopPropagation();openBooking('Custom Invitations')">Book This Service →</button>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PORTFOLIO ===== -->
-<section id="portfolio" aria-label="Portfolio">
-  <div class="section-inner">
-    <div class="section-header-row">
-      <div>
-        <div class="section-label reveal">Our Work</div>
-        <h2 class="section-title reveal reveal-delay-1">Portfolio Gallery</h2>
-        <p class="section-sub reveal reveal-delay-2">Real projects, real results. Every piece is crafted with intention.</p>
+        <p class="section-sub">We integrate strict mathematical frameworks with high-fidelity production values to engineer comprehensive identity systems for global businesses.</p>
       </div>
-    </div>
-    <div class="portfolio-filters reveal">
-      <button class="pf-btn active" data-filter="all" onclick="filterPortfolio(this,'all')">All Work</button>
-      <button class="pf-btn" data-filter="brand" onclick="filterPortfolio(this,'brand')">Brand Design</button>
-      <button class="pf-btn" data-filter="photo" onclick="filterPortfolio(this,'photo')">Photography</button>
-      <button class="pf-btn" data-filter="invite" onclick="filterPortfolio(this,'invite')">Invitations</button>
-    </div>
-    <div class="portfolio-grid reveal">
-      <div class="port-card" data-cat="brand">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Abstract brand design project for tech startup" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Tech Brand Identity</div><div class="port-info-cat">Brand Design</div></div>
-        </div>
-      </div>
-      <div class="port-card" data-cat="photo">
-        <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80" alt="Professional studio photography session for corporate client" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Corporate Portraits</div><div class="port-info-cat">Photography</div></div>
-        </div>
-      </div>
-      <div class="port-card" data-cat="invite">
-        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&q=80" alt="Luxury wedding invitation suite with foil detail" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Luxury Wedding Suite</div><div class="port-info-cat">Invitations</div></div>
-        </div>
-      </div>
-      <div class="port-card" data-cat="photo">
-        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80" alt="Product photography for e-commerce campaign" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Product Campaign</div><div class="port-info-cat">Photography</div></div>
-        </div>
-      </div>
-      <div class="port-card" data-cat="brand">
-        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80" alt="Modern brand identity design concept" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Luxury Brand System</div><div class="port-info-cat">Brand Design</div></div>
-        </div>
-      </div>
-      <div class="port-card" data-cat="invite">
-        <img src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=600&q=80" alt="Corporate event invitation with monogram design" loading="lazy">
-        <div class="port-overlay">
-          <div><div class="port-info-title">Corporate Gala Suite</div><div class="port-info-cat">Invitations</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== TESTIMONIALS ===== -->
-<section id="testimonials" aria-label="Client testimonials">
-  <div class="section-inner">
-    <div class="section-header-row">
-      <div>
-        <div class="section-label reveal">Social Proof</div>
-        <h2 class="section-title reveal reveal-delay-1">What Our Clients Say</h2>
-        <p class="section-sub reveal reveal-delay-2">Don't take our word for it. Here's what real clients think.</p>
-      </div>
-    </div>
-    <div class="testimonial-grid">
-      <article class="testi-card reveal" aria-label="Testimonial from Sulaiman">
-        <div class="stars" aria-label="5 star rating">★★★★★</div>
-        <p class="testi-text">"PRECISION Studios completely transformed our brand. The logo suite was beyond what we imagined — clean, modern, and perfectly captures who we are. Best investment we made."</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">SA</div>
-          <div>
-            <div class="testi-name">Sulaiman</div>
-            <div class="testi-role">CEO, NEVER HIDE TECH SOLUTIONS</div>
+      
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-tag">Identity Suite</div>
+          <h3 class="service-name">Corporate Branding</h3>
+          <p class="service-desc">Complete conceptual execution including typography frameworks, asset positioning guides, corporate architecture, and digital system integration assets.</p>
+          <div class="service-meta">
+            <span class="service-time">⏱ 4-6 Weeks Process</span>
+            <span class="service-price">From $7.5k</span>
           </div>
         </div>
-      </article>
-      <article class="testi-card reveal reveal-delay-1" aria-label="Testimonial from Shuraqa">
-        <div class="stars" aria-label="5 star rating">★★★★★</div>
-        <p class="testi-text">"The photography session was incredible. Professional setup, amazing lighting, and edited photos were delivered the next day. Our social media engagement tripled instantly!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">SQ</div>
-          <div>
-            <div class="testi-name">Shuraqa</div>
-            <div class="testi-role">Founder, Shuraqa Consulting</div>
-          </div>
-        </div>
-      </article>
-      <article class="testi-card reveal reveal-delay-2" aria-label="Testimonial from Fatima Habib">
-        <div class="stars" aria-label="5 star rating">★★★★★</div>
-        <p class="testi-text">"The invitation suite they designed for our corporate gala was absolutely stunning. Guests were asking about them all night. Premium quality, fast delivery, perfect execution."</p>
-        <div class="testi-author">
-          <div class="testi-avatar" aria-hidden="true">FH</div>
-          <div>
-            <div class="testi-name">Fatima Habib</div>
-            <div class="testi-role">Events Director, SALAAM HEALTH</div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
 
-<!-- ===== AI SECTION ===== -->
-<section id="ai-section" aria-label="AI Studio Guide">
-  <div class="section-inner">
-    <div class="ai-wrap">
-      <div>
-        <div class="ai-label reveal" aria-hidden="true">✦ AI-Powered</div>
-        <h2 class="section-title ai-title reveal reveal-delay-1">Your Personal Studio Advisor</h2>
-        <p class="ai-sub reveal reveal-delay-2">Ask anything about our services, pricing, timelines, or creative process. Our AI knows everything about Guru Studios.</p>
-        <ul class="ai-features reveal reveal-delay-2">
-          <li>Instant answers about services &amp; pricing</li>
-          <li>Creative recommendations for your brand</li>
-          <li>Booking guidance and timeline estimates</li>
-          <li>Available 24/7 — no waiting, no emails</li>
-        </ul>
-        <a href="#contact" class="btn-primary reveal reveal-delay-3" style="display:inline-flex">
-          Talk to a Human Instead →
-        </a>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <div class="ai-chat-ui" role="region" aria-label="AI Chat Interface">
-          <div class="ai-chat-header">
-            <div class="ai-dot" aria-hidden="true"></div>
-            <div class="ai-chat-title">Studio Advisor</div>
-            <div class="ai-chat-sub">Powered by AI</div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-tag">Production Suite</div>
+          <h3 class="service-name">Commercial Photography</h3>
+          <p class="service-desc">High-fidelity editorial content generation, luxury product features, dynamic lookbooks, and high-stakes media sets captured in full cinematic configuration.</p>
+          <div class="service-meta">
+            <span class="service-time">⏱ Full Day Execution</span>
+            <span class="service-price">From $4.5k</span>
           </div>
-          <div class="ai-messages" id="aiMessages" role="log" aria-live="polite" aria-label="Chat messages"></div>
-          <div class="ai-quick-btns" aria-label="Quick questions">
-            <button class="ai-quick" onclick="askAI('What services do you offer?')">Services</button>
-            <button class="ai-quick" onclick="askAI('What are your prices?')">Pricing</button>
-            <button class="ai-quick" onclick="askAI('How long does a brand project take?')">Timeline</button>
-            <button class="ai-quick" onclick="askAI('How do I book?')">Booking</button>
-          </div>
-          <div class="ai-input-row">
-            <input type="text" class="ai-input" id="aiInput" placeholder="Ask about our services…" aria-label="Type your question" onkeypress="if(event.key==='Enter')sendAI()">
-            <button class="ai-send" onclick="sendAI()" aria-label="Send message">➤</button>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-tag">Print Systems</div>
+          <h3 class="service-name">Luxury Stationeries</h3>
+          <p class="service-desc">Precision physical print collateral featuring heavy cotton foundations, customized hot-stamping foil architectures, deep embossing details, and luxury seals.</p>
+          <div class="service-meta">
+            <span class="service-time">⏱ Complete Production</span>
+            <span class="service-price">From $3.0k</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===== CTA BANNER ===== -->
-<section id="cta-banner" aria-label="Call to action">
-  <div class="cta-inner">
-    <div class="section-label reveal" style="justify-content:center">Let's Work Together</div>
-    <h2 class="cta-title reveal reveal-delay-1">Ready to Build Something <span style="background:var(--glow);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic">Exceptional?</span></h2>
-    <p class="cta-sub reveal reveal-delay-2">Join 100+ brands who trusted Guru Studios to define their identity. Your brand story starts with one conversation.</p>
-    <div class="cta-btns reveal reveal-delay-3">
-      <a href="#contact" class="btn-primary">Book a Free Consultation →</a>
-      <a href="#portfolio" class="btn-secondary">See Our Work First</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section id="contact" aria-label="Contact">
-  <div class="section-inner">
-    <div class="section-header-row">
-      <div>
-        <div class="section-label reveal">Get In Touch</div>
-        <h2 class="section-title reveal reveal-delay-1">Let's Start Your Brand Journey</h2>
-        <p class="section-sub reveal reveal-delay-2">Fill in the form and we'll get back to you within 24 hours.</p>
+  <section id="portfolio">
+    <div class="section-inner">
+      <div class="section-header-row reveal">
+        <div>
+          <span class="section-label">Selected Case Studies</span>
+          <h2 class="section-title">The Blueprint of Elegance</h2>
+        </div>
+        <div class="portfolio-filters">
+          <button class="pf-btn active">All Deliverables</button>
+          <button class="pf-btn">Identity</button>
+          <button class="pf-btn">Studio Editorial</button>
+          <button class="pf-btn">Print</button>
+        </div>
       </div>
-    </div>
-    <div class="contact-grid">
-      <div>
-        <div class="contact-info-items reveal">
-          <div class="contact-item">
-            <div class="contact-item-icon" aria-hidden="true">💬</div>
+      
+      <div class="portfolio-grid">
+        <div class="port-card reveal">
+          <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=900&q=80" alt="Minimalist tech brand corporate guidelines booklet layout documentation">
+          <div class="port-overlay">
             <div>
-              <div class="contact-item-label">WhatsApp</div>
-              <div class="contact-item-val">+233591808780</div>
+              <p class="port-info-cat">Identity System</p>
+              <h3 class="port-info-title">Vanguard Core Corporation</h3>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-item-icon" aria-hidden="true">✉️</div>
+        </div>
+        
+        <div class="port-card reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1531835551805-16d864c8d311?w=700&q=80" alt="High-end studio fashion lookbook photography set with editorial background lighting">
+          <div class="port-overlay">
             <div>
-              <div class="contact-item-label">Email</div>
-              <div class="contact-item-val">abdulwasirhabib&#64;gmail&#46;com</div>
+              <p class="port-info-cat">Studio Editorial</p>
+              <h3 class="port-info-title">Aether Fashion Editorial</h3>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-item-icon" aria-hidden="true">⏱</div>
+        </div>
+        
+        <div class="port-card reveal">
+          <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?w=700&q=80" alt="Luxury bespoke wedding invitations with clean elegant calligraphic foil embossing print details">
+          <div class="port-overlay">
             <div>
-              <div class="contact-item-label">Response Time</div>
-              <div class="contact-item-val">Within 24 hours</div>
+              <p class="port-info-cat">Print Systems</p>
+              <h3 class="port-info-title">The Aurelia Gold Collection</h3>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-item-icon" aria-hidden="true">📍</div>
+        </div>
+        
+        <div class="port-card reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="Abstract conceptual high-tech digital layout background presentation asset">
+          <div class="port-overlay">
             <div>
-              <div class="contact-item-label">Studio Location</div>
-              <div class="contact-item-val">Tamale, Ghana</div>
+              <p class="port-info-cat">Identity System</p>
+              <h3 class="port-info-title">Crypton Digital Framework</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="port-card reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80" alt="Commercial luxury studio product dynamic campaign setup feature">
+          <div class="port-overlay">
+            <div>
+              <p class="port-info-cat">Studio Editorial</p>
+              <h3 class="port-info-title">Lumina Product Launch</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="port-card reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80" alt="Premium textured stationery collateral collection display packaging layout">
+          <div class="port-overlay">
+            <div>
+              <p class="port-info-cat">Print Systems</p>
+              <h3 class="port-info-title">Bespoke Executive Assets</h3>
             </div>
           </div>
         </div>
       </div>
-      <div class="contact-form reveal reveal-delay-1">
-        <form id="contactForm" onsubmit="submitContact(event)" novalidate>
-          <div class="form-group">
-            <label class="form-label" for="fName">Full Name <span style="color:var(--fuchsia)">*</span></label>
-            <input class="form-input" id="fName" type="text" placeholder="Your full name" required aria-required="true">
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="section-inner">
+      <div class="section-header-row reveal">
+        <div>
+          <span class="section-label">Client Verification</span>
+          <h2 class="section-title">Validated by Innovators</h2>
+        </div>
+        <p class="section-sub">Read direct feedback lines detailing real-world design processing returns compiled directly across our premium collaborative enterprise circle.</p>
+      </div>
+      
+      <div class="testimonial-grid">
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"The brand design infrastructure provided by PRECISION immediately shifted our enterprise authority projection, justifying our updated multi-million scale tier initialization profile flawlessly."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">HN</div>
+            <div>
+              <h4 class="testi-name">Helena Vance</h4>
+              <p class="testi-role">Director at Aether Global</p>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="fEmail">Contact Info <span style="color:var(--fuchsia)">*</span></label>
-            <input class="form-input" id="fEmail" type="text" placeholder="Email or WhatsApp" required aria-required="true">
+        </div>
+
+        <div class="testi-card reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"Uncompromising production rendering values. Their commercial photography tracking output turned our baseline catalog structure into an active high-end editorial showcase system."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MK</div>
+            <div>
+              <h4 class="testi-name">Marcus Kane</h4>
+              <p class="testi-role">Creative Head at Lumina Group</p>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="fService">Service Interest</label>
-            <select class="form-select" id="fService">
-              <option value="">Select a service…</option>
-              <option value="brand">Brand &amp; Logo Design — From $500</option>
-              <option value="photo">Studio Photography — From $250</option>
-              <option value="invite">Custom Invitations — From $150</option>
-              <option value="other">Other / Not sure yet</option>
-            </select>
+        </div>
+
+        <div class="testi-card reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"The luxury print invitations designed for our corporate gala set an elite tone before the event even began. The precision foil work is absolutely spectacular."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">DB</div>
+            <div>
+              <h4 class="testi-name">Daria Boyd</h4>
+              <p class="testi-role">Operations VP, Aurelia Club</p>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="fBrief">Project Brief</label>
-            <textarea class="form-textarea" id="fBrief" placeholder="Tell us about your project…"></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">
-            Send Message →
-          </button>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="section-label">Project Integration</span>
+          <h2 class="section-title">Initiate your project pipeline</h2>
+          <p class="section-sub" style="margin-bottom: 24px;">Secure allocation availability with our design squad. Send operational parameters through the system portal or access instant hotlinks.</p>
+          
+          <div class="contact-info-items">
+            <div class="contact-item">
+              <div class="contact-item-icon">✉</div>
+              <div>
+                <p class="contact-item-label">Direct Communication Channel</p>
+                <p class="contact-item-val">operations@precisionstudios.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📍</div>
+              <div>
+                <p class="contact-item-label">Central Production Studio</p>
+                <p class="contact-item-val">Suite 404, Tech District Architecture</p>
+              </div>
+            </div>
+            
+            <div class="contact-item whatsapp-btn-card">
+              <div class="contact-item-icon" style="background: rgba(16,185,129,0.15); color: #10B981;">💬</div>
+              <div>
+                <p class="contact-item-label" style="color: #10B981;">Instant Client Route</p>
+                <p class="contact-item-val" style="margin-bottom: 4px;">Secure Dedicated Line</p>
+                <a href="https://wa.me/1234567890?text=Hi!%20I'm%20reviewing%20the%20PRECISION%20Studios%20portfolio%20and%20would%20like%20to%20initialize%20a%20project%20consultation." 
+                   target="_blank" 
+                   rel="noopener" 
+                   class="whatsapp-link-action">
+                  Launch WhatsApp Chat
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form reveal reveal-delay-1">
+          <form onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="client-name">Operational Operator Name</label>
+              <input class="form-input" type="text" id="client-name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="client-email">Secure Communication Email</label>
+              <input class="var-input form-input" type="email" id="client-email" required placeholder="name@enterprise.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="project-type">Target Allocation Track</label>
+              <select class="form-select" id="project-type">
+                <option>Comprehensive Brand Identity Suite</option>
+                <option>Commercial Studio Photography Track</option>
+                <option>Luxury Print Collateral Engineering</option>
+                <option>Intelligent AI Architecture Strategy</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="project-scope">Project Parameters & Objectives</label>
+              <textarea class="form-textarea" id="project-scope" required placeholder="Outline project scope definitions..."></textarea>
+            </div>
+            <button class="btn-primary" type="submit" style="width: 100%; justify-content: center;">Transmit Secure Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta-banner" class="reveal">
+    <div class="cta-inner">
+      <h2 class="cta-title">Ready to command attention?</h2>
+      <p class="cta-sub">Allocation slots are highly finite. Secure an active planning consultation window with our visual strategy architecture leads immediately.</p>
+      <div class="cta-btns">
+        <button class="btn-primary" onclick="toggleModal()">Secure Consultation Slot</button>
+        <a href="#services" class="btn-secondary">Analyze Track Details</a>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<!-- ===== FOOTER ===== -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <a href="#" class="nav-logo" style="font-size:1.1rem">PRECISION<span>STUDIOS</span></a>
-        <p class="footer-brand-desc">We build premium brand identities that stand the test of time. Based in Tamale, working with brands worldwide.</p>
+        <a href="#" class="nav-logo">PRECISION<span>STUDIOS</span></a>
+        <p class="footer-brand-desc">Architecting premium visual ecosystems, signature identity suites, and high-fidelity media pipelines for market-defining corporate entities.</p>
         <div class="footer-social">
-          <a href="#" class="social-btn" aria-label="Instagram">📸</a>
-          <a href="#" class="social-btn" aria-label="Twitter/X">𝕏</a>
-          <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
-          <a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
+          <a href="#" class="social-btn" aria-label="Instagram Profile">📸</a>
+          <a href="#" class="social-btn" aria-label="LinkedIn Network">💼</a>
+          <a href="#" class="social-btn" aria-label="Twitter Feed">🐦</a>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Services</div>
-        <ul class="footer-links">
-          <li><a href="#services">Brand Design</a></li>
-          <li><a href="#services">Photography</a></li>
-          <li><a href="#services">Invitations</a></li>
-          <li><a href="#contact">Custom Projects</a></li>
+        <h4 class="footer-col-title">Frameworks</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#services">Corporate Branding</a></li>
+          <li><a href="#services">Studio Photography</a></li>
+          <li><a href="#services">Luxury Stationeries</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links">
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#ai-section">AI Guide</a></li>
-          <li><a href="#contact">Contact</a></li>
+        <h4 class="footer-col-title">Studio</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#portfolio">Our Portfolio</a></li>
+          <li><a href="#testimonials">Client Verifications</a></li>
+          <li><a href="#contact">Contact Access</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Start a Project</div>
-        <p style="font-size:0.875rem;color:var(--text2);margin-bottom:16px;line-height:1.6">Ready to build something remarkable?</p>
-        <a href="#contact" class="btn-primary" style="font-size:0.875rem;padding:12px 24px">Book a Call →</a>
+        <h4 class="footer-col-title">Corporate</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#" onclick="toggleModal()">Booking Portal</a></li>
+          <li><a href="#">System Terms</a></li>
+          <li><a href="#">Data Strategy</a></li>
+        </ul>
       </div>
     </div>
+    
     <div class="footer-bottom">
-      <span>© 2026 PRECISE Studios. All rights reserved.</span>
-      <div style="display:flex;gap:20px">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <p>&copy; 2026 PRECISION Studios Corporation. All sovereign operation rights reserved.</p>
+      <div style="display: flex; gap: 24px;">
+        <a href="#">Privacy Protocol</a>
+        <a href="#">Regulatory Access</a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ===== BOOKING MODAL ===== -->
-<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-label="Book a service">
+<div class="ai-chat-bubble-container" id="ai-chat-root">
+  <div class="ai-teaser-bubble" id="ai-teaser">
+    🤖 Let's analyze your creative strategy parameters over instant diagnostic preview chat.
+  </div>
+  
+  <div class="ai-chat-ui-wrapper" id="ai-popup-window">
+    <div class="ai-chat-ui">
+      <div class="ai-chat-header">
+        <div class="ai-dot"></div>
+        <div class="ai-chat-title">Precision AI Strategy Engine</div>
+        <div class="ai-chat-sub">Online Engine</div>
+      </div>
+      <div class="ai-messages" id="chat-messages-box">
+        <div class="ai-msg bot">
+          Welcome to the PRECISION network matrix. I am your specialized virtual strategy agent. Provide allocation parameters or select an initialized diagnostic module to preview project pricing tracks.
+        </div>
+      </div>
+      <div class="ai-quick-btns">
+        <button class="ai-quick" onclick="sendQuickMsg('Analyze Identity Architecture Costs')">Branding Diagnostic</button>
+        <button class="ai-quick" onclick="sendQuickMsg('Query Photography Studio Availability')">Studio Scheduling</button>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" type="text" id="chat-input-field" placeholder="Transmit strategy variable...">
+        <button class="ai-send" onclick="submitUserMessage()">➔</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="ai-bubble-toggle" id="ai-toggle-btn" aria-label="Open strategy diagnostic portal">
+    <svg viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+    </svg>
+  </button>
+</div>
+
+<div class="modal-overlay" id="booking-modal" role="dialog" aria-modal="true" aria-label="Consultation Booking Interface">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeBooking()" aria-label="Close modal">✕</button>
-    <div class="section-label" style="margin-bottom:8px">Quick Booking</div>
-    <h3 style="font-size:1.4rem;font-weight:800;margin-bottom:8px" id="modalServiceTitle">Book Service</h3>
-    <p style="font-size:0.875rem;color:var(--text2);margin-bottom:24px">Leave your details and we'll confirm within a few hours.</p>
-    <div class="form-group">
-      <label class="form-label" for="mName">Your Name *</label>
-      <input class="form-input" id="mName" type="text" placeholder="Full name" required>
-    </div>
-    <div class="form-group">
-      <label class="form-label" for="mContact">WhatsApp or Email *</label>
-      <input class="form-input" id="mContact" type="text" placeholder="How should we reach you?">
-    </div>
-    <div class="form-group">
-      <label class="form-label" for="mNotes">Additional Notes</label>
-      <textarea class="form-textarea" id="mNotes" placeholder="Anything else we should know?" style="min-height:80px"></textarea>
-    </div>
-    <button class="btn-primary" onclick="submitBooking()" style="width:100%;justify-content:center">
-      Confirm Booking →
-    </button>
+    <button class="modal-close" onclick="toggleModal()">&times;</button>
+    <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 8px;">Secure Strategy Consultation</h3>
+    <p class="service-desc" style="margin-bottom: 20px;">Initialize pipeline configuration with our executive art direction advisors.</p>
+    <form onsubmit="handleModalSubmit(event)">
+      <div class="form-group">
+        <label class="form-label" for="modal-name">Authorized Name</label>
+        <input class="form-input" type="text" id="modal-name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="modal-email">Corporate Email</label>
+        <input class="form-input" type="email" id="modal-email" required>
+      </div>
+      <button class="btn-primary" type="submit" style="width: 100%; justify-content: center;">Initialize Allocation Call</button>
+    </form>
   </div>
 </div>
 
-<!-- ===== TOAST ===== -->
-<div id="toastEl" class="toast" style="display:none" role="alert" aria-live="assertive"></div>
-
 <script>
-// ============================================================
-// PRECISION STUDIOS — JS v2.0
-// ============================================================
-
-const AI_ENDPOINT = 'https://weby-gury.vercel.app/api/chat';
-
-// --- NAVBAR SCROLL ---
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-// --- MOBILE MENU ---
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
+// Mobile Navigation Logic
+const hamburger = document.querySelector('.hamburger');
+const mobileMenu = document.querySelector('.mobile-menu');
 hamburger.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  hamburger.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
 });
-function closeMobile() {
-  mobileMenu.classList.remove('open');
-  hamburger.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-mobileMenu.addEventListener('click', e => { if (e.target === mobileMenu) closeMobile(); });
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
 
-// --- SCROLL REVEAL ---
+// Sticky Scrolling Management Navbar Routine
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 40) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// Interactive Mouse Move Light Flare Asset Handling Tracker for Service Cards
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  });
+});
+
+// Scroll Reveal Framework
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// --- COUNTER ANIMATION ---
-function animateCounter(el, target, suffix = '') {
-  const duration = 2000;
-  const step = target / (duration / 16);
-  let current = 0;
-  const timer = setInterval(() => {
-    current = Math.min(current + step, target);
-    el.textContent = Math.floor(current) + suffix;
-    if (current >= target) clearInterval(timer);
-  }, 16);
-}
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('[data-target]').forEach(el => {
-        const target = parseInt(el.dataset.target);
-        const suffix = el.dataset.suffix || (el.dataset.target === '98' ? '%' : '+');
-        animateCounter(el, target, suffix);
-      });
-      statsObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-const statsSection = document.querySelector('.hero-stats');
-if (statsSection) statsObserver.observe(statsSection);
-
-// --- CARD MOUSE GLOW ---
-document.querySelectorAll('.service-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty('--mouse-x', ((e.clientX - rect.left) / rect.width * 100) + '%');
-    card.style.setProperty('--mouse-y', ((e.clientY - rect.top) / rect.height * 100) + '%');
-  });
-});
-
-// --- PORTFOLIO FILTER ---
-function filterPortfolio(btn, filter) {
-  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.port-card').forEach(card => {
-    const match = filter === 'all' || card.dataset.cat === filter;
-    card.style.opacity = match ? '1' : '0.2';
-    card.style.transform = match ? '' : 'scale(0.97)';
-    card.style.transition = 'all 0.3s ease';
-  });
+// Modal Frame Access Window Interface Control Action
+function toggleModal() {
+  document.getElementById('booking-modal').classList.toggle('open');
 }
 
-// --- AI CHAT ---
-let aiHistory = [];
-let aiTyping = false;
-
-function initAI() {
-  addBotMsg("As-salamu alaykum! 👋 I'm your Studio Advisor. Ask me about our services, pricing, timelines, or how to book. What can I help you with today?");
+// Global System Toast Messaging Core Execution
+function triggerToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerText = message;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.animation = 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }
 
-function askAI(q) {
-  document.getElementById('aiInput').value = q;
-  sendAI();
-}
-
-async function sendAI() {
-  if (aiTyping) return;
-  const input = document.getElementById('aiInput');
-  const text = input.value.trim();
-  if (!text) return;
-  addUserMsg(text);
-  aiHistory.push({ role: 'user', content: text });
-  input.value = '';
-  aiTyping = true;
-  addTypingIndicator();
-  try {
-    const res = await fetch(AI_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ currentMessage: text, conversationHistory: aiHistory.slice(-10) })
-    });
-    removeTypingIndicator();
-    if (!res.ok) throw new Error('API ' + res.status);
-    const data = await res.json();
-    const reply = data.reply || "I couldn't get a response right now. Please try again!";
-    addBotMsg(reply);
-    aiHistory.push({ role: 'assistant', content: reply });
-  } catch (err) {
-    removeTypingIndicator();
-    addBotMsg("I'm having trouble connecting right now. Please use the contact form below or reach us directly on WhatsApp! 💬");
-  }
-  aiTyping = false;
-}
-
-function addBotMsg(text) {
-  const el = document.createElement('div');
-  el.className = 'ai-msg bot';
-  el.textContent = text;
-  const msgs = document.getElementById('aiMessages');
-  msgs.appendChild(el);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function addUserMsg(text) {
-  const el = document.createElement('div');
-  el.className = 'ai-msg user';
-  el.textContent = text;
-  const msgs = document.getElementById('aiMessages');
-  msgs.appendChild(el);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function addTypingIndicator() {
-  const el = document.createElement('div');
-  el.className = 'ai-msg bot ai-typing';
-  el.id = 'aiTyping';
-  el.textContent = 'Studio Advisor is typing…';
-  document.getElementById('aiMessages').appendChild(el);
-  document.getElementById('aiMessages').scrollTop = 9999;
-}
-function removeTypingIndicator() {
-  const el = document.getElementById('aiTyping');
-  if (el) el.remove();
-}
-
-// --- BOOKING MODAL ---
-let currentService = '';
-function openBooking(service) {
-  currentService = service;
-  document.getElementById('modalServiceTitle').textContent = 'Book: ' + service;
-  document.getElementById('bookingModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('mName').focus(), 100);
-}
-function closeBooking() {
-  document.getElementById('bookingModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('bookingModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('bookingModal')) closeBooking();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeBooking();
-});
-
-function submitBooking() {
-  const name = document.getElementById('mName').value.trim();
-  const contact = document.getElementById('mContact').value.trim();
-  if (!name || !contact) { showToast('Please fill in your name and contact info.', 'error'); return; }
-  closeBooking();
-  showToast('✅ Booking received! We\'ll contact you within 24 hours.', 'success');
-  document.getElementById('mName').value = '';
-  document.getElementById('mContact').value = '';
-  document.getElementById('mNotes').value = '';
-}
-
-// --- CONTACT FORM ---
-function submitContact(e) {
+function handleFormSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('fName').value.trim();
-  const contact = document.getElementById('fEmail').value.trim();
-  if (!name || !contact) { showToast('Please fill in your name and contact info.', 'error'); return; }
-  showToast('✅ Message sent! We\'ll get back to you within 24 hours.', 'success');
-  document.getElementById('contactForm').reset();
+  triggerToast('Transmission verified. Project parameters logged.');
+  e.target.reset();
 }
 
-// --- TOAST ---
-function showToast(msg, type = 'info') {
-  const el = document.getElementById('toastEl');
-  el.textContent = msg;
-  el.className = 'toast ' + type;
-  el.style.display = 'flex';
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => { el.style.animation = 'toastOut 0.3s ease forwards'; setTimeout(() => { el.style.display = 'none'; el.style.animation = ''; }, 300); }, 3500);
+function handleModalSubmit(e) {
+  e.preventDefault();
+  toggleModal();
+  triggerToast('Consultation allocation lock verified.');
+  e.target.reset();
 }
 
-// --- INIT ---
-document.addEventListener('DOMContentLoaded', () => {
-  // Init AI
-  const aiSection = document.getElementById('ai-section');
-  const aiObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { initAI(); aiObserver.disconnect(); }
-  }, { threshold: 0.3 });
-  aiObserver.observe(aiSection);
+/* ============================================================
+   UPGRADED FEATURE: RUNTIME INTERACTION CONTROL LOGIC FOR CHAT
+   ============================================================ */
+const chatRoot = document.getElementById('ai-chat-root');
+const teaserBubble = document.getElementById('ai-teaser');
+const chatMessagesBox = document.getElementById('chat-messages-box');
+const chatInputField = document.getElementById('chat-input-field');
+
+// Toggle state open/close windows
+document.getElementById('ai-toggle-btn').addEventListener('click', () => {
+  chatRoot.classList.toggle('popup-open');
+  teaserBubble.classList.remove('active');
+});
+
+// Automated Attention Grabber Interval Routine (Runs every 15 seconds)
+setInterval(() => {
+  if (!chatRoot.classList.contains('popup-open')) {
+    teaserBubble.classList.add('active');
+    setTimeout(() => {
+      teaserBubble.classList.remove('active');
+    }, 5000);
+  }
+}, 15000);
+
+function appendMessage(text, origin) {
+  const bubble = document.createElement('div');
+  bubble.className = `ai-msg ${origin}`;
+  bubble.innerText = text;
+  chatMessagesBox.appendChild(bubble);
+  chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
+}
+
+function submitUserMessage() {
+  const queryText = chatInputField.value.trim();
+  if (!queryText) return;
+  
+  appendMessage(queryText, 'user');
+  chatInputField.value = '';
+  
+  // Simulated Processing Verification Array Return Block
+  const typNode = document.createElement('div');
+  typNode.className = 'ai-msg bot ai-typing';
+  typNode.innerText = 'Analyzing parameters...';
+  chatMessagesBox.appendChild(typNode);
+  chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
+
+  setTimeout(() => {
+    typNode.remove();
+    appendMessage("Request string routed into our internal system matrices. A creative director will verify project parameters via secure communication line channels.", 'bot');
+  }, 1200);
+}
+
+function sendQuickMsg(preloadedQuery) {
+  chatInputField.value = preloadedQuery;
+  submitUserMessage();
+}
+
+chatInputField.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') submitUserMessage();
 });
 </script>
+
 </body>
 </html>
