@@ -1193,7 +1193,7 @@ footer {
   <div class="cta-inner">
     <div class="section-label reveal" style="justify-content:center">Let's Work Together</div>
     <h2 class="cta-title reveal reveal-delay-1">Ready to Build Something <span style="background:var(--glow);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic">Exceptional?</span></h2>
-    <p class="cta-sub reveal reveal-delay-2">Join 100+ brands who trusted Guru Studios to define their identity. Your brand story starts with one conversation.</p>
+    <p class="cta-sub reveal reveal-delay-2">Join 100+ brands who trusted PRECISION Studios to define their identity. Your brand story starts with one conversation.</p>
     <div class="cta-btns reveal reveal-delay-3">
       <a href="#contact" class="btn-primary">Book a Free Consultation →</a>
       <a href="#portfolio" class="btn-secondary">See Our Work First</a>
@@ -1586,6 +1586,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.3 });
   aiObserver.observe(aiSection);
 });
+</script>
+
+<script id="stat-fallback">
+/* Swiss pass: guarantees the stat numbers render, with a quiet count-up. */
+(function(){
+  var nums = document.querySelectorAll('.stat-num[data-target]');
+  function paint(el){ var t = parseInt(el.getAttribute('data-target'),10)||0;
+    if (el.dataset.done) return; el.dataset.done='1';
+    var start=null, dur=900;
+    function step(ts){ if(!start) start=ts; var p=Math.min((ts-start)/dur,1);
+      el.textContent = Math.round(t*(0.2+0.8*p)); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var io = ('IntersectionObserver' in window)
+    ? new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) paint(e.target); }); },{threshold:0.3})
+    : null;
+  nums.forEach(function(el){ io ? io.observe(el) : paint(el); });
+  setTimeout(function(){ nums.forEach(paint); }, 2500);
+})();
 </script>
 </body>
 </html>

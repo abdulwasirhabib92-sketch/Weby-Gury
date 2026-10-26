@@ -278,3 +278,88 @@ section { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
 /* Responsive Media Screen Adjustments */
 @media (max-width: 1024px) { .services-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); } .contact-container { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; } .admin-grid-layout { grid-template-columns: 1fr !important; } }
 @media (max-width: 768px) { .services-grid, .portfolio-grid { grid-template-columns: 1fr; } .form-row { flex-direction: column; gap: 1.5rem; } .hero-title { font-size: 2.75rem; } .ai-chat-window { width: calc(100vw - 4rem); } }
+
+
+/* ==========================================================================
+   SWISS MINIMAL PASS — 2026-10-26
+   One accent, hard grid, hairline rules, no gradients or glows.
+   ========================================================================== */
+:root{
+  --sw-bg:#FAF9F6; --sw-ink:#111111; --sw-muted:#5A5A55; --sw-rule:#111111; --sw-accent:#E23744;
+}
+body{ background:var(--sw-bg)!important; color:var(--sw-ink)!important;
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; }
+/* kill every decorative layer from the old theme */
+.hero-bg-grid,.hero-orb,.hero-bg-glow,.orb-1,.orb-2,.orb-3{ display:none!important; }
+.hero-section{ background:var(--sw-bg)!important; padding:6rem 0 3rem!important;
+  border-bottom:1.5px solid var(--sw-rule)!important; }
+.hero-inner{ max-width:1200px!important; text-align:left!important; margin:0 auto!important; }
+/* headline: uppercase, tight, sans — the Swiss signature */
+h1.hero-title{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important;
+  font-size:clamp(2.6rem,7vw,5.4rem)!important; line-height:.94!important;
+  letter-spacing:-.035em!important; font-weight:800!important; text-transform:uppercase!important;
+  color:var(--sw-ink)!important; margin:0 0 2rem!important; }
+h1.hero-title .line{ display:block; }
+h1.hero-title .grad{ background:none!important; -webkit-text-fill-color:var(--sw-accent)!important;
+  color:var(--sw-accent)!important; }
+.hero-title .italic{ font-style:normal!important; }
+.hero-badge{ background:transparent!important; border:1px solid var(--sw-rule)!important;
+  color:var(--sw-ink)!important; border-radius:0!important; text-transform:uppercase!important;
+  letter-spacing:.14em!important; font-size:10.5px!important; padding:6px 12px!important; }
+.hero-sub{ color:var(--sw-muted)!important; max-width:520px!important; font-size:1.02rem!important;
+  line-height:1.65!important; margin:0 0 2.2rem!important; }
+/* buttons: flat black, square */
+.btn-primary,.btn-secondary{ border-radius:0!important; box-shadow:none!important;
+  text-transform:uppercase!important; letter-spacing:.1em!important; font-size:12px!important;
+  font-weight:700!important; padding:15px 26px!important; }
+.btn-primary{ background:var(--sw-ink)!important; color:#fff!important; border:1px solid var(--sw-ink)!important; }
+.btn-primary:hover{ background:var(--sw-accent)!important; border-color:var(--sw-accent)!important; }
+.btn-secondary{ background:transparent!important; color:var(--sw-ink)!important; border:1px solid var(--sw-rule)!important; }
+.btn-secondary:hover{ background:var(--sw-ink)!important; color:#fff!important; }
+/* stats become a ruled index row */
+.hero-stats{ border-top:1px solid rgba(17,17,17,.18)!important; margin-top:3rem!important;
+  padding-top:1.6rem!important; gap:0!important; justify-content:flex-start!important; }
+.stat-num{ font-family:'Plus Jakarta Sans',sans-serif!important; font-size:2rem!important;
+  font-weight:800!important; letter-spacing:-.03em!important; color:var(--sw-ink)!important; }
+.stat-label{ text-transform:uppercase!important; letter-spacing:.13em!important;
+  font-size:10px!important; color:var(--sw-muted)!important; }
+.stat-divider{ background:rgba(17,17,17,.18)!important; }
+/* marquee: white band, hard rules, black type */
+.marquee-section{ background:var(--sw-bg)!important; border-bottom:1.5px solid var(--sw-rule)!important;
+  border-top:0!important; color:var(--sw-ink)!important; }
+.marquee-section *{ color:var(--sw-ink)!important; text-transform:uppercase!important;
+  letter-spacing:.16em!important; font-size:12px!important; }
+/* sections */
+section{ background:transparent; }
+.section-label{ text-transform:uppercase!important; letter-spacing:.18em!important;
+  font-size:10.5px!important; color:var(--sw-accent)!important; }
+h2,h3{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; font-weight:800!important;
+  letter-spacing:-.02em!important; color:var(--sw-ink)!important; }
+/* services: no cards, just ruled columns */
+.services-grid{ gap:0!important; border-top:1.5px solid var(--sw-rule); }
+.services-grid > *{ background:transparent!important; border:0!important; border-radius:0!important;
+  box-shadow:none!important; border-bottom:1px solid rgba(17,17,17,.18)!important;
+  padding:2rem 1.6rem 2rem 0!important; }
+.services-grid > *:hover{ transform:none!important; box-shadow:none!important; }
+/* portfolio: square corners, unified monochrome until hover */
+.port-card{ border-radius:0!important; background:#EFEDE8!important; border:1px solid rgba(17,17,17,.12)!important; }
+.port-card img{ border-radius:0!important; filter:grayscale(100%) contrast(1.03)!important;
+  transition:filter .35s ease!important; }
+.port-card:hover img{ filter:grayscale(0%) contrast(1)!important; }
+/* testimonials: quoted, ruled, no boxes */
+.testimonial-grid > *{ background:transparent!important; border:0!important;
+  border-top:1.5px solid var(--sw-rule)!important; border-radius:0!important;
+  box-shadow:none!important; padding:1.8rem 0 0!important; }
+/* nav */
+.nav-logo{ font-family:'Plus Jakarta Sans',sans-serif!important; font-weight:800!important;
+  letter-spacing:-.02em!important; text-transform:uppercase!important; }
+.nav-links a{ text-transform:uppercase!important; letter-spacing:.12em!important; font-size:11.5px!important; }
+.nav-cta{ border-radius:0!important; background:var(--sw-ink)!important; color:#fff!important;
+  text-transform:uppercase!important; letter-spacing:.1em!important; font-size:11.5px!important; }
+/* AI + contact panels flatten to the page */
+#ai-section,#contact,#cta-banner{ background:var(--sw-bg)!important; }
+#cta-banner{ border-top:1.5px solid var(--sw-rule)!important; border-bottom:1.5px solid var(--sw-rule)!important; }
+#contact input,#contact textarea,#contact select{ border-radius:0!important;
+  border:1px solid rgba(17,17,17,.25)!important; background:#fff!important; color:var(--sw-ink)!important; }
+/* keep the WhatsApp float, but square it off to match */
+[class*="whatsapp-float"],[id*="whatsappFloat"]{ border-radius:0!important; }
