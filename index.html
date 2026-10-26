@@ -972,6 +972,12 @@ h2,h3{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; font-weig
 /* keep the WhatsApp float, but square it off to match */
 [class*="whatsapp-float"],[id*="whatsappFloat"]{ border-radius:0!important; }
 
+
+/* stat colour: beat any gradient/background-clip rule still in play */
+.stat-num,.stat-num span,.stat-item .stat-num{
+  color:#111111!important; background:none!important; background-image:none!important;
+  -webkit-text-fill-color:#111111!important; -webkit-background-clip:border-box!important;
+  background-clip:border-box!important; text-shadow:none!important; }
 </style>
 </head>
 <body>
