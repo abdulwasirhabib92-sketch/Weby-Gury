@@ -978,6 +978,20 @@ h2,h3{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; font-weig
   color:#111111!important; background:none!important; background-image:none!important;
   -webkit-text-fill-color:#111111!important; -webkit-background-clip:border-box!important;
   background-clip:border-box!important; text-shadow:none!important; }
+
+/* service imagery (2026-10-26) */
+.svc-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 0 3.5rem;border-top:1.5px solid #111}
+.svc-gallery figure{margin:0;padding:0;border-right:1px solid rgba(17,17,17,.18)}
+.svc-gallery figure:last-child{border-right:0}
+.svc-gallery img{width:100%;height:clamp(220px,26vw,340px);object-fit:cover;display:block;filter:grayscale(100%) contrast(1.03);transition:filter .35s ease}
+.svc-gallery figure:hover img{filter:none}
+.svc-gallery figcaption{text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;padding:12px 4px;color:#111;border-top:1px solid rgba(17,17,17,.18);font-weight:700}
+@media(max-width:700px){.svc-gallery{grid-template-columns:1fr}.svc-gallery figure{border-right:0;border-bottom:1px solid rgba(17,17,17,.18)}}
+.port-card{position:relative;overflow:hidden;min-height:260px}
+.port-card img.port-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:grayscale(100%) contrast(1.03);transition:filter .4s ease,transform .6s ease}
+.port-card:hover img.port-img{filter:none;transform:scale(1.04)}
+.port-card::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.62),rgba(0,0,0,0) 58%);pointer-events:none}
+.port-card > *:not(img.port-img){position:relative;z-index:2;color:#fff}
 </style>
 </head>
 <body>
@@ -1084,7 +1098,24 @@ h2,h3{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; font-weig
 </div>
 
 <!-- ===== SERVICES ===== -->
-<section id="services" aria-label="Our services">
+
+    <!-- Service imagery: what the studio actually makes -->
+    <div class="svc-gallery" aria-label="Our services in pictures">
+      <figure>
+        <img src="img/services/brand.jpg" alt="Brand identity stationery suite: business cards, letterhead and brochure" loading="lazy" width="1200" height="1200">
+        <figcaption>Brand &amp; Logo Design</figcaption>
+      </figure>
+      <figure>
+        <img src="img/services/portrait.jpg" alt="Corporate studio portrait lit with soft directional light" loading="lazy" width="1200" height="1500">
+        <figcaption>Studio Photography</figcaption>
+      </figure>
+      <figure>
+        <img src="img/services/invitations.jpg" alt="Luxury letterpress invitation suite with gold foil monogram" loading="lazy" width="1200" height="1200">
+        <figcaption>Custom Invitations</figcaption>
+      </figure>
+    </div>
+
+    <section id="services" aria-label="Our services">
   <div class="section-inner">
     <div class="section-header-row">
       <div>
@@ -1150,36 +1181,42 @@ h2,h3{ font-family:'Plus Jakarta Sans',system-ui,sans-serif!important; font-weig
     </div>
     <div class="portfolio-grid reveal">
       <div class="port-card" data-cat="brand">
+        <img class="port-img" src="img/services/brand.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Abstract brand design project for tech startup" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Tech Brand Identity</div><div class="port-info-cat">Brand Design</div></div>
         </div>
       </div>
       <div class="port-card" data-cat="photo">
+        <img class="port-img" src="img/services/portrait.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80" alt="Professional studio photography session for corporate client" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Corporate Portraits</div><div class="port-info-cat">Photography</div></div>
         </div>
       </div>
       <div class="port-card" data-cat="invite">
+        <img class="port-img" src="img/services/invitations.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&q=80" alt="Luxury wedding invitation suite with foil detail" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Luxury Wedding Suite</div><div class="port-info-cat">Invitations</div></div>
         </div>
       </div>
       <div class="port-card" data-cat="photo">
+        <img class="port-img" src="img/services/brand.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80" alt="Product photography for e-commerce campaign" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Product Campaign</div><div class="port-info-cat">Photography</div></div>
         </div>
       </div>
       <div class="port-card" data-cat="brand">
+        <img class="port-img" src="img/services/portrait.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80" alt="Modern brand identity design concept" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Luxury Brand System</div><div class="port-info-cat">Brand Design</div></div>
         </div>
       </div>
       <div class="port-card" data-cat="invite">
+        <img class="port-img" src="img/services/invitations.jpg" alt="" loading="lazy">
         <img src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=600&q=80" alt="Corporate event invitation with monogram design" loading="lazy">
         <div class="port-overlay">
           <div><div class="port-info-title">Corporate Gala Suite</div><div class="port-info-cat">Invitations</div></div>
